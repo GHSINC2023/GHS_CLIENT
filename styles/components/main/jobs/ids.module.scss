@@ -1,0 +1,139 @@
+@import "../../../_mixins";
+@import "../../../_variables";
+.containter {
+    width: 100%;
+    .background {
+        width: 100%;
+        height: 500px;
+        background-image: url("/background/bg2.jpg");
+        background-repeat: no-repeat ;
+        background-size: cover;
+        background-position: center;
+        filter: brightness(50%);
+    }
+    .application {
+        width: 100%;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(255,255,255, 0.6);
+        z-index: 999;
+        display: flex;
+        justify-content: flex-end;
+
+    }
+   .cont {
+    width: 100%;
+    // padding: 10px;
+    display: flex;
+    // grid-template-columns: repeat(2, 600px);
+    // align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: absolute;
+    top: 80px;
+    .job {
+        width:700px;
+        height: auto;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 10px 20px;
+        box-shadow: 0px 0px 2px 0px #ccc;
+        @include mediaQuery(700px){
+            width: 100%;
+        }
+        .header {
+            width: 100%;
+            h2 {
+                font-weight: 500;
+                font-family: $primaryFont;
+                font-size: 2rem;
+            }
+        }
+        .details {
+            width: 100%;
+            .detailsContainer {
+                width: 100%;
+                .location, .jobTypes, .workType, .salary{
+                    width: 100%;
+                    display: flex;
+                    gap: 10px;
+                    margin: 15px 0;
+                        span {
+                            font-weight: 500;
+                            font-family: $secondaryFont;
+                        }
+                    .loc {
+                        width: 100%;
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                    }
+                }
+            }
+        }
+        .body {
+            div {
+                width: 100%;
+                height: auto;
+                h2 {
+                    font-size: 22px;
+                    font-weight: 500;
+                    font-family: $primaryFont;
+                    margin: 5px 0;
+                }
+                p {
+                    font-size: 16px;
+                    font-family: $secondaryFont;
+                    text-align: justify;
+                    margin: 0;
+                }
+                div {
+                    li {
+                        font-size: 16px;
+                        margin: 5px 0;     
+                        font-family: $secondaryFont;
+                        &::marker{
+                            color: $primaryColor;
+                        }
+                    }
+                }
+            }
+        }
+        button {
+            width: 100%;
+            height: 50px;
+            border: none;
+            background-color: transparent;
+            border-radius: 3px;
+            font-size: 0.9em;
+            font-weight: 600;
+            font-family: $primaryFont;
+            color: $primaryColor;
+            border: 2px solid $primaryColor;
+            cursor: pointer;
+            &:hover {
+                background-color: $primaryColor;
+                color: #fff;
+            }
+        }
+    }
+    .jr {
+        width: 500px;
+        height: 450px;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 10px 20px;
+        box-shadow: 0px 0px 2px 0px #ccc;
+        position: sticky;
+        inset: 0;
+        .header {
+            width: 100%;
+            h2 {
+                font-weight: 500;
+                font-family: $primaryFont;
+                font-size: 2rem;
+            }
+        }
+    }
+   }
+}

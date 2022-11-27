@@ -1,0 +1,19 @@
+@import "../../_mixins";
+@import "../../_variables";
+.container {
+    width: 100%;
+    height: auto;
+    .search {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        &:hover {
+            background-color: #eee;
+        }
+        h2 {
+            font-family: $primaryFont;
+            font-size: 16px;
+            font-weight: 500;
+        }
+    }
+}

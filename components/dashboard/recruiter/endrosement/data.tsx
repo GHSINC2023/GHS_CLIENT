@@ -1,0 +1,118 @@
+import React, { useState, useRef, useEffect } from 'react'
+import styles from '../../../../styles/components/dashboard/endorsement/data.module.scss'
+import Image from 'next/image'
+import { endorsement_status } from '../../../../util/values/filter'
+import { endorsementByStatus } from '../../../../util/endorsement/endorsement.query'
+import { endorsementUpdate } from '../../../../util/endorsement/endorsement.mutation'
+import { useRouter } from 'next/router'
+import { format } from 'date-fns'
+import { useMutation, useQuery, gql } from '@apollo/client'
+
+export default function Data({ limit, status, order }: any) {
+
+    const router = useRouter()
+    const statsRef = useRef<HTMLDivElement>(null)
+    const [ pages, setPages ] = useState(0)
+    const { loading, data, subscribeToMore, startPolling, } = useQuery(endorsementByStatus, {
+        variables: {
+            status,
+            limit,
+            offset: pages * limit,
+            order
+        },
+    })
+
+
+    const [ id, setID ] = useState("")
+    const getEndorsementID = (endorsementID: any) => {
+        setID(() => endorsementID)
+        if (id === endorsementID) {
+            setID(() => "")
+        }
+    }
+    const [ updateEndosement ] = useMutation(endorsementUpdate)
+    const updateEndorsementStatus = (name: any) => {
+        updateEndosement({
+            variables: {
+                endorsementId: id,
+                status: name
+            },
+            update: (cache, { data: { updateEndorsement } }) => {
+                cache.modify({
+                    fields: {
+                        getEndorsementSpecificStatus(existing = []) {
+                            const newStatus = cache.writeFragment({
+                                data: updateEndorsement,
+                                id: name,
+                                fragment: gql`
+                                    fragment Newupdate on updateEndorsement {
+                                    endorsementID
+                                        Status
+                                        createdAt
+                                        updatedAt
+                                    }
+                                `,
+                            })
+                            return [ ...existing, newStatus ]
+                        }
+                    }
+                })
+            },
+            onError: e => {
+                console.log(e.message)
+            }
+        })
+        setID(() => "")
+    }
+    return (
+        <div className={styles.container}>
+
+            <div className={styles.tableContainer}>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Birthday</th>
+                            <th>Status</th>
+                            <th>Endorse Date</th>
+                            <th>Endorse by</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {loading ? null :
+                            data.getEndorsementSpecificStatus.map(({ endorsementID, Status, createdAt, profile, endorseBy }: any) => (
+                                profile.map(({ firstname, lastname, phone, birthday }: any) => (
+                                    endorseBy.map(({ profile: prof }: any) => (
+                                        prof.map(({ firstname: first, lastname: last }: any) => (
+                                            <tr key={endorsementID}>
+                                                <td className={styles.name}>{lastname}, {firstname}</td>
+                                                <td>{phone.includes('+63') ? phone.substring(3, 13) : phone}</td>
+                                                <td>{format(new Date(birthday), "MMM dd, yyy")}</td>
+                                                <td>
+                                                    {Status}
+                                                </td>
+                                                <td>{format(new Date(createdAt), "MMM dd, yyy")}</td>
+                                                <td>{first} {last}</td>
+                                                <td>
+                                                    <button onClick={() => router.push(`${router.pathname}/${endorsementID}`)}>
+                                                        <Image src="/dashboard/eye-line.svg" alt="" height={20} width={20} />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ))
+                                ))
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+            {loading ? "Loading " : data.getEndorsementSpecificStatus.length > limit ? <div className={styles.pages}>
+                <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>Prev</button>
+                <button disabled={loading ? true : data.getEndorsementSpecificStatus.length < limit} onClick={() => setPages(() => pages + 1)}>Next</button>
+            </div> : null}
+        </div>
+    )
+}

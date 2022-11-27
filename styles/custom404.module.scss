@@ -1,0 +1,60 @@
+@import "./_mixins";
+@import "./_variables";
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    .box {
+        width: 500px;
+        height: auto;
+        border: 2px solid #eee;
+        border-radius: 5px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        h2 {
+            text-align: center;
+            font-family: $primaryFont;
+            color: $primaryColor;
+            font-weight: 600;
+            height: 60px;
+            line-height: 60px;
+        }
+       .body {
+        width: 100%;
+        height: auto;
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            li {
+                font-family: $secondaryFont;
+                font-size: 16px;
+                
+            }
+        }
+       }
+       .btnContainer {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        button {
+            background-color: transparent;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+                color: $primaryColor;
+            }
+        }
+       }    
+    }
+}

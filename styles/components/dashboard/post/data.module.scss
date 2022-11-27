@@ -1,0 +1,37 @@
+@import "../../../_mixins";
+@import"../../../_variables";
+.container {
+    width: 100%;
+    padding: 10px;
+    .gridContainer {
+        height: auto;
+        overflow: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 300px);
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+    .pages {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+        button {
+            width: 80px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            border: 2px solid $primaryColor;
+            background-color: transparent;
+            cursor: pointer;
+            color: $primaryColor;
+            &:disabled{ 
+                background-color: #eee;
+                border: none;
+                pointer-events: none;
+                color: #fff;
+            }
+        }
+    }
+}

@@ -1,0 +1,12 @@
+.container {
+    width: 100%;
+    .child {
+        display: flex;
+        width: 100%;
+        position: sticky;
+        inset: 0;
+        .subChild {
+            width: 100%;
+        }
+    }
+}

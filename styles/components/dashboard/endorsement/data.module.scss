@@ -1,0 +1,360 @@
+@import "../../../_mixins";
+@import "../../../_variables";
+
+.container {
+    width: 100%;   
+    padding: 10px;
+     .pages {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+        button {
+            width: 80px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            border: 2px solid $primaryColor;
+            background-color: transparent;
+            cursor: pointer;
+            color: $primaryColor;
+            &:disabled{ 
+                background-color: #eee;
+                border: none;
+                pointer-events: none;
+                color: #fff;
+            }
+        }
+    }
+    .view {
+        width: 100%;
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255,255,255, 0.8);
+    }
+    .tableContainer {
+        table {
+            width: 100%;      
+            thead, th {
+             
+                color: $primaryColor;
+                height: 40px;
+            }
+            thead  {
+             tr {
+                  th {
+                    text-transform: uppercase;
+                        margin: 0;
+                input {
+                    appearance: none;
+                    height: 20px;
+                    width: 20px;
+                    border-radius: 3px;
+                    box-shadow: 0px 0px 3px 0px #ccc;
+                    outline: none;
+                    &:checked {
+                        background-color: $primaryColor;
+                    }
+                }
+            }}
+            }
+            tbody {
+                appearance: none;
+                overflow-y: auto;
+                width: 100%;
+                tr{
+                    height: 60px;
+                    &:nth-child(even) {
+                        background-color: #f5f5f5;
+                    }
+                    td {
+                        width: 200px;
+                        text-align: center;
+                        height: 60px;
+                        font-family: $secondaryFont;    
+                        button {
+                            appearance: none;
+                            border: none;
+                            background-color: transparent;
+                            padding: 10px;
+                            cursor: pointer;
+                            width: auto;
+                            height: 40px;
+                            border-radius: 100px;
+                            &:hover {
+                                background-color: #eee;
+                            }
+    
+                            
+                        }
+                    }
+                    .status {
+                        button {
+                            width: auto;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                             gap: 10px;
+                            margin: 0 auto;
+                            border-radius: 100px;
+                            background-color: transparent;
+                            span{ 
+                               font-family: $secondaryFont;
+                            }
+                            &:hover {
+                                background-color: #eee;
+                            }
+                        }
+                        .box {
+                            width: 15px;
+                            height: 15px;
+                            border-radius: 100px;
+                            &[about="Waiting"] {
+                                background-color: orange;
+                            }
+                            &[about="Active"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #43bf57;
+                            }
+                            &[about="Employed"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #98e1ad;
+                            }
+                            &[about="Hired"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #add43c;
+                            }
+                            &[about="Follow-up"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #d0e486;
+                            }
+                            &[about="Terminated"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #e4636a;
+                            }
+                            
+                            &[about="Failed"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #f6a899;
+                            }
+                            
+                            &[about="Not Qualified"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #f49025;
+                            }
+                            &[about="Decline Offer"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #f8bd6d;
+                            }
+                            &[about="Backed-out"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #ed7db1;
+                            }
+                            &[about="No Show"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #f8c22d;
+                            }
+                            &[about="No Call"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #fbdf72;
+                            }
+                            &[about="No Answer"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #808080;
+                            }
+                            &[about="Not Eligible"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #dadada;
+                            }
+                            &[about="TCBR"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #83e2e9;
+                            }
+                            &[about="CBR"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #b1f5f0;
+                            }
+                            &[about="Endorse Marketing"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #accefd;
+                            }
+                            &[about="Text Blast"] {
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 100px;
+                                background-color: #cfaedf;
+                            }
+                        }
+                        .containerButtons {
+                            width: 180px;
+                            height: 150px;
+                            overflow-y: auto;
+                            border-radius: 5px;
+                            position: absolute ;
+                            transform: translate(10%);
+                            background-color: #fff;
+                            box-shadow: 0px 0px 2px 0px #ccc;
+                            padding: 5px;
+                            &::-webkit-scrollbar {
+                                width: 5px;
+                            }
+                            &::-webkit-scrollbar-thumb {
+                                background-color: $primaryColor;
+                                border-radius: 100px;
+                            }
+                            .statusContainer {
+                                width: 100%;
+                                border-radius: 5px;
+                                display: flex;
+                                justify-content: flex-start;
+                                gap: 10px;
+                                .box {
+                                    &[about="Active"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #43bf57;
+                                    }
+                                    &[about="Employed"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #98e1ad;
+                                    }
+                                    &[about="Hired"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #add43c;
+                                    }
+                                    &[about="Follow-up"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #d0e486;
+                                    }
+                                    &[about="Terminated"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #e4636a;
+                                    }
+                                    
+                                    &[about="Failed"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #f6a899;
+                                    }
+                                    
+                                    &[about="Not Qualified"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #f49025;
+                                    }
+                                    &[about="Decline Offer"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #f8bd6d;
+                                    }
+                                    &[about="Backed-out"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #ed7db1;
+                                    }
+                                    &[about="No Show"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #f8c22d;
+                                    }
+                                    &[about="No Call"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #fbdf72;
+                                    }
+                                    &[about="No Answer"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #808080;
+                                    }
+                                    &[about="Not Eligible"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #dadada;
+                                    }
+                                    &[about="TCBR"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #83e2e9;
+                                    }
+                                    &[about="CBR"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #b1f5f0;
+                                    }
+                                    &[about="Endorse Marketing"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #accefd;
+                                    }
+                                    &[about="Text Blast"] {
+                                        width: 15px;
+                                        height: 15px;
+                                        border-radius: 100px;
+                                        background-color: #cfaedf;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }   
+        }
+    }
+}
+
