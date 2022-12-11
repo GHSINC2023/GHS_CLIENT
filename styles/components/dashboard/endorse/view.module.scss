@@ -1,0 +1,157 @@
+@import "../../../_mixins";
+@import "../../../_variables";
+
+
+.container {
+    width: auto;
+    background-color: #fff;
+    box-shadow: 0px 0px 3px 0px #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    .contain {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .updateContainer {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        .btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 4px;
+            background-color: transparent;
+            border: none;
+            float: right;
+            cursor: pointer;
+            border-radius: 100px;
+            &:hover {
+                background-color: #eee;
+            }
+        }
+       
+    }
+    h2 {
+        font-family: $primaryFont;
+        font-weight: 500;
+    }
+    .table {
+        width: 500px;
+        table {
+            width: 100%;
+            tbody{
+                appearance: none;
+                tr {
+                    &:nth-child(even){
+                        background-color: #eee;
+                    }
+                    th {
+                        width: 200px;
+                        height: 50px;
+                        text-align: left;
+                        font-family: $primaryFont;
+                        font-weight: 500;
+                        padding: 0 10px;
+                        font-size: 15px;
+                    }
+                    td {
+                        font-family: $secondaryFont;
+                        font-size: 15px;
+                        padding: 0 10px;
+                    }
+                    .changeStatus {
+                        .status {
+                            background-color: transparent;
+                            width: 100px;
+                            height: 30px;
+                            border-radius: 100px;
+                            border: 2px solid $primaryColor;
+                        }
+                        .updateContainer {
+                            width: 150px;
+                            height: auto;
+                            padding: 5px;
+                            position: absolute;
+                            transform: translate(-2px, 10px);
+                            display: flex;
+                            flex-direction: column;
+                            gap: 2px;
+                            background-color: #fff;
+                            border-radius: 5px;
+                            box-shadow: 0px 0px 3px 0px #ccc;
+                            .upBtn {
+                                height: 35px;
+                                background-color: transparent;
+                                border-radius: 5px;
+                                border: none;
+                                font-family: $primaryFont;
+                                &:hover {
+                                    background-color: $primaryColor;
+                                    color: #fff;
+                
+                                }
+                            }
+                        }
+                    }
+                  
+                }
+            }
+        }
+    }
+    .feedback {
+        width: 500px;
+        form {
+            width: 100%;
+            padding: 0 5px;
+            textarea {
+                width: 100%;
+                height: 150px;
+                border-radius: 5px;
+                resize: none;
+                margin: 5px 0;
+                padding: 10px;
+                font-family: $secondaryFont;
+                outline: none;
+                box-shadow: 0px 0px 3px 0px #ccc;
+                border: none;
+            }
+            button {
+                width: 85px;
+                height: 35px;
+                border-radius: 5px;
+                border: none;
+                float: right;
+                &:hover {
+                    background-color: $primaryColor;
+                    color: #fff;
+                }
+            }
+        }
+    }
+    .feedbacks {
+        width: 500px;
+        .dates {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            h2 {
+                font-family: $primaryFont;
+                font-weight: 500;
+                margin: 5px 0;
+            }
+        }
+      
+        p {
+            margin: 5px 0;
+            font-family: $secondaryFont;
+            font-size: 15px;
+            text-align: justify;
+        }
+    }
+}

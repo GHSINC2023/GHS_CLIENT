@@ -58,7 +58,6 @@ export const notificationAllQuery = gql`query GetAllNotification {
 export const notificationById = gql`query GetNotificationID($notificationId: ID!) {
     getNotificationID(notificationID: $notificationId) {
       notificationID
-      notificationStatus
       createdAt
       user {
         profile {
@@ -74,6 +73,13 @@ export const notificationById = gql`query GetNotificationID($notificationId: ID!
         responsibilities
         status
         createdAt
+        details {
+            jobDetailsID
+            location
+              jobType
+              workType
+              salary
+       }
       }
     }
   }`

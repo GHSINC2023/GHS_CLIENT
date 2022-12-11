@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 export default function CardPost({ id, title, description, status, author }: any) {
     const router = useRouter()
     const [ jobID, setJobID ] = useState("")
-    const [ deleteID, setDeleteID ] = useState("")
 
     const handleOptionIDRef = useRef<HTMLDivElement>(null)
 

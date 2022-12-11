@@ -19,7 +19,8 @@ const UploadLink = createUploadLink({
   credentials: "include",
   headers: {
     'Apollo-Require-Preflight': 'true',
-  }
+  },
+
 })
 
 
@@ -40,7 +41,40 @@ const splitLink = typeof window !== "undefined" && webSocketLink !== null ? spli
 
 export const client = new ApolloClient({
   link: splitLink,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          getJobByStatus: {
+            merge(existing, incoming: []) {
+              return [ ...incoming ]
+            }
+          },
+          getNotificationByStatus: {
+            merge(existing, incoming: []) {
+              return [ ...incoming ]
+            }
+          },
+          getEndorsementSpecificStatus: {
+            merge(existing, incoming: []) {
+              return [ ...incoming ]
+            }
+          }
+        }
+      }
+    }
+  }),
+  defaultOptions: {
+    watchQuery: {
+      nextFetchPolicy: "cache-first",
+      fetchPolicy: "cache-and-network",
+      pollInterval: 4000,
+      errorPolicy: "ignore"
+    },
+    query: {
+      errorPolicy: "ignore"
+    }
+  }
 })
 function MyApp({ Component, pageProps }: AppLayoutPage) {
 

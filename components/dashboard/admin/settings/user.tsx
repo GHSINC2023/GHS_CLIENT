@@ -64,6 +64,7 @@ export default function User({ userid }: any) {
         { name: "Email", value: "email" },
         { name: "Password", value: "password" },
         { name: "Profile", value: "profile" },
+        { name: "Activity Logs", value: "logs" }
     ]
 
     const changeSidebarValue = (e: any) => {

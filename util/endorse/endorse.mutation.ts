@@ -9,3 +9,10 @@ export const CreateEndorse = gql`mutation CreateEndorse($endorsementId: ID!, $co
     }
     }
   }`
+
+export const updateEndorse = gql`mutation Mutation($endorseStatus: String!, $endorseId: ID!) {
+    updateEndorse(endorseStatus: $endorseStatus, endorseID: $endorseId) {
+      endorseID
+      createdAt
+    }
+  }`

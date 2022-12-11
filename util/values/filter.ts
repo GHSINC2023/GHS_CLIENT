@@ -72,5 +72,12 @@ export const CSVSort = [
 
 export const tabs = [
     { name: "User", value: "user" },
-    { name: "Profile", value: "profile" }
+    { name: "Profile", value: "profile" },
+]
+
+
+export const endorseStatused = [
+    { name: "Waiting", value: "waiting" },
+    { name: "Approved", value: "approved" },
+    { name: "Rejected", value: "rejected" }
 ]

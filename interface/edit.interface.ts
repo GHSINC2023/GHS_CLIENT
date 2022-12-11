@@ -11,6 +11,7 @@ export interface EditJob {
 
 
 export interface Details {
+    jobDetailsID?: any
     location: string[]
     jobType: string[]
     workType: string[]

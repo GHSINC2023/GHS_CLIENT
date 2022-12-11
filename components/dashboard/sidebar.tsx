@@ -12,7 +12,7 @@ export default function Sidebar() {
     useEffect(() => {
         const cookies = Cookies.get("ghs_access_token")
         if (cookies) {
-            const { userID, role }: any = jwtDecode(cookies)
+            const { role }: any = jwtDecode(cookies)
             setRoles(role)
         }
     }, [])
@@ -23,7 +23,6 @@ export default function Sidebar() {
         { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
         { name: "user", url: `/dashboard/${roles}/user` },
         { name: "applicants", url: `/dashboard/${roles}/applicants` },
-        { name: "logs", url: `/dashboard/${roles}/logs` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
 
@@ -32,7 +31,6 @@ export default function Sidebar() {
         { name: "post", url: `/dashboard/${roles}/post` },
         { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
         { name: "applicants", url: `/dashboard/${roles}/applicants` },
-        { name: "logs", url: `/dashboard/${roles}/logs` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
     const manager = [
@@ -41,19 +39,20 @@ export default function Sidebar() {
         { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
         { name: "user", url: `/dashboard/${roles}/user` },
         { name: "applicants", url: `/dashboard/${roles}/applicants` },
-        { name: "logs", url: `/dashboard/${roles}/logs` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
     const moderator = [
         { name: "overview", url: `/dashboard/${roles}/overview` },
         { name: "post", url: `/dashboard/${roles}/post` },
-        { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
-        { name: "user", url: `/dashboard/${roles}/user` },
-        { name: "applicants", url: `/dashboard/${roles}/applicants` },
-        { name: "logs", url: `/dashboard/${roles}/logs` },
+        { name: "Applicant Logs", url: `/dashboard/${roles}/applicant_logs` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
 
+    const employer = [
+        { name: "overview", url: `/dashboard/${roles}/overview` },
+        { name: "endorse", url: `/dashboard/${roles}/endorse` },
+        { name: "settings", url: `/dashboard/${roles}/settings` }
+    ]
     const router = useRouter()
 
 
@@ -67,22 +66,27 @@ export default function Sidebar() {
             <nav>
                 <ul>
                     {roles === "administrator" ? admin.map(({ name, url }: any) => (
-                        <li className={router.asPath === url ? styles.active : ""} onClick={() => router.push(url)} key={name}>
+                        <li onClick={() => router.push(url)} key={name}>
                             <span>{name}</span>
                         </li>
                     )) : null}
                     {roles === "manager" ? manager.map(({ name, url }: any) => (
-                        <li className={router.asPath === url ? styles.active : ""} onClick={() => router.push(url)} key={name}>
+                        <li onClick={() => router.push(url)} key={name}>
                             <span>{name}</span>
                         </li>
                     )) : null}
                     {roles === "moderator" ? moderator.map(({ name, url }: any) => (
-                        <li className={router.asPath === url ? styles.active : ""} onClick={() => router.push(url)} key={name}>
+                        <li onClick={() => router.push(url)} key={name}>
                             <span>{name}</span>
                         </li>
                     )) : null}
                     {roles === "recruiter" ? recruiter.map(({ name, url }: any) => (
-                        <li className={router.asPath === url ? styles.active : ""} onClick={() => router.push(url)} key={name}>
+                        <li onClick={() => router.push(url)} key={name}>
+                            <span>{name}</span>
+                        </li>
+                    )) : null}
+                    {roles === "employer" ? employer.map(({ name, url }: any) => (
+                        <li onClick={() => router.push(url)} key={name}>
                             <span>{name}</span>
                         </li>
                     )) : null}

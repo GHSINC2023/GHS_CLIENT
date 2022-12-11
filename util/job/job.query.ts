@@ -8,19 +8,23 @@ export const jobQueries = gql`query JobQuery {
   }
 }`
 
-export const getAllJobQuery = gql`query Query {
-    getAllJobPost {
-      jobPostID
-      title
-      description
-      details {
-        jobDetailsID
-        jobType
-        location
-        salary
-      }
+export const getAllJobQuery = gql`query getAllJobPost {
+  getAllJobPost {
+    jobPostID
+    title
+    description
+    status
+    createdAt
+    updatedAt
+    details {
+      jobDetailsID
+      jobType
+      location
+      salary
     }
-  }`
+  }
+}
+`
 
 
 export const getJobById = gql`query GetJobPostById($jobPostId: ID!) {

@@ -1,9 +1,11 @@
 @import "../../../_mixins";
 @import "../../../_variables";
 .notify {
+    height: 90px;
     display: flex;
     align-items: center;
-    padding: 3px;
+    justify-content: space-between;
+    padding: 5px;
     border-radius: 5px;
     .message {
         position: fixed;
@@ -25,27 +27,52 @@
     }
     .bnt {
         width: 50px;
-    }
-   .opt {
-    display: none;
-   }
-   &:hover {
-    .opt{
-        height: 40px;
-        width: 40px;
-        display: flex;
-        align-items: center;
-        gap: 2px;
-        border: 1px solid #eee;
-        background-color: $primaryColor;
-        .optCircle {
-            width: 5px;
-            height: 5px;
-            background-color: #fff;
-            border-radius: 100px;
+        .opt {
+            display: none;
+        }
+        .optn {
+            height: 40px;
+            width: 40px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            border: 1px solid #eee;
+            background-color: $primaryColor;
+            .optCircle {
+                width: 5px;
+                height: 5px;
+                background-color: #fff;
+                border-radius: 100px;
+            }
         }
     }
-   }
+
+
+  
+    &:hover {
+        .bnt {
+            .opt{
+                height: 40px;
+                width: 40px;
+                display: flex;
+                align-items: center;
+                gap: 2px;
+                border: 1px solid #eee;
+                background-color: $primaryColor;
+                .optCircle {
+                    width: 5px;
+                    height: 5px;
+                    background-color: #fff;
+                    border-radius: 100px;
+                }
+             }
+        }
+    }
+
+  
+
+  
+
     .optionNotif {
         width: 120px;
         position: fixed;
@@ -64,5 +91,6 @@
                 color: #fff;
             }
         }
+       
     }
 }

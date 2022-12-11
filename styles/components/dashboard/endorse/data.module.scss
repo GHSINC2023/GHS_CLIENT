@@ -1,0 +1,73 @@
+@import "../../../_mixins";
+@import "../../../_variables";
+.container {
+    width: 100%;
+    .view {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(255,255,255, .6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        height: 800px;
+    }
+    .tableContainer {
+        table {
+            width: 100%;
+            thead, th {
+                color: $primaryColor;
+                height: 40px;
+                width: 200px;
+            }
+            thead {
+                tr {
+                    th {
+                        text-transform: uppercase;
+                        margin: 0;
+                    }
+                }
+            }
+            tbody {
+                appearance: none;
+                overflow-y: auto;
+                width: 100%;
+                tr{
+                    height: 60px;
+                    &:nth-child(even) {
+                        background-color: #f5f5f5;
+                    }
+                    td {
+                        width: 200px;
+                        text-align: center;
+                        height: 60px;
+                        font-family: $secondaryFont;    
+                      
+                    }
+                  .btn {
+                    width: auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    button {
+                        width: 40px;
+                        height: 40px;
+                        border: none;
+                        background-color: transparent;
+                        cursor: pointer;
+                        border-radius: 100px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        &:hover {
+                            background-color: #eee;
+                        }
+
+                        
+                    }
+                  }
+                }
+            }   
+        }
+    }
+}

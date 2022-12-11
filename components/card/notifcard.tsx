@@ -68,20 +68,21 @@ export default function NotifCard({ createdAt, id, jobid, user }: Notif) {
                 </div>
             </div>
             <div className={styles.bnt}>
-                <button className={styles.opt} onClick={() => setOpened(() => !open)}>
-                    <div className={styles.optCircle} />
-                    <div className={styles.optCircle} />
-                    <div className={styles.optCircle} />
-                </button>
-            </div>
-            {open ?
-                <div className={styles.optionNotif}>
-                    {statused.map(({ name, value }) => (
-                        <button onClick={updateJobStatus} className={styles.notifBtn} key={name} value={value}>{name}</button>
-                    ))}
-                </div> :
-                null
-            }
+                <button className={open == true ? styles.optn : styles.opt} onClick={() => setOpened(() => !open)}>
+                <div className={styles.optCircle} />
+                <div className={styles.optCircle} />
+                <div className={styles.optCircle} />
+            </button>
         </div>
+            {
+        open ?
+            <div className={styles.optionNotif}>
+                {statused.map(({ name, value }) => (
+                    <button onClick={updateJobStatus} className={styles.notifBtn} key={name} value={value}>{name}</button>
+                ))}
+            </div> :
+            null
+    }
+        </div >
     )
 }

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { format } from 'date-fns'
 import { useMutation, useQuery, gql } from '@apollo/client'
 
+
 export default function Data({ limit, status, order }: any) {
 
     const router = useRouter()
@@ -20,6 +21,7 @@ export default function Data({ limit, status, order }: any) {
             offset: pages * limit,
             order
         },
+        pollInterval: 1500
     })
 
 
@@ -90,8 +92,25 @@ export default function Data({ limit, status, order }: any) {
                                                 <td className={styles.name}>{lastname}, {firstname}</td>
                                                 <td>{phone.includes('+63') ? phone.substring(3, 13) : phone}</td>
                                                 <td>{format(new Date(birthday), "MMM dd, yyy")}</td>
-                                                <td>
-                                                    {Status}
+                                                <td className={styles.status}>
+                                                    <button onClick={() => getEndorsementID(endorsementID)}>
+                                                        <div className={styles.box} about={Status} />
+                                                        <span>{Status}</span>
+                                                    </button>
+                                                    {id === endorsementID ?
+                                                        <div ref={statsRef} className={styles.containerButtons}>
+                                                            {endorsement_status.map((name) => (
+                                                                <button onClick={(e) => {
+                                                                    e.preventDefault()
+                                                                    updateEndorsementStatus(name)
+                                                                }} key={name} value={name} className={styles.statusContainer}>
+                                                                    <div className={styles.box} about={name} />
+                                                                    <span key={name}>{name}</span>
+                                                                </button>
+                                                            ))}
+                                                        </div> :
+                                                        null
+                                                    }
                                                 </td>
                                                 <td>{format(new Date(createdAt), "MMM dd, yyy")}</td>
                                                 <td>{first} {last}</td>
@@ -107,6 +126,9 @@ export default function Data({ limit, status, order }: any) {
                             ))
                         }
                     </tbody>
+                    <tfoot>
+
+                    </tfoot>
                 </table>
             </div>
             {loading ? "Loading " : data.getEndorsementSpecificStatus.length > limit ? <div className={styles.pages}>

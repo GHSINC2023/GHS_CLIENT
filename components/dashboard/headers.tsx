@@ -44,7 +44,7 @@ export default function Header() {
     }, [])
 
 
-    const { loading, data, error, subscribeToMore, observable } = useQuery(notificationQuery)
+    const { loading, data, error, subscribeToMore } = useQuery(notificationQuery)
 
 
     useEffect(() => {
@@ -63,29 +63,67 @@ export default function Header() {
         })
     }, [ subscribeToMore ])
 
-    useEffect(() => {
-        observable.refetch()
-    }, [ observable ])
     return (
         <div className={styles.container}>
-            {roles === "recruiter" ? null : <div className={styles.NotifContainer}>
-                <button onClick={() => setNotif(() => !notif)}>
-                    <Image src="/dashboard/bell-line.svg" alt="" height={30} width={30} />
-                    {
-                        loading ? null
-                            : data.getNotificationByStatus.length === 0 ? null :
-                                <div className={styles.badge}>
-                                    <span>{data.getNotificationByStatus.length}</span>
-                                </div>
-                    }
+            {
+                roles === "administrator" ?
+                    <div className={styles.NotifContainer}>
+                        <button onClick={() => setNotif(() => !notif)}>
+                            <Image src="/dashboard/bell-line.svg" alt="" height={30} width={30} />
+                            {
+                                loading ? null
+                                    : data.getNotificationByStatus.length === 0 ? null :
+                                        <div className={styles.badge}>
+                                            <span>{data.getNotificationByStatus.length}</span>
+                                        </div>
+                            }
 
-                </button>
-                {notif ?
-                    <div ref={ref} className={styles.notify}>
-                        <Notification open={notif} close={setNotif} />
-                    </div> : null
-                }
-            </div>}
+                        </button>
+                        {notif ?
+                            <div ref={ref} className={styles.notify}>
+                                <Notification open={notif} close={setNotif} />
+                            </div> : null
+                        }
+                    </div>
+                    :
+                    roles === "manager" ?
+                        <div className={styles.NotifContainer}>
+                            <button onClick={() => setNotif(() => !notif)}>
+                                <Image src="/dashboard/bell-line.svg" alt="" height={30} width={30} />
+                                {
+                                    loading ? null
+                                        : data.getNotificationByStatus.length === 0 ? null :
+                                            <div className={styles.badge}>
+                                                <span>{data.getNotificationByStatus.length}</span>
+                                            </div>
+                                }
+
+                            </button>
+                            {notif ?
+                                <div ref={ref} className={styles.notify}>
+                                    <Notification open={notif} close={setNotif} />
+                                </div> : null
+                            }
+                        </div> :
+                        roles === "moderator" ? <div className={styles.NotifContainer}>
+                            <button onClick={() => setNotif(() => !notif)}>
+                                <Image src="/dashboard/bell-line.svg" alt="" height={30} width={30} />
+                                {
+                                    loading ? null
+                                        : data.getNotificationByStatus.length === 0 ? null :
+                                            <div className={styles.badge}>
+                                                <span>{data.getNotificationByStatus.length}</span>
+                                            </div>
+                                }
+
+                            </button>
+                            {notif ?
+                                <div ref={ref} className={styles.notify}>
+                                    <Notification open={notif} close={setNotif} />
+                                </div> : null
+                            }
+                        </div> : null
+            }
         </div>
     )
 }
