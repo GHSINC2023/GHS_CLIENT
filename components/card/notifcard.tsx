@@ -8,20 +8,8 @@ import { statused } from '../../util/values/filter'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'js-cookie'
 
-
-interface Notif {
-    id: string
-    user: string
-    createdAt: string
-    close: any
-    opens: any
-    jobid: string
-}
-
-
-export default function NotifCard({ createdAt, id, jobid, user }: Notif) {
+export default function NotifCard({ createdAt, id, jobid, rec, title, close }: any) {
     const router = useRouter()
-    const [ open, setOpened ] = useState(false)
     const [ message, setMessage ] = useState(false)
     const [ roles, setRoles ] = useState("")
     const [ updateJobPostNotificaiton, { data, } ] = useMutation(jobStatusMutation)
@@ -34,55 +22,30 @@ export default function NotifCard({ createdAt, id, jobid, user }: Notif) {
         }
     }, [])
 
-    const updateJobStatus = (e: any) => {
-        e.preventDefault()
-        updateJobPostNotificaiton({
-            variables: {
-                jobPostId: jobid,
-                status: e.target.value
-            },
-            onCompleted: data => {
-                setMessage(true)
-            },
-            onError: (e) => {
-                console.log(e.message)
-            }
-        })
-    }
-
-    useEffect(() => {
-        setTimeout(() => {
-            setMessage(false)
-        }, 1500)
-    }, [ message ])
 
     return (
         <div className={styles.notify}>
-            {data && message ? <div className={styles.message}>
-                <Message label={'Successfully Updated'} status={'success'} message={''} />
-            </div> : null}
-            <div onClick={() => router.push(`/dashboard/${roles}/notification/${id}`)} className={styles.Notif}>
+            {title === "New Applicant" ? <div onClick={() => {
+                router.push(`/dashboard/${roles}/applications`)
+            }} className={styles.Notif}>
                 <div className={styles.notifSpan}>
-                    <h2>New Job Post from {user}</h2>
+                    <h2>{title}</h2>
                     <span>{createdAt}</span>
                 </div>
-            </div>
-            <div className={styles.bnt}>
-                <button className={open == true ? styles.optn : styles.opt} onClick={() => setOpened(() => !open)}>
-                <div className={styles.optCircle} />
-                <div className={styles.optCircle} />
-                <div className={styles.optCircle} />
-            </button>
-        </div>
-            {
-        open ?
-            <div className={styles.optionNotif}>
-                {statused.map(({ name, value }) => (
-                    <button onClick={updateJobStatus} className={styles.notifBtn} key={name} value={value}>{name}</button>
-                ))}
-            </div> :
-            null
-    }
+            </div> : null}
+            {title === "New Job Post" ? <div onClick={() => {
+                router.push(`/dashboard/${roles}/notification/${id}`)
+            }} className={styles.Notif}>
+                <div className={styles.notifSpan}>
+                    {rec.map(({ profile }: any) => (
+                        profile.map(({ firstname, lastname }: any) => (
+
+                            <h2 key={firstname}> {title} from {firstname}{lastname}</h2>
+                        ))
+                    ))}
+                    <span>{createdAt}</span>
+                </div>
+            </div> : null}
         </div >
     )
 }

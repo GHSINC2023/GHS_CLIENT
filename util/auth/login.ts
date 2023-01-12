@@ -6,3 +6,10 @@ export const LoginUsers = gql`mutation Mutation($auth: AuthInput) {
       token
     }
   }`
+
+
+export const ApplicantLogs = gql`mutation Mutation($viewMyApplicationId: String!, $email: EmailAddress!) {
+  viewMyApplication(id: $viewMyApplicationId, email: $email) {
+    token
+  }
+}`

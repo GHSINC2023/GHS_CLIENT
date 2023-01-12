@@ -6,7 +6,6 @@ import styles from '../../../../styles/components/dashboard/endorsement/endorsem
 import Image from 'next/image'
 import { endorsement_statusv2, OrderDate, limits } from '../../../../util/values/filter'
 import Data from '../../../../components/dashboard/admin/endrosement/data'
-import Create from '../../../../components/dashboard/admin/endrosement/create'
 import jwtDecode from 'jwt-decode'
 import EndorseExport from '../../../../components/dashboard/export/endorsement.export'
 
@@ -101,12 +100,6 @@ const Endorsement: FC = ({ userid }: any) => {
                 <title>Endorsement</title>
             </Head>
             {
-                create ?
-                    <div className={styles.create}>
-                        <Create userid={userid} close={setCreate} />
-                    </div> : null
-            }
-            {
                 exports ? <div className={styles.endorsementExport}>
                     <EndorseExport close={setExport} />
                 </div> : null
@@ -115,12 +108,6 @@ const Endorsement: FC = ({ userid }: any) => {
                 <div className={styles.container}>
                     <h2>Endorsement</h2>
                     <div className={styles.option}>
-                        <div className={styles.createDiv}>
-                            <button className={styles.createBtn} onClick={() => setCreate(() => !create)} >
-                                <Image src="/dashboard/plus-line.svg" alt="" height={20} width={20} />
-                            </button>
-                            <span>Create</span>
-                        </div>
                         <div className={styles.cvsDiv}>
                             <button className={styles.csv}
                                 onClick={() => setExport(() => !exports)}
@@ -188,7 +175,7 @@ export default Endorsement
 
 
 export const getServerSideProps = async (context: any) => {
-    const cookies = context.req.headers.cookie
+    const cookies = context.req.cookies["ghs_access_token"]
     const { userID }: any = jwtDecode(cookies)
     return {
         props: {

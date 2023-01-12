@@ -12,3 +12,10 @@ export interface details {
     workType: string[]
     salary: string
 }
+
+
+export interface Filter { 
+    jobType: string[]
+    workType: string[]
+    category: string
+}

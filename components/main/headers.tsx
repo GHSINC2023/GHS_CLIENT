@@ -25,7 +25,7 @@ export default function Header() {
             </div>
             {token ? <div className={styles.token}>
                 <Link href={`/dashboard/${roles}/overview`}>Go To Dashboard</Link></div> : <div className={styles.link}>
-                <Link href="/auth/login">Login</Link>
+                <Link href="/auth/applicant/login">Login</Link>
             </div>}
         </div>
     )

@@ -26,6 +26,7 @@ query GetApplicationByStatus($status: String!, $limit: Int!, $order: orderedBy!)
       interviewerID
       user {
         profile {
+          profileID
           firstname
           lastname
         }
@@ -90,5 +91,48 @@ export const getApplications = gql`query GetAllApplication {
     email
     createdAt
     updatedAt
+  }
+}`
+
+
+export const getApplicationByDate = gql`query GetAllApplicationDateCount {
+  getAllApplicationDateCount {
+    createdAt
+    _count
+  }
+}`
+
+export const getApplicationDWYMY =gql`query GetApplicantByDWMY($select: String!) {
+  getApplicantByDWMY(select: $select) {
+    _count
+    createdAt
+  }
+}`
+
+
+export const getMyApplicaiton = gql`query GetApplicantByID($applicationId: ID!) {
+  getApplicantByID(applicationID: $applicationId) {
+    email
+    status
+    createdAt
+    applyJobPost {
+      title
+    }
+    applicantProfile {
+      firstname
+      lastname
+      birthday
+      phone
+      profileAddress {
+        province
+        street
+        zipcode
+        city
+      }
+    }
+    applicantUpload {
+      file
+      video
+    }
   }
 }`

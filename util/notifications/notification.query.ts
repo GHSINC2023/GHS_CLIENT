@@ -2,14 +2,14 @@ import { gql } from '@apollo/client'
 
 
 export const notificationQuery = gql`
-    query Query {
+  query GetNotificationByStatus {
   getNotificationByStatus {
     notificationID
     notificationStatus
     createdAt
     user {
       profile {
-        firstname 
+        firstname
         lastname
       }
     }
@@ -17,11 +17,26 @@ export const notificationQuery = gql`
       jobPostID
       title
       description
-      qualification
       responsibilities
+      qualification
       status
       createdAt
+      users {
+        profile {
+          firstname
+          lastname
+        }
+      }
     }
+    userApplications {
+      id
+      createdAt
+      applicantProfile {
+        firstname
+        lastname
+      }
+    }
+    title
   }
 }
 `

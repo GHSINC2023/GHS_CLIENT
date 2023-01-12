@@ -9,9 +9,12 @@ import { Details } from '../../../../interface/edit.interface'
 import { statused } from '../../../../util/values/filter'
 import { client } from '../../../_app'
 import { useMutation } from '@apollo/client'
+import { useRouter } from 'next/router'
 import parse from 'html-react-parser'
 import Image from 'next/image'
+
 export const getStaticPaths = async () => {
+
     const { data: { getAllNotification } } = await client.query({
         query: notificationAllQuery,
     })
@@ -41,7 +44,9 @@ export const getStaticProps = async (context: any) => {
     }
 }
 
-const Notification: FC = ({ notifications }: any) => {
+const Notification: FC = ({ notifications, role }: any) => {
+    const router = useRouter()
+
     const [ statuses, setStatus ] = useState(false)
     const [ id, setID ] = useState("")
 
@@ -61,7 +66,7 @@ const Notification: FC = ({ notifications }: any) => {
                 status: e.target.value
             },
             onCompleted: data => {
-                console.log(data)
+                router.back()
             },
 
         })

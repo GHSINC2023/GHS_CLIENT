@@ -83,9 +83,9 @@ const Applicants: FC = () => {
             <div className={styles.header}>
                 <div className={styles.container}>
                     <h2>Applicants</h2>
-                    {status === "waiting" ? null : <button onClick={() => setExport(() => !exports)} className={styles.csv}>
+                     <button onClick={() => setExport(() => !exports)} className={styles.csv}>
                         <Image src="/dashboard/download.svg" alt="" height={20} width={20} />
-                    </button>}
+                    </button>
                 </div>
                 <div className={styles.applicant}>
                     <div className={styles.tab}>

@@ -28,7 +28,27 @@ export default function EndorseExport({ close }: any) {
             order: sort
         }
     })
+    const headers = [
+        { label: "Status", key: "Status" },
+        { label: "Application ID", key: "ApplicantID" },
+        { label: "Email", key: "Email" },
+        { label: "Firstname", key: "Firstname" },
+        { label: "Lastname", key: "Lastname" },
+        { label: "Phone", key: "Phone" },
+        { label: "Endorse by", key: "EndorseBy" }
+    ]
+    const datas = data ? data.getEndorsmentByCSV.map(({ Status, createdAt, applicants, endorseBy }: any) => {
+        return {
+            Status: Status,
+            ApplicantID: applicants[ 0 ].id,
+            Email: applicants[ 0 ].email,
+            Firstname: applicants[ 0 ].applicantProfile[ 0 ].firstname,
+            Lastname: applicants[ 0 ].applicantProfile[ 0 ].lastname,
+            Phone: `=""${applicants[ 0 ].applicantProfile[ 0 ].phone}""`,
+            EndorseBy: `${endorseBy[ 0 ].profile[ 0 ].firstname} ${endorseBy[ 0 ].profile[ 0 ].lastname}`,
 
+        }
+    }) : null
     return (
         <div className={styles.container}>
             <div>
@@ -72,10 +92,10 @@ export default function EndorseExport({ close }: any) {
                         </div>
                     </div>
                     <div className={styles.dates}>
-                        <input type="text" value={start} onChange={e => setStart(e.target.value)} placeholder='Start - YYYY-MM-DD' />
-                        <input value={end} onChange={e => setEnd(e.target.value)} type="text" placeholder='End - YYYY-MM-DD' />
+                        <input type="date" value={start} onChange={e => setStart(e.target.value)} placeholder='Start - YYYY-MM-DD' />
+                        <input value={end} onChange={e => setEnd(e.target.value)} type="date" placeholder='End - YYYY-MM-DD' />
                     </div>
-                    {data ? <CSVLink data={data.getEndorsmentByCSV} filename={filename}>DOWNLOAD</CSVLink> : <button disabled={!start || !end || !status} type='submit' className={styles.endorse} onClick={(e) => {
+                    {data ? <CSVLink headers={headers} data={datas} filename={filename}>DOWNLOAD</CSVLink> : <button disabled={!start || !end || !status} type='submit' className={styles.endorse} onClick={(e) => {
                         e.preventDefault()
                         createEndorsementCSV()
                     }}>

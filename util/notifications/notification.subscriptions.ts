@@ -5,6 +5,7 @@ export const notifSub = gql`subscription Subscription {
       notificationID
       createdAt
       notificationStatus
+      title
       notificationJob {
         jobPostID
         title
@@ -13,6 +14,12 @@ export const notifSub = gql`subscription Subscription {
         responsibilities
         status
         createdAt
+        users {
+        profile {
+          firstname
+          lastname
+        }
+      }
       }
       user {
         profile {
@@ -20,5 +27,14 @@ export const notifSub = gql`subscription Subscription {
           lastname
         }
       }
+      userApplications {
+      id
+      createdAt
+      applicantProfile {
+        firstname
+        lastname
+      }
+      applicantID
+    }
     }
   }`

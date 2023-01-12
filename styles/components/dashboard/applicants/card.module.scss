@@ -1,196 +1,48 @@
 @import "../../../_mixins";
 @import "../../../_variables";
-.card {
-    width: 300px;
-    height: 235px;
-    border: 1px solid $primaryColor;
-    border-radius: 5px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    .message {
-        width: 100%;
-        position: fixed;
-        inset: 0;
-    }
-    .details {
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        inset: 0;
+    .interviewCard {
+        width: 500px;
+        height:  300px;
+        background-color: #fff;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: rgba(255,255,255, 0.8);
-    }
-    .interv {
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(255,255,255, 0.8);
-        .interviewCard {
-            width: 500px;
-            height:  300px;
-            background-color: #fff;
-            border-radius: 10px;
+        flex-direction: column;
+        gap: 20px;
+        box-shadow: 0px 0px 3px 0px #ccc;
+        h2 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 500;
+            font-family: $primaryFont;
+        }
+        span {
+            font-family: $secondaryFont;
+            font-weight: 500;
+            font-size: 16px;
+            margin: 0;
+        }
+        .interviewBtn {
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
             gap: 20px;
-            box-shadow: 0px 0px 3px 0px #ccc;
-            h2 {
-                margin: 0;
-                font-size: 22px;
-                font-weight: 500;
-                font-family: $primaryFont;
-            }
-            span {
-                font-family: $secondaryFont;
-                font-weight: 500;
-                font-size: 16px;
-                margin: 0;
-            }
-            .interviewBtn {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 20px;
-                button {
-                    width: 140px;
-                    height: 40px;
-                    border: none;
-                    border-radius: 5px;
-                    font-weight: 600;
-                    font-family: $primaryFont;
-                    border: 2px solid $primaryColor;
-                    background-color: transparent;
-                    color: $primaryColor;
-                  &:hover {
-                    background-color: $primaryColor;
-                    color: #fff;
-                  }
-                }
-            }
-        }
-    }
-    .head {
-        width: 100%;
-        align-items: center;
-        justify-content: space-between;
-        display: flex;
-        h2 {
-            word-wrap: normal;
-            font-family: $primaryFont;
-            font-size: 16px;
-            font-weight: 500;
-            margin: 5px 0;
-        }
-        .options {
-            display: flex;
-            align-items: center;
             button {
-                width: auto;
-                padding: 5px;
-                border-radius: 5px;
-                border: none;
-                display: flex;
-                align-items: center;
-                gap: 3px;
-                background-color: transparent;
-                &:hover {
-                    div {
-                        background-color: $primaryColor;
-                    }
-                }
-                div {
-                    width: 5px;
-                    height: 5px;
-                    background-color: #ccc;
-                    border-radius: 100px;
-                }
-            }
-            .update {
-                width: 100px;
-                height: 70px;
-                position: absolute;
-                transform: translate(-60%, 40px);
-                border-radius: 5px;
-                background-color: #fff;
-                box-shadow: 0 0 3px 0 #ccc;
-                button {
-                    display: block;
-                    width: 100%;
-                    height: 35px;
-                    width: 100%;
-                    text-align: center;
-                    &:hover {
-                        background-color: $primaryColor;
-                        color: #fff;
-                        font-family: $primaryFont;
-                    }
-                }
-            }
-        }
-    }
-    .body {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        .interviewer, .id {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 5px 0;
-            span {
-                font-family: $secondaryFont;
-                font-size: 15px;
-            }
-            .interviewBtn {
-                height: 35px;
-                width: 80px;
+                width: 140px;
+                height: 40px;
                 border: none;
                 border-radius: 5px;
+                font-weight: 600;
                 font-family: $primaryFont;
-                font-size: 13px;
                 border: 2px solid $primaryColor;
                 background-color: transparent;
-                &:hover {
-                    background-color: $primaryColor;
-                    color: #fff;
-                }
+                color: $primaryColor;
+              &:hover {
+                background-color: $primaryColor;
+                color: #fff;
+              }
             }
         }
-        .job {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          
-        }
-    }
-    .viewBtn {
-        width: 100%;
-        height: 40px;
-        border-radius: 5px;
-        background-color: transparent;
-        border: 2px solid $primaryColor;
-        font-family: $primaryFont;
-        color: $primaryColor;
-        font-weight: 500;
-        font-size: 14px;
-        cursor: pointer;
-        &:hover {
-            background-color: $primaryColor;
-            color: #fff;
-        }
-    }
 }

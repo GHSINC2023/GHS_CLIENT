@@ -23,14 +23,12 @@
     }
    .cont {
     width: 100%;
-    // padding: 10px;
     display: flex;
-    // grid-template-columns: repeat(2, 600px);
-    // align-items: center;
+
     justify-content: center;
     gap: 10px;
     position: absolute;
-    top: 80px;
+    top: 200px;
     .job {
         width:700px;
         height: auto;
@@ -119,19 +117,74 @@
     }
     .jr {
         width: 500px;
-        height: 450px;
+        max-height: 450px;
+        min-height: auto;
         background-color: #fff;
         border-radius: 5px;
         padding: 10px 20px;
         box-shadow: 0px 0px 2px 0px #ccc;
-        position: sticky;
-        inset: 0;
         .header {
             width: 100%;
             h2 {
                 font-weight: 500;
                 font-family: $primaryFont;
                 font-size: 2rem;
+            }
+        }
+        .box {
+            .jobRelatedContainer {
+                width: 100%;
+                padding: 15px;
+                border-radius: 5px;
+                border: 1px solid #eee;
+                margin: 5px 0;
+                &:hover {
+                    box-shadow: 0px 0px 3px 0px #ccc;
+                }
+                h2 {
+                    font-family: $primaryFont;
+                    font-weight: 500;
+                    font-size: 1.2rem;
+                    margin: 5px 0;
+                }
+                .jobTypeContainer {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    span {
+                        width: auto;
+                        height: 35px;
+                        background-color: #eee;
+                        padding: 7px;
+                        border-radius: 3px;
+                        text-align: center;
+                        font-size: 14px;
+                    }
+                }
+            }
+            .lmContainer {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px;
+                button {
+                    width: 100px;
+                    height: 35px;
+                    border: none;
+                    border: 1px solid $primaryColor;
+                    background-color: transparent;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    color: $primaryColor;
+                    font-weight: 500;
+                    &:hover {
+                        background-color: $primaryColor;
+                        color: #fff;
+                        border: none;
+                    }
+                }
             }
         }
     }

@@ -25,7 +25,9 @@ export default function Interview({ appId, close }: any) {
                 applicantId: appId
             },
             onCompleted: (data) => {
-                alert("Interviewed")
+                if (data) {
+                    close(() => "")
+                }
             },
             onError: err => {
                 console.log(err.message)
@@ -39,8 +41,11 @@ export default function Interview({ appId, close }: any) {
             <h2>Interview</h2>
             <span>Do you want to interview this person?</span>
             <div className={styles.interviewBtn}>
-                <button onClick={() => close(false)}>Cancel</button>
-                <button onClick={formInterview}>Yes, Interview</button>
+                <button onClick={() => close("")}>Cancel</button>
+                <button onClick={() => {
+                    formInterview
+                    close("")
+                }}>Yes, Interview</button>
             </div>
         </div>
     )

@@ -8,37 +8,6 @@ mutation updateEndorsement($endorsementId: ID!, $status: String!) {
     Status
     createdAt
     updatedAt
-    profile {
-      profileID
-      firstname
-      lastname
-      phone
-      birthday
-    }
-  }
-}
-`
-export const endorsementCreate = gql`
- mutation Mutation($userId: ID!, $email: EmailAddress!, $profile: ProfileInput, $address: AddressInput) {
-  createEndorsement(userID: $userId, email: $email, Profile: $profile, Address: $address) {
-    endorsementID
-    Status
-    createdAt
-    updatedAt
-    profile {
-      profileID
-      firstname
-      lastname
-      phone
-      birthday
-      profileAddress {
-        addressID
-        city
-        province
-        zipcode
-        street
-      }
-    }
   }
 }
 `
@@ -49,25 +18,6 @@ export const generateMeCSVEndorsement = gql`mutation Mutation($status: String!, 
     Status
     createdAt
     updatedAt
-    profile {
-      birthday
-      firstname
-      lastname
-      phone
-      profileAddress {
-        addressID
-        city
-        province
-        street
-        zipcode
-      }
-    }
-    endorseBy {
-      profile {
-        lastname
-        firstname
-      }
-    }
   }
 }`
 

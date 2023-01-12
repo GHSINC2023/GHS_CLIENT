@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 import styles from '../../styles/components/main/jobs/ids.module.scss'
 import Head from 'next/head'
 import parse from 'html-react-parser'
 import Image from 'next/image'
 import { client } from '../_app'
-import { getAllJobQuery, getJobById } from '../../util/job/job.query'
+import { jobQueries, getJobById, getRelatedJob } from '../../util/job/job.query'
+import { useQuery } from '@apollo/client'
 
 import { details } from '../../interface/jobs.interface.query'
 import Apply from '../../components/main/apply'
+import PageWithLayout from '../../layout/page.layout'
+import Main from '../../layout/main.layout'
 
 export const getStaticPaths = async () => {
-    const { data: { getAllJobPost } } = await client.query({
-        query: getAllJobQuery,
+    const { data: { jobQuery } } = await client.query({
+        query: jobQueries,
     })
 
-    const paths = getAllJobPost.map(({ jobPostID }: any) => {
+    const paths = jobQuery.map(({ jobPostID }: any) => {
         return { params: { id: jobPostID } }
     })
     return {
@@ -39,9 +42,20 @@ export const getStaticProps = async (context: any) => {
         }
     }
 }
-export default function ID({ job }: any) {
+const ID = ({ job }: any) => {
     const [ apply, setApply ] = useState(false)
+    const [category, setCategory] = useState("")
+    const [ id, setID ] = useState("")
 
+
+    useEffect(() => {
+        job.map(({ jobPostID,  details}: any) => {
+            details.map(({ category }: any) => {
+                    setCategory(category)
+                    setID(jobPostID)
+            })    
+        })
+    },[job])
     useEffect(() => {
         if (apply) {
             document.body.style.overflowY = 'hidden'
@@ -53,6 +67,14 @@ export default function ID({ job }: any) {
     const onHandleApplication = () => {
         setApply(() => !apply)
     }
+
+    const { loading, data, error, fetchMore} = useQuery(getRelatedJob, {
+        variables: {
+            category: category,
+            limit: 5,
+            offset: 0
+        }
+    })
     return (
         job.map(({ title, jobPostID, details, description, qualification, responsibilities }: any) => (
             <div key={jobPostID} className={styles.containter}>
@@ -122,9 +144,31 @@ export default function ID({ job }: any) {
                         <div className={styles.header}>
                             <h2>Job Related</h2>
                         </div>
+                        <div className={styles.box}>
+                            {loading ? null : data.getJobRelated.map(({jobType, jobPost}: any) => (
+                                jobPost.map(({ jobPostID, title}: any) => (
+                                    jobPostID == id ? null :  <div className={styles.jobRelatedContainer} key={jobPostID}>
+                                    <h2>{title}</h2>
+                                   <div className={styles.jobTypeContainer}>
+                                    {jobType.map((name: any) => (
+                                            <span key={name}>{name}</span>
+                                        ))}
+                                   </div>
+                                </div>
+                                ))
+                            ))}
+                            {loading ? null : data.getJobRelated.length  > 5 ?    <div className={styles.lmContainer}>
+                                 <button>Load More</button>
+                            </div> : null }
+                        </div>
                     </div>
                 </div>
             </div>
         ))
     )
 }
+
+
+(ID as PageWithLayout).layout = Main
+
+export default ID;

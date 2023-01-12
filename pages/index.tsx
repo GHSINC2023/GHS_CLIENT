@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Head from 'next/head'
 import Main from '../layout/main.layout'
 import PageWithLayout from '../layout/page.layout'
@@ -6,16 +6,53 @@ import styles from '../styles/Home.module.scss'
 import Image from 'next/image'
 import JobCard from '../components/card/jobcard'
 import Search from '../components/search/search'
-import { getAllJobQuery, getJobSearch } from '../util/job/job.query'
+import { getAllJobQuery, getJobFilterSearch, getJobSearch } from '../util/job/job.query'
 import { useQuery, useLazyQuery } from '@apollo/client'
-import { JobQuery } from '../interface/jobs.interface.query'
+import { JobQuery, Filter } from '../interface/jobs.interface.query'
+import { category, jobType, workType } from '../util/values/filter'
+import { OrderDate } from '../util/values/filter'
+
+
 
 const Home: FC = () => {
 
-  const { loading, data, error } = useQuery(getAllJobQuery)
   const [ searchJob, { data: searchData } ] = useLazyQuery(getJobSearch)
-  const [ search, setSearch ] = useState("")
+  const [ search, setSearch ] = useState("");
+  const [ dateFilter, setDateFilter ] = useState("desc");
+  const [ datebool, setDateBool ] = useState(false)
 
+
+  const [ pages, setPages ] = useState(0)
+
+  const { loading, data, error } = useQuery(getAllJobQuery, {
+    variables: {
+      limit: 10,
+      offset: pages * 10,
+      order: dateFilter
+    }
+  })
+
+  const [ filter, setFilter ] = useState<Filter>({
+    jobType: [],
+    workType: [],
+    category: ""
+  })
+
+  const [ filterJob, { data: filterData, client } ] = useLazyQuery(getJobFilterSearch, {
+    variables: {
+      category: filter.category,
+      jobType: filter.jobType,
+      workType: filter.jobType,
+      limit: 10,
+      offset: pages * 10
+    }
+  })
+
+
+  useEffect(() => {
+    filterJob()
+    client.resetStore()
+  }, [ client, filterJob ])
 
   const getSearchFN = (e: any) => {
     searchJob({
@@ -26,6 +63,28 @@ const Home: FC = () => {
     setSearch(e.target.value)
   }
 
+
+  const getJobType = (e: any) => {
+    let listJobType = [ ...filter.jobType, e.target.value ]
+    if (filter.jobType.includes(e.target.value)) {
+      listJobType = filter.jobType.filter(job => job !== e.target.value)
+    }
+    setFilter({ ...filter, jobType: listJobType })
+  }
+
+
+  const getWorkType = (e: any) => {
+    let listWorkType = [ ...filter.workType, e.target.value ]
+    if (filter.workType.includes(e.target.value)) {
+      listWorkType = filter.workType.filter(work => work !== e.target.value);
+      setFilter({ ...filter, workType: [] })
+    }
+
+    setFilter({ ...filter, workType: listWorkType })
+  }
+
+
+  console.log(filter.jobType)
   return (
     <div className={styles.container}>
       <Head>
@@ -48,23 +107,147 @@ const Home: FC = () => {
             </div>
           </div>}
         </div>
-        <button className={styles.btnFilter}>
-          <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <desc>Created with Sketch.</desc>
-            <g id="Product-Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-              <g id="ic_fluent_filter_28_regular" fill="#212121" fillRule="nonzero">
-                <path d="M17.25,19 C17.6642136,19 18,19.3357864 18,19.75 C18,20.1642136 17.6642136,20.5 17.25,20.5 L10.75,20.5 C10.3357864,20.5 10,20.1642136 10,19.75 C10,19.3357864 10.3357864,19 10.75,19 L17.25,19 Z M21.25,13 C21.6642136,13 22,13.3357864 22,13.75 C22,14.1642136 21.6642136,14.5 21.25,14.5 L6.75,14.5 C6.33578644,14.5 6,14.1642136 6,13.75 C6,13.3357864 6.33578644,13 6.75,13 L21.25,13 Z M24.25,7 C24.6642136,7 25,7.33578644 25,7.75 C25,8.16421356 24.6642136,8.5 24.25,8.5 L3.75,8.5 C3.33578644,8.5 3,8.16421356 3,7.75 C3,7.33578644 3.33578644,7 3.75,7 L24.25,7 Z" id="🎨-Color"></path>
-              </g>
-            </g>
-          </svg>
-        </button>
       </div>
-      <div className={styles.cardContainer}>
-        {loading ? "Loading" : data.getAllJobPost.map(({ jobPostID, title, description, details }: JobQuery) => (
-          <JobCard key={jobPostID} id={jobPostID} title={title} details={details} description={description} />
-        ))}
+      <div className={styles.con}>
+        <div className={styles.sidebar}>
+          <div className={styles.option}>
+            <div className={styles.optionContainer}>
+              <h2>Job type</h2>
+              {jobType.map((name) => (
+                <div className={styles.holder} key={name}>
+                  <input type="checkbox" value={name} onChange={getJobType} />
+                  <label>{name}</label>
+                </div>
+              ))}
+            </div>
+            <div className={styles.optionContainer}>
+              <h2>Work Type</h2>
+              {workType.map((name) => (
+                <div className={styles.holder} key={name}>
+                  <input type="checkbox"
+                    onChange={getWorkType} value={name} />
+                  <label>{name}</label>
+                </div>
+              ))}
+            </div>
+            <div className={styles.optionContainer}>
+              <h2>Category</h2>
+              {category.map((name) => (
+                <div className={styles.holder} key={name}>
+                  <input type="checkbox" value={name}
+                    checked={filter.category === name}
+                    onChange={e => {
+                      setFilter({ ...filter, category: e.target.value })
+
+                      if (filter.category === e.target.value) {
+                        setFilter({ ...filter, category: "" })
+                      }
+                    }
+                    } />
+                  <label>{name}</label>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.cardContainer}>
+          <div className={styles.filterCon}>
+            <div className={styles.filterDate}>
+              <span>Sort by</span>
+              <button onClick={() => setDateBool(() => !datebool)} className={styles.dateFilBtn}>{dateFilter === "desc" ? "Newest" : "Oldest"} </button>
+              {datebool ? <div className={styles.btnDateFil}>
+                {OrderDate.map(({ name, value }) => (
+                  <button onClick={(e) => {
+                    setDateFilter(e.currentTarget.value)
+                    setDateBool(false)
+                  }} key={name} value={value}>{name}</button>
+                ))}
+              </div> : null}
+            </div>
+          </div>
+          <div className={styles.filb}>
+            {filter.jobType.length > 0 ?
+              < div className={styles.filterBox}>
+                {filter.jobType.map((name) => (
+                  <div className={styles.filterBoxCon} key={name}>
+                    <span>{name}</span>
+                    <button onClick={(e) => {
+                      e.preventDefault()
+                      let jobList = [ ...filter.jobType, name ]
+                      if (jobList.includes(name)) {
+                        jobList = jobList.filter(names => names !== name)
+                      }
+                      setFilter({ ...filter, jobType: jobList })
+                    }}>
+                      <Image src="/icon/x.svg" alt="" height={15} width={15} />
+                    </button>
+                  </div>
+                ))}
+
+              </div> : null}
+
+            {
+              filter.workType.length > 0 ?
+                <div className={styles.filterBox}>
+                  {filter.workType.map((name) => (
+                    <div className={styles.filterBoxCon} key={name}>
+                      <span>{name}</span>
+                      <button onClick={(e) => {
+                        e.preventDefault()
+                        let jobList = [ ...filter.workType, name ]
+                        if (jobList.includes(name)) {
+                          jobList = jobList.filter(names => names !== name)
+                        }
+                        setFilter({ ...filter, workType: jobList })
+                      }}>
+                        <Image src="/icon/x.svg" alt="" height={15} width={15} />
+                      </button>
+                    </div>
+                  ))}
+
+                </div> : null
+            }
+            {filter.category !== "" ? <div className={styles.filterBox}>
+              <div className={styles.filterBoxCon}>
+                <span>{filter.category}</span>
+                <button onClick={() => setFilter({ ...filter, category: "" })}>
+                  <Image src="/icon/x.svg" alt="" height={15} width={15} />
+                </button>
+              </div>
+            </div> : null}
+          </div>
+          {
+            filter.category !== "" || filter.jobType.length > 0 || filter.workType.length > 0 ?
+              filterData?.getSpecificJob.map(({ jobPost }: any) => (
+                jobPost.map(({ jobPostID, title, details, description }: any) => (
+                  <JobCard key={jobPostID} id={jobPostID} title={title} details={details} description={description} />
+                ))
+              ))
+              :
+              loading ? "Loading" : data.getAllJobPost.map(({ jobPostID, title, description, details }: JobQuery) => (
+                <JobCard key={title} id={jobPostID} title={title} details={details} description={description} />
+              ))
+
+          }
+          {
+            filterData?.getSpecificJob.length === 0 ? <div className={styles.NoItem}>No item Retrieved </div> : null
+          }
+          {filter.category !== "" || filter.jobType.length > 0 || filter.workType.length > 0 ?
+            <div className={styles.pages}>
+              <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>Prev</button>
+              <span>{pages + 1}</span>
+              <button disabled={loading ? true : data.getAllJobPost.length > 10} onClick={() => setPages(() => pages + 1)}>Next</button>
+            </div>
+            :
+            <div className={styles.pages}>
+              <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>Prev</button>
+              <span>{pages + 1}</span>
+              <button disabled={loading ? true : data.getAllJobPost.length < 10} onClick={() => setPages(() => pages + 1)}>Next</button>
+            </div>}
+        </div>
       </div>
-    </div>
+    </div >
   )
 }
 

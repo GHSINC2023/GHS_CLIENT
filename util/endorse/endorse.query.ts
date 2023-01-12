@@ -13,17 +13,20 @@ export const getAllEndorseForMyCompany = gql`query GetAllEndorse {
     endorseID
   }
 }`
-export const getEndorseByCompany = gql`query GetEndorseByStatus($status: String!, $limit: Int!, $userId: ID!, $order: orderedBy!, $offset: Int!) {
-  getEndorseByStatus(status: $status, limit: $limit, userID: $userId, order: $order, offset: $offset) {
+export const getEndorseByCompany = gql`query GetEndorseByStatus($userId: ID!, $status: String!, $limit: Int!, $order: orderedBy!, $offset: Int!) {
+  getEndorseByStatus(userID: $userId, status: $status, limit: $limit, order: $order, offset: $offset) {
+    createdAt
     endorseID
     endorseStatus
-    createdAt
     endorsement {
-      email
-      profile {
-        firstname
-        lastname
-        phone
+      applicants {
+        applicantProfile {
+          firstname
+          lastname
+          phone
+          birthday
+        }
+        email
       }
     }
   }
@@ -31,38 +34,37 @@ export const getEndorseByCompany = gql`query GetEndorseByStatus($status: String!
 
 export const getEndorseByIDs = gql`query GetEndorseByID($endorseId: ID!) {
   getEndorseByID(endorseID: $endorseId) {
-    endorseID
-    createdAt
-    endorseStatus
-    feedback {
-        feedbackID
-        feedback
-        createdAt
-    }
     endorsement {
-      email
-      profile {
-        profileID
-        firstname
-        lastname
-        birthday
-        phone
-        profileAddress {
-          addressID
-          city
-          province
-          street
-          zipcode
-        }
-      }
-
-      endorseBy {
-        profile {
-          profileID
+      applicants {
+        applicantProfile {
           firstname
           lastname
+          phone
+          birthday
+          profileAddress {
+            province
+            street
+            zipcode
+            city
+          }
+        }
+        email
+      }
+      endorseBy {
+        profile {
+          firstname
+          lastname
+          profileID
         }
       }
+    }
+    endorseID
+    endorseStatus
+    createdAt
+    feedback {
+      feedback
+      feedbackID
+      createdAt
     }
   }
 }`
@@ -85,5 +87,12 @@ export const getEndorsementFeed = gql`query($endorsementId: String!) {
     company {
       companyName
     }
+  }
+}`
+
+export const getEndorsementCount = gql`query GetEndorsementByDWMY($select: String!) {
+  getEndorsementByDWMY(select: $select) {
+    _count
+    createdAt
   }
 }`

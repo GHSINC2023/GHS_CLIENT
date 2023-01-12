@@ -1,9 +1,101 @@
+@import "../../../_mixins";
+@import "../../../_variables";
+
 .container {
     width: 100%;
-    .gridContainer {
+    // .gridContainer {
+    //     width: 100%;
+    //     display: grid;
+    //     grid-template-columns: repeat(auto-fit, 300px);
+    //     gap: 15px;
+    // }
+    .app {
         width: 100%;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, 300px);
-        gap: 15px;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(255, 255,255 ,0.8);
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 10px;
+    }
+    .interviews {
+        width: 100%;
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255,255, 0.8);
+    }
+    table {
+        width: 100%;      
+        thead, th {
+         
+            color: $primaryColor;
+            height: 40px;
+        }
+        thead  {
+         tr {
+              th {
+                text-transform: uppercase;
+                 margin: 0;
+                 width: 400px;
+        }}
+        }
+        tbody {
+            appearance: none;
+            overflow-y: auto;
+            width: 100%;
+            tr{
+                height: 60px;
+                &:nth-child(even) {
+                    background-color: #f5f5f5;
+                }
+                td {
+                    
+                  
+                    height: 60px;
+                    font-family: $secondaryFont;   
+                    text-align: center; 
+                }
+              
+                .int {
+                    .interview {
+                        width: 100px;
+                        height: 35px;
+                        border-radius: 100px;
+                        border: none;
+                        font-family: $primaryFont;
+                        background-color: transparent;
+                        cursor: pointer;
+                        box-shadow: 0px 0px 3px 0px #ccc;
+                        &:hover {
+                            background-color: $primaryColor;
+                            color: #fff;
+                        }
+                    }
+                }
+                .buttons {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    button {
+                        border: none;
+                        background-color: transparent;
+                        cursor: pointer;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 100px;
+                        &:hover {
+                            background-color: #eee;
+                        }
+
+                        
+                    }
+                }
+            }
+        }   
     }
 }

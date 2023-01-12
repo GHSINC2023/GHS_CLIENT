@@ -1,29 +1,82 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../../../../styles/components/dashboard/applicants/details.module.scss'
-import { useRouter } from 'next/router'
 import Video from './video'
-export default function ApplicantDetails({ close, apid, profile, email, interviewer, upload, status, job, date }: any) {
+import  { useMutation } from '@apollo/client'
+import { updateApplicantStatus } from '../../../../util/applicaiton/application.mutation'
+import Cookies from 'js-cookie'
+import jwtDecode from 'jwt-decode'
+
+export default function ApplicantDetails({ close, apid, id, profile, email, interviewer, upload, status, job, date }: any) {
 
     const [ vid, setVideo ] = useState(false)
-    const router = useRouter()
+    const [open, setOpened ] = useState(false)
+    const [token, setToken] = useState("")
 
     const onClickFileBtn = (file: any) => {
         window.open(file)
     }
 
+    useEffect(() => {
+        const cookie = Cookies.get("ghs_access_token");
+        if(cookie) {
+            const { userID }: any = jwtDecode(cookie)
+            setToken(userID)
+        }
+    }, [])
+
+    const [ updateAppStats, { data, error}] = useMutation(updateApplicantStatus, {
+        
+    })
+    const upStatused = [
+        { name: "Approved", value: "approved"},
+        { name: "Rejected", value: "rejected"}
+    ]
+
+
+    const updateApp = (e: any) => {
+        updateAppStats({
+            variables: {
+                applicantId: id,
+                status: e.target.value,
+                userId: token
+            },
+            onCompleted: data => {
+                console.log(`Updated Statused`)
+            }
+        })
+    }
 
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <button onClick={() => close(false)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="" stroke="#D02222" stroke-width="3" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x">
+                <button onClick={() => close("")}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="" stroke="#D02222" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </button>
             </div>
             <div className={styles.body}>
-                <h2>Personal Information</h2>
+                <div className={styles.aa}>
+                  <h2>Personal Information</h2>
+                  {status === "waiting" ?  <div className={styles.options}>
+                    <button onClick={() => setOpened(() =>!open)}>
+                        <div />
+                        <div />
+                        <div />
+                    </button>
+                    {open && status === "waiting" ?  
+                    <div className={styles.option}>
+                          <button>Create google interview date</button> 
+                          <hr />
+                            {upStatused.map(({ name, value}) => (
+                                <button onClick={updateApp} key={name} value={value}>{name}</button>
+                            ))}
+                    </div> : 
+                   null
+                    }
+                  </div>: null}
+                </div>
                 <div className={styles.info}>
                     <div className={styles.upload}>
                         {upload.map(({ file, video }: any) => (
@@ -45,7 +98,11 @@ export default function ApplicantDetails({ close, apid, profile, email, intervie
                                 </tr>
                                 <tr>
                                     <th>Status</th>
-                                    <td>{status}</td>
+                                    <td>
+                                        {status === "approved" ? "Approved" : null}
+                                        {status === "rejected" ? "Rejected" : null}
+                                        {status === "waiting" ? "Waiting" : null}
+                                    </td>
                                 </tr>
                                 {profile.map(({ profielID, firstname, lastname }: any) => (
                                     <tr key={profielID}>

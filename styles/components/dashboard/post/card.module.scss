@@ -1,14 +1,14 @@
 @import "../../../_mixins";
 @import "../../../_variables";
 .card {
-    width: 300px;
+    width: 350px;
     height: 240px;
     border-radius: 5px;
     border: 1px solid $primaryColor;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     .delete {
         width: 100%;
         height: 100%;

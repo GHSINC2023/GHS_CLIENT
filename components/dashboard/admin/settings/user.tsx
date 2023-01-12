@@ -61,7 +61,6 @@ export default function User({ userid }: any) {
         street: ""
     })
     const sideLink = [
-        { name: "Email", value: "email" },
         { name: "Password", value: "password" },
         { name: "Profile", value: "profile" },
         { name: "Activity Logs", value: "logs" }
@@ -90,17 +89,6 @@ export default function User({ userid }: any) {
                         ))}
                     </div> : null}
                 </div>}
-                {tab === "email" ?
-                    <div className={styles.userContainer}>
-                        <h2>Change Email Address</h2>
-                        <form>
-                            <input type="email" placeholder='Email Address' />
-                            <input type="email" placeholder='Re-type Email Address' />
-                            <button type="submit">
-                                Update
-                            </button>
-                        </form>
-                    </div> : null}
 
                 {tab === "password" ?
                     <div className={styles.userContainer}>

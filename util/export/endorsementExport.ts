@@ -1,29 +1,26 @@
 import { gql } from "@apollo/client";
 
 
-export const EndorsementMutation = gql`mutation Mutation($status: String!, $start: String!, $end: String!, $order: orderedBy) {
-  getEndorsmentByCSV(status: $status, start: $start, end: $end, order: $order) {
-    endorsementID
+export const EndorsementMutation = gql`mutation GetEndorsmentByCSV($status: String!, $end: String!, $start: String!, $order: orderedBy) {
+  getEndorsmentByCSV(status: $status, end: $end, start: $start, order: $order) {
     Status
     createdAt
-    email
+    endorsementID
+    applicants {
+      id
+      email
+      applicantProfile {
+        firstname
+        lastname
+        phone
+      }
+    }
     endorseBy {
       profile {
         firstname
         lastname
       }
-    }
-    profile {
-      firstname
-      lastname
-      phone
-      birthday
-      profileAddress {
-        city
-        province
-        street
-        zipcode
-      }
+      role
     }
   }
 }`

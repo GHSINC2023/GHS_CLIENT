@@ -5,11 +5,12 @@ import styles from '../../../../styles/components/dashboard/applicants/applicant
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
+import ApplicantExport from '../../../../components/dashboard/export/applicant.export'
+
 const ApplicantData = dynamic(() => import("../../../../components/dashboard/admin/applicants/data"), {
     ssr: false
 })
 import { limits, OrderDate, applicantsStatus } from '../../../../util/values/filter'
-import ApplicantExport from '../../../../components/dashboard/export/applicant.export'
 const Applicants: FC = () => {
     const [ status, setStatus ] = useState("waiting")
 
@@ -76,15 +77,15 @@ const Applicants: FC = () => {
             </Head>
             {
                 exports ? <div className={styles.export}>
-                    <ApplicantExport close={setExport} />
+                    <ApplicantExport close={setExport}/>
                 </div> : null
             }
             <div className={styles.header}>
                 <div className={styles.container}>
                     <h2>Applicants</h2>
-                    {status === "waiting" ? null : <button className={styles.csv} onClick={() => setExport(() => !exports)}>
+                     <button onClick={() => setExport(() => !exports)} className={styles.csv}>
                         <Image src="/dashboard/download.svg" alt="" height={20} width={20} />
-                    </button>}
+                    </button>
                 </div>
                 <div className={styles.applicant}>
                     <div className={styles.tab}>
@@ -127,7 +128,7 @@ const Applicants: FC = () => {
                     <ApplicantData status={status} orders={orders} limit={limVal} />
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

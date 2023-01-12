@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import styles from '../../../../styles/components/dashboard/post/create.module.scss'
-import jwtDecode from 'jwt-decode'
 import dynamic from 'next/dynamic'
 import { CreateJob } from '../../../../interface/create.interface'
 import { useMutation } from '@apollo/client'
@@ -104,20 +103,21 @@ export default function Create({ userid, close }: any) {
                 userId: userid,
             },
             onCompleted: (data) => {
-                if (data) {
-                    setMessage(true)
-                    responsibilities
-                    qualifications
-                    setCreate({
-                        category: "",
-                        jobType: [],
-                        location: [],
-                        overview: "",
-                        salary: "",
-                        title: "",
-                        workType: []
-                    })
-                }
+
+                setMessage(true)
+
+                setResponsibilities: "";
+                setQualification: "";
+                setCreate({
+                    category: "",
+                    jobType: [],
+                    location: [],
+                    overview: "",
+                    salary: "",
+                    title: "",
+                    workType: [],
+                })
+
             },
             onError: (error) => {
                 alert()

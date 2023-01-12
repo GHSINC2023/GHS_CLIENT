@@ -22,7 +22,7 @@ const Settings: FC = ({ userid }: any) => {
             <div className={styles.header}>
                 <h2>Settings</h2>
             </div>
-            <User userid={userid} s />
+            <User userid={userid} />
         </div >
     )
 }
@@ -31,7 +31,7 @@ const Settings: FC = ({ userid }: any) => {
 export default Settings
 
 export const getServerSideProps = async (context: any) => {
-    const cookies = context.req.headers.cookie
+    const cookies = context.req.cookies['ghs_access_token']
     const { userID }: any = jwtDecode(cookies)
     return {
         props: {

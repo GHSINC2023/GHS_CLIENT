@@ -67,7 +67,7 @@ export default function Create({ userid, close }: any) {
                 }
                 <form onSubmit={formsubmit}>
                     <div className={styles.header}>
-                        <h2>Create Post</h2>
+                        <h2>Create Endorsement</h2>
                         <button onClick={() => close(false)}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D02222" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x">
                                 <line x1="18" y1="6" x2="6" y2="18"></line>

@@ -8,14 +8,13 @@ export const jobQueries = gql`query JobQuery {
   }
 }`
 
-export const getAllJobQuery = gql`query getAllJobPost {
-  getAllJobPost {
+export const getAllJobQuery = gql`query GetAllJobPost($limit: Int!, $offset: Int!, $order: orderedBy!) {
+  getAllJobPost(limit: $limit, offset: $offset, order: $order) {
     jobPostID
     title
     description
     status
     createdAt
-    updatedAt
     details {
       jobDetailsID
       jobType
@@ -76,5 +75,57 @@ export const getJobSearch = gql`query Query($search: String!) {
   getJobPostSearch(search: $search) {
     jobPostID
     title
+    details {
+      jobType
+    }
+  }
+}`
+
+
+export const getRelatedJob = gql`query GetJobRelated($category: String!, $limit: Int!, $offset: Int!) {
+  getJobRelated(category: $category, limit: $limit, offset: $offset) {
+    jobType
+    jobPost {
+      jobPostID
+      title
+    }
+  }
+}`
+
+
+export const  getJobFilterSearch = gql`query GetSpecificJob($category: String, $jobType: [String], $workType: [String], $limit: Int!, $offset: Int!) {
+  getSpecificJob(category: $category, jobType: $jobType, workType: $workType limit: $limit, offset: $offset) {
+    jobDetailsID
+    jobPost {
+      jobPostID
+      title
+      description
+      details {
+            category
+            jobType
+            workType
+      }
+    }
+  }
+}`
+
+export const getAllJobCount = gql`query GetAllCountJob {
+  getAllCountJob {
+    status
+  }
+}`
+
+
+export const getJobChart =gql`query GetGroubyByJob {
+  getGroubyByJob {
+    _count
+    createdAt
+  }
+}`
+
+export const getAllJobDWMY = gql`query GetGroubyByJob($select: String!) {
+  getJobPostDWMY(select: $select) {
+    _count
+    createdAt
   }
 }`

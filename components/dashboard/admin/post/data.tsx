@@ -17,6 +17,7 @@ export default function DataStatus({ status, limit, order }: any) {
             order: order,
             offset: pages * limit
         },
+        pollInterval: 1000
     })
 
 

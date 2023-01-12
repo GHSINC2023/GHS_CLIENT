@@ -9,21 +9,16 @@ import { notificationQuery } from '../../util/notifications/notification.query'
 export default function Notification({ open, close }: any) {
 
     const { loading, data, error } = useQuery(notificationQuery, {
-        refetchWritePolicy:  "merge",
+        pollInterval: 1000,
         fetchPolicy: "cache-and-network",
     })
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>Notifications</h2>
             <div className={styles.notifHolder}>
-                {loading ? "Loading" : data.getNotificationByStatus.map(({ notificationID, createdAt, user, notificationJob }: any) => (
-                    user.map(({ profile }: any) => (
-                        profile.map(({ firstname, lastname }: any) => (
-                            notificationJob.map(({ jobPostID }: any) => (
-                                <NotifCard jobid={jobPostID} opens={open} close={close} id={notificationID} key={notificationID} createdAt={format(new Date(createdAt), "MMM dd, yyyy")} user={`${firstname} ${lastname}`} />
-                            ))
-                        ))
-                    ))
+                {loading ? null : data.getNotificationByStatus.map(({ notificationID, title, createdAt, user, notificationJob, userApplications }: any) => (
+                    <NotifCard key={notificationID} id={notificationID} title={title}
+                        applicants={userApplications} rec={user} createdAt={format(new Date(createdAt), "MMMM dd, yyyy")} />
                 ))}
             </div>
         </div>

@@ -12,8 +12,21 @@
         }
         h2 {
             font-family: $primaryFont;
-            font-size: 16px;
+            font-size: 1.2rem;
             font-weight: 500;
+        }
+        .jobtype {
+            display: flex;
+            gap: 10px;
+            span {
+                width: 100px;
+                background-color: #eee;
+                padding: 5px;
+                font-size: 15px;
+                border-radius: 5px;
+                font-family: $primaryFont;
+                text-align: center;
+            }
         }
     }
 }

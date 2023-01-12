@@ -7,6 +7,8 @@ import ApplicantDetails from './details'
 import dynamic from 'next/dynamic'
 import { useMutation } from '@apollo/client'
 import Message from '../../../message/message'
+import Cookies from 'js-cookie'
+import jwtDecode from 'jwt-decode'
 
 const Interview = dynamic(() => import('./interview'), {
     ssr: false
@@ -15,6 +17,7 @@ export default function Card({ profile, interviewer, job, email, id, apid, uploa
 
     const [ user, setUser ] = useState(false)
     const [ applicantID, setApplicantID ] = useState("")
+    const [token, setToken] = useState("")
     const [ message, setMessage ] = useState(false)
     const [ interviewe, setInterviewe ] = useState(false)
     const handleOptionIDRef = useRef<HTMLDivElement>(null)
@@ -26,7 +29,14 @@ export default function Card({ profile, interviewer, job, email, id, apid, uploa
         }
     }
 
-    console.log(applicantID)
+
+    useEffect(() => {
+        const cookies = Cookies.get("ghs_access_token");
+        if(cookies) {
+            const { userID}: any = jwtDecode(cookies)
+            setToken(userID)
+        }
+    }, [])
     useEffect(() => {
         const handleClick = (event: any) => {
             if (handleOptionIDRef.current && !handleOptionIDRef.current.contains(event.target)) {
@@ -55,7 +65,8 @@ export default function Card({ profile, interviewer, job, email, id, apid, uploa
         applicantStatus({
             variables: {
                 status: e.target.value,
-                applicantId: applicantID
+                applicantId: applicantID,
+                userId: token
             },
             onCompleted: () => {
                 setMessage(true)

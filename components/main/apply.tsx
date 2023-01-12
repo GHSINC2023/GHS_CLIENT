@@ -68,10 +68,25 @@ export default function Apply({ jobid, close, open }: any) {
             },
             onCompleted: data => {
                 setMessage(true)
+                close(() => false)
+                setApplications({
+                    bday: "",
+                    city: "",
+                    email: "",
+                    firstname: "",
+                    lastname: "",
+                    phone: "",
+                    province: "",
+                    street: "",
+                    zipcode: ""
+                })
+                setFileUpload(null);
+                setVideoUpload(null)
             },
             onError: err => {
                 console.log(err.message)
-            }
+            },
+
         })
     }
 
@@ -174,7 +189,13 @@ export default function Apply({ jobid, close, open }: any) {
                         <span>{videoUpload ? "Upload Successfully" : " Upload your resume here."}</span>
                     </div>
                 </div>
-                <button type='submit'>Submit</button>
+                <button
+
+                    disabled={!applications.bday || !applications.city || !applications.email || !applications.firstname || !applications.lastname || !applications.phone || !applications.province || !applications.street || !applications.zipcode ||
+                        !fileUpload || !videoUpload
+                    }
+
+                    type='submit'>Submit</button>
             </form>
         </div>
     )

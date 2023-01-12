@@ -6,31 +6,12 @@ import Image from 'next/image'
 import Message from '../../../message/message'
 import DeleteUser from './deleteUser'
 import User from './user'
+import { getUserRoles } from '../../../../util/user/user.query'
 interface Filters {
     limit: number
     orders: string
     roles: string
 }
-
-
-const users = gql`query GetUserByRoles($limit: Int!, $offset: Int!, $role: String,  $order: orderedBy) {
-    getUserByRoles(limit: $limit, offset: $offset, role: $role, , order: $order) {
-      userID
-      email
-      role
-      createdAt
-      updatedAt
-        profile {
-            firstname
-            lastname
-            birthday
-        }
-        company {
-             companyName
-        }   
-    }
-  }`
-
 
 async function copyClipboard(text: string) {
     if ('clipboard' in navigator) {
@@ -62,7 +43,7 @@ export default function UserData({ limit, orders, roles }: Filters) {
     }
 
 
-    const { loading, data, error, startPolling } = useQuery(users, {
+    const { loading, data, error, startPolling } = useQuery(getUserRoles, {
         variables: {
             limit: limit, offset: 0, role: roles, order: orders
         }

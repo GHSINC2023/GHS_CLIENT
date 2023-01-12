@@ -37,7 +37,6 @@ export default function Endorse({ endorsementID, close }: any) {
 
     const [ createEndorse, { data: dataEndorse } ] = useMutation(CreateEndorse)
 
-
     const sendEndorsement = (e: any) => {
         e.preventDefault()
         createEndorse({
@@ -79,7 +78,7 @@ export default function Endorse({ endorsementID, close }: any) {
                         <h2>{companyName}</h2>
                         {!dataEndorse ? <button onClick={sendEndorsement} value={companyID}>
                             Endorse
-                        </button> : dataEndorse.createEndorse.comapny[ 0 ].companyID === companyID ? <button onClick={sendEndorsement} value={companyID}>
+                        </button> : dataEndorse.createEndorse.company[ 0 ].companyID === companyID ? <button onClick={sendEndorsement} value={companyID}>
                             <Image src="/dashboard/send-line.svg" alt="" height={25} width={25} />
                         </button> : <button onClick={sendEndorsement} value={companyID}>
                             Endorse

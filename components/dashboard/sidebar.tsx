@@ -22,7 +22,7 @@ export default function Sidebar() {
         { name: "post", url: `/dashboard/${roles}/post` },
         { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
         { name: "user", url: `/dashboard/${roles}/user` },
-        { name: "applicants", url: `/dashboard/${roles}/applicants` },
+        { name: "applicants", url: `/dashboard/${roles}/applications` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
 
@@ -30,7 +30,7 @@ export default function Sidebar() {
         { name: "overview", url: `/dashboard/${roles}/overview` },
         { name: "post", url: `/dashboard/${roles}/post` },
         { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
-        { name: "applicants", url: `/dashboard/${roles}/applicants` },
+        { name: "applicants", url: `/dashboard/${roles}/applications` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
     const manager = [

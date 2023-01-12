@@ -141,21 +141,21 @@
             }
             .options {
                 position: relative;
-                display: flex;
+                display: inline-flex;
+                height: auto;
+                overflow-y: auto;
                 flex-direction: column;
                 gap:5px;
                 background-color: #eee;
-                padding: 5px;
                 border-radius: 5px;
-              
                 button {
-                    height: 60px;
                     background-color: transparent;
                     border: none;
                     text-align: left;
                     border-radius: 3px;
                     font-weight: 500;
                     font-family: $primaryFont;
+                    padding: 1rem 0.5rem;
                     &:hover {
                         background-color: $primaryColor;
                         color: #fff;

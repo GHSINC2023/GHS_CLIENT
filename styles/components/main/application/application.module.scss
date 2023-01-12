@@ -110,6 +110,10 @@
             color: $primaryColor;
             border: 2px solid $primaryColor;
             cursor: pointer;
+            &:disabled{ 
+                color: #ccc;
+                border: 2px solid #ccc;
+            }
         }
     }
 }

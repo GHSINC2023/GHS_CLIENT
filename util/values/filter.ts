@@ -26,9 +26,20 @@ export const status = [
     }
 ]
 
-
+export const filtersDWMY = [
+    { name: "1D", value: "day" },
+    { name: "7D", value: "week" },
+    { name: "1M", value: "month" },
+    { name: "1Y", value: "year" }
+]
 
 export const statused = [
+    { name: "Rejected", value: "rejected" },
+    { name: "Approved", value: "approved" }
+]
+
+export const CSVStatused = [
+    { name: "Waiting", value: "waiting" },
     { name: "Rejected", value: "rejected" },
     { name: "Approved", value: "approved" }
 ]
@@ -55,7 +66,18 @@ export const workType = [
 ]
 
 export const category = [
-    "Web Developer", "Web Designer", "IT Project Analysis", "Marketing", "Accounting", "Others"
+    "Agriculture, Food, and Natural Resources",
+    "Architecture and Construction",
+    "Arts, Audio/Voice Technolog, and Communication",
+    "IT and Computer Science",
+    "Business and Finance",
+    "Government and Public Administration",
+    "Health Science",
+    "Law, Public Safety, Corrections, and Security",
+    "Marketing",
+    "Science, Technology, Engineering, and Math",
+    "Business Process Outsourcing",
+    "Others"
 ]
 
 

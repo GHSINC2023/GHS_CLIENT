@@ -32,7 +32,7 @@ export default function EndorseData({ userid, status, limit, orders }: any) {
             {
                 view ?
                     <div className={styles.view}>
-                        <View id={id} userid={userid} qclose={setView} />
+                        <View id={id} userid={userid} close={setView} />
                     </div> :
                     null
             }
@@ -49,22 +49,24 @@ export default function EndorseData({ userid, status, limit, orders }: any) {
                     </thead>
                     <tbody>
                         {loading ? null : data.getEndorseByStatus.map(({ endorseID, endorsement, createdAt }: any) => (
-                            endorsement.map(({ email, profile }: any) => (
-                                profile.map(({ firstname, lastname, phone }: any) => (
-                                    <tr key={endorseID}>
-                                        <td>{lastname}, {firstname}</td>
-                                        <td>{email}</td>
-                                        <td>{phone.includes('+63') ? phone.substring(3, 13) : phone}</td>
-                                        <td>{format(new Date(createdAt), "MMM dd, yyyy")}</td>
-                                        <td className={styles.btn}>
-                                            <button onClick={() => {
-                                                setView(() => !view)
-                                                setId(endorseID)
-                                            }}>
-                                                <Image src="/dashboard/eye-line.svg" alt="" height={25} width={25} />
-                                            </button>
-                                        </td>
-                                    </tr>
+                            endorsement.map(({ applicants }: any) => (
+                                applicants.map(({ applicantProfile, email }: any) => (
+                                    applicantProfile.map(({ firstname, lastname, phone }: any) => (
+                                        <tr key={endorseID}>
+                                            <td>{lastname}, {firstname}</td>
+                                            <td>{email}</td>
+                                            <td>{phone.includes('+63') ? phone.substring(3, 13) : phone}</td>
+                                            <td>{format(new Date(createdAt), "MMM dd, yyyy")}</td>
+                                            <td className={styles.btn}>
+                                                <button onClick={() => {
+                                                    setView(() => !view)
+                                                    setId(endorseID)
+                                                }}>
+                                                    <Image src="/dashboard/eye-line.svg" alt="" height={25} width={25} />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
                                 ))
                             ))
                         ))}
