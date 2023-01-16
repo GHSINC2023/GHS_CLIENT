@@ -83,8 +83,6 @@ const Home: FC = () => {
     setFilter({ ...filter, workType: listWorkType })
   }
 
-
-  console.log(filter.jobType)
   return (
     <div className={styles.container}>
       <Head>

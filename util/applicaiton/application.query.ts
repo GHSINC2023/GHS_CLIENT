@@ -102,7 +102,7 @@ export const getApplicationByDate = gql`query GetAllApplicationDateCount {
   }
 }`
 
-export const getApplicationDWYMY =gql`query GetApplicantByDWMY($select: String!) {
+export const getApplicationDWYMY = gql`query GetApplicantByDWMY($select: String!) {
   getApplicantByDWMY(select: $select) {
     _count
     createdAt
@@ -112,8 +112,8 @@ export const getApplicationDWYMY =gql`query GetApplicantByDWMY($select: String!)
 
 export const getMyApplicaiton = gql`query GetApplicantByID($applicationId: ID!) {
   getApplicantByID(applicationID: $applicationId) {
+    id
     email
-    status
     createdAt
     applyJobPost {
       title
@@ -121,8 +121,8 @@ export const getMyApplicaiton = gql`query GetApplicantByID($applicationId: ID!) 
     applicantProfile {
       firstname
       lastname
-      birthday
       phone
+      birthday
       profileAddress {
         province
         street
@@ -133,6 +133,26 @@ export const getMyApplicaiton = gql`query GetApplicantByID($applicationId: ID!) 
     applicantUpload {
       file
       video
+    }
+    status
+    endorseFeedback {
+      feedback
+      feedbackID
+      endorse {
+        company {
+          companyName
+        }
+        endorseStatus
+      }
+    }
+    applicantInterviewer {
+      user {
+        profile {
+          profileID
+          firstname
+          lastname
+        }
+      }
     }
   }
 }`

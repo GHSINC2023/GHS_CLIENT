@@ -39,26 +39,9 @@ export default function Data({ limit, status, order }: any) {
                 endorsementId: id,
                 status: name
             },
-            update: (cache, { data: { updateEndorsement } }) => {
-                cache.modify({
-                    fields: {
-                        getEndorsementSpecificStatus(existing = []) {
-                            const newStatus = cache.writeFragment({
-                                data: updateEndorsement,
-                                id: name,
-                                fragment: gql`
-                                    fragment Newupdate on updateEndorsement {
-                                    endorsementID
-                                        Status
-                                        createdAt
-                                        updatedAt
-                                    }
-                                `,
-                            })
-                            return [ ...existing, newStatus ]
-                        }
-                    }
-                })
+            refetchQueries: [ endorsementByStatus ],
+            onQueryUpdated: (observableQuery) => {
+                return observableQuery.refetch()
             },
             onError: e => {
                 console.log(e.message)

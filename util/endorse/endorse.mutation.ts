@@ -11,8 +11,35 @@ mutation Mutation($endorsementId: ID!, $companyId: ID!, $userId: ID!) {
   }
 }`
 
-export const updateEndorse = gql`mutation UpdateEndorsement($endorsementId: ID!, $status: String!) {
-  updateEndorsement(endorsementID: $endorsementId, Status: $status) {
-    Status
+export const updateEndorse = gql`mutation Mutation($endorseStatus: String!, $endorseId: ID!, $userId: ID!) {
+  updateEndorse(endorseStatus: $endorseStatus, endorseID: $endorseId, userID: $userId) {
+    createdAt
+    endorseID
+    endorseStatus
+  }
+}`
+
+
+export const endorseCSV = gql`mutation GetEndorseByCSV($userId: ID, $status: String!, $orders: orderedBy!, $end: String!, $start: String!) {
+  getEndorseByCSV(userID: $userId, status: $status, orders: $orders, end: $end, start: $start) {
+    endorse {
+      createdAt
+      endorseID
+      endorseStatus
+      endorsement {
+        applicants {
+          email
+          applicantProfile {
+            firstname
+            lastname
+            birthday
+            phone
+          }
+          applyJobPost {
+            title
+          }
+        }
+      }
+    }
   }
 }`

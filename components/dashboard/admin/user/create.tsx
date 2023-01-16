@@ -4,9 +4,9 @@ import styles from '../../../../styles/components/dashboard/user/create.module.s
 import Image from 'next/image'
 import Message from '../../../message/message'
 import { useMutation, useQuery } from '@apollo/client'
-import { useRouter } from 'next/router'
 import { createUserGHS } from '../../../../util/user/user.mutation'
-import { uservalues } from '../../../../util/user/user.enum'
+import { roles } from '../../../../util/values/filter'
+import { getUserRoles } from '../../../../util/user/user.query'
 
 interface UserForm {
     email: string
@@ -15,6 +15,8 @@ interface UserForm {
     lastname: string
     bday: string
     phone: string
+    role: string
+    companyName: string | undefined
 }
 
 interface Props {
@@ -25,27 +27,17 @@ interface Props {
 const Create: FC<Props> = ({ closed, opens }) => {
     const [ open, setOpened ] = useState(false)
     const [ message, setMessage ] = useState(false)
-    const router = useRouter()
-    const [ role, setRoles ] = useState("")
     const [ users, setUser ] = useState<UserForm>({
         email: "",
         password: "",
         firstname: "",
         lastname: "",
         bday: "",
-        phone: ""
+        phone: "",
+        role: "",
+        companyName: ""
     })
-    const selectRoles = (e: any) => {
-        setRoles(() => e.target.dataset.id)
-        setOpened(() => !open)
-    }
     const [ userSubmit, { data } ] = useMutation<UserForm>(createUserGHS)
-
-    const { loading, data: enumvalues, error } = useQuery(uservalues, {
-        variables: {
-            name: "roles"
-        }
-    })
 
     useEffect(() => {
         setTimeout(() => {
@@ -61,7 +53,8 @@ const Create: FC<Props> = ({ closed, opens }) => {
                     email: users.email,
                     password: users.password
                 },
-                role: role,
+                role: users.role,
+                companyName: users.companyName,
                 profile: {
                     firstname: users.firstname,
                     lastname: users.lastname,
@@ -71,7 +64,6 @@ const Create: FC<Props> = ({ closed, opens }) => {
             },
             onCompleted: data => {
                 if (data) {
-                    setRoles("")
                     setUser({
                         bday: "",
                         email: "",
@@ -79,13 +71,18 @@ const Create: FC<Props> = ({ closed, opens }) => {
                         lastname: "",
                         password: "",
                         phone: "",
+                        role: "",
+                        companyName: ""
                     })
-                    role: ""
                     setMessage(() => !message)
                 }
             },
             onError: error => {
                 console.log(error.message)
+            },
+            refetchQueries: [ getUserRoles ],
+            onQueryUpdated: async (observableQuery) => {
+                return await observableQuery.refetch();
             }
         })
     }
@@ -138,17 +135,29 @@ const Create: FC<Props> = ({ closed, opens }) => {
                         <div className={styles.roles}>
                             <div className={styles.rolesContainer}>
                                 <h2>Select: </h2>
-                                {role ? <span className={styles.role}>{role}</span> : null}
+                                {users.role ?
+                                    <span className={styles.role}>{users.role}</span> : null}
                             </div>
                             <button type="button" onClick={() => setOpened(() => !open)}>
                                 <Image src="/dashboard/caret.svg" alt="" height={25} width={25} />
                             </button>
                         </div>
-                        {open ? <ul>
-                            {loading ? "Loading" : enumvalues.__type.enumValues.map(({ name }: any) => (
-                                <li onClick={selectRoles} data-id={name} key={name}>{name}</li>
-                            ))}
-                        </ul> : null}
+                        {open ?
+                            <div className={styles.ul}>
+                                {roles.map(({ name, value }) => (
+                                    <button type="button" onClick={(e) => {
+                                        setUser({ ...users, role: e.currentTarget.value })
+                                        setOpened(() => !open)
+                                    }} key={name} value={value}>{name}</button>
+                                ))}
+                            </div>
+                            : null}
+
+                        {users.role === "employer" ?
+
+                            <div className={styles.company}>
+                                <input type="text" placeholder="Company Name" value={users.companyName} onChange={e => setUser({ ...users, companyName: e.target.value })} />
+                            </div> : null}
                     </div>
                     <div className={styles.bday}>
                         <label>Birthday</label>
@@ -160,8 +169,8 @@ const Create: FC<Props> = ({ closed, opens }) => {
                     </div>
                 </div>
                 <div className={styles.btnContainer}>
-                    <button onClick={() => router.push("/dashboard/administrator/user")} type='button'>Cancel</button>
-                    <button disabled={!users.email || !users.bday || !users.firstname || !users.lastname || !users.password || !users.phone || !role} type="submit" onClick={formSubmitUser}>Save</button>
+                    <button onClick={() => closed(false)} type='button'>Cancel</button>
+                    <button disabled={!users.email || !users.bday || !users.firstname || !users.lastname || !users.password || !users.phone || !users.role} type="submit" onClick={formSubmitUser}>Save</button>
                 </div>
             </form>
         </div>

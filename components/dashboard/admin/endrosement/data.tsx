@@ -6,7 +6,7 @@ import { endorsementByStatus } from '../../../../util/endorsement/endorsement.qu
 import { endorsementUpdate } from '../../../../util/endorsement/endorsement.mutation'
 import { useRouter } from 'next/router'
 import { format } from 'date-fns'
-import { gql, useMutation, useQuery  } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 
 
 export default function Data({ limit, status, order }: any) {
@@ -37,26 +37,9 @@ export default function Data({ limit, status, order }: any) {
                 endorsementId: id,
                 status: name
             },
-            update: (cache, { data: { updateEndorsement } }) => {
-                cache.modify({
-                    fields: {
-                        getEndorsementSpecificStatus(existing = []) {
-                            const newStatus = cache.writeFragment({
-                                data: updateEndorsement,
-                                id: name,
-                                fragment: gql`
-                                    fragment Newupdate on updateEndorsement {
-                                    endorsementID
-                                        Status
-                                        createdAt
-                                        updatedAt
-                                    }
-                                `,
-                            })
-                            return [ ...existing, newStatus ]
-                        }
-                    }
-                })
+            refetchQueries: [ endorsementByStatus ],
+            onQueryUpdated: (observableQuery) => {
+                return observableQuery.refetch()
             },
             onError: e => {
                 console.log(e)
@@ -82,7 +65,7 @@ export default function Data({ limit, status, order }: any) {
                         {loading ? null :
                             data.getEndorsementSpecificStatus.map(({ endorsementID, Status, createdAt, applicants, endorseBy }: any) => (
                                 applicants.map(({ applicantProfile }: any) => (
-                                    applicantProfile.map(({firstname, lastname}: any) => (
+                                    applicantProfile.map(({ firstname, lastname }: any) => (
                                         endorseBy.map(({ profile: prof }: any) => (
                                             prof.map(({ firstname: first, lastname: last }: any) => (
                                                 <tr key={endorsementID}>

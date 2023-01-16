@@ -2,13 +2,12 @@ import { gql } from '@apollo/client'
 
 
 
-export const createUserGHS = gql`mutation Mutation($role: roles!, $auth: AuthInput, $profile: ProfileInput) {
-  createAccount(role: $role, auth: $auth, Profile: $profile) {
+export const createUserGHS = gql`mutation Mutation($role: String!, $auth: AuthInput, $profile: ProfileInput, $companyName: String) {
+  createAccount(role: $role, auth: $auth, Profile: $profile, companyName: $companyName) {
     userID
-    email
     role
     createdAt
-    updatedAt
+    email
   }
 }`
 

@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { endorseStatused, limits, OrderDate } from '../../../../util/values/filter'
 import EndorseData from '../../../../components/dashboard/employer/data'
 import jwtDecode from 'jwt-decode'
+import EndorseExport from '../../../../components/dashboard/export/endorse.export'
 
 const Endorse: FC = ({ userid }: any) => {
 
@@ -18,6 +19,7 @@ const Endorse: FC = ({ userid }: any) => {
     const [ order, setOrder ] = useState(false)
     const [ orders, setOrders ] = useState("desc")
     const [ limVal, setLimitVal ] = useState(10)
+    const [ exports, setExport ] = useState(false)
 
     const onChangeStatusedEvent = (e: any) => {
         setStatused(e.target.value)
@@ -29,20 +31,21 @@ const Endorse: FC = ({ userid }: any) => {
         setLimit(false)
     }
 
-    useEffect(() => { }, [])
-
-    useEffect(() => { }, [])
     return (
         <div className={styles.container}>
             <Head>
                 <title>Endorse</title>
             </Head>
+            {exports ?
+                <div className={styles.exports}>
+                    <EndorseExport userID={userid} close={setExport} />
+                </div> : null}
             <div className={styles.header}>
                 <div className={styles.title}>
                     <h2>Endorse</h2>
                 </div>
                 <div className={styles.options}>
-                    <button>
+                    <button onClick={() => setExport(() => !exports)}>
                         <Image src="/dashboard/download.svg" alt="" height={20} width={20} />
                     </button>
                     <span>Export CSV</span>

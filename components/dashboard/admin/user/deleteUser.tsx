@@ -3,13 +3,13 @@ import styles from '../../../../styles/components/dashboard/user/delete.module.s
 import { useMutation } from '@apollo/client'
 import { deleteUserById } from '../../../../util/user/user.mutation'
 import Message from '../../../message/message'
+import { getUserByProfileID, getUserRoles } from '../../../../util/user/user.query'
 
 
 export default function DeleteUser({ id, close }: any) {
 
     const [ deleteSingleUser, { data } ] = useMutation(deleteUserById)
     const [ message, setMessage ] = useState(false)
-    console.log(id)
 
     const singleUserForm = (e: any) => {
         e.preventDefault()
@@ -18,12 +18,15 @@ export default function DeleteUser({ id, close }: any) {
                 userId: id
             },
             onCompleted: data => {
-                console.log(data)
                 close(() => "")
                 setMessage(true)
             },
             onError: error => {
                 console.log(error.message)
+            },
+            refetchQueries: [ getUserRoles ],
+            onQueryUpdated: async (observableQuery) => {
+                return await observableQuery.refetch()
             }
         }
         )

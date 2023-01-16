@@ -46,10 +46,13 @@ export default function UserData({ limit, orders, roles }: Filters) {
     const { loading, data, error, startPolling } = useQuery(getUserRoles, {
         variables: {
             limit: limit, offset: 0, role: roles, order: orders
-        }
+        },
     })
 
 
+    // useEffect(() => {
+    //     startPolling(500);
+    // })
     return (
         <div className={styles.container}>
             {

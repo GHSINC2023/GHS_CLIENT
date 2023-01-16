@@ -36,6 +36,8 @@ export const getEndorseByIDs = gql`query GetEndorseByID($endorseId: ID!) {
   getEndorseByID(endorseID: $endorseId) {
     endorsement {
       applicants {
+        id
+        applicantID
         applicantProfile {
           firstname
           lastname
@@ -72,9 +74,13 @@ export const getEndorseByIDs = gql`query GetEndorseByID($endorseId: ID!) {
 export const getEndorsementFeed = gql`query($endorsementId: String!) {
   getEndorsementFeedback(endorsementID: $endorsementId) {
     endorseID
+    endorseStatus
     feedback {
       feedbackID
       feedback
+      endorse {
+        endorseStatus
+      }
       user {
         profile {
           profileID

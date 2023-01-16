@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../../../styles/components/dashboard/endorse/view.module.scss'
 import { getEndorseByIDs, } from '../../../util/endorse/endorse.query'
 import { statused } from '../../../util/values/filter'
@@ -7,17 +7,35 @@ import { useMutation, useQuery } from '@apollo/client'
 import { feedCreate } from '../../../util/feedback/feedback.mutation'
 import { format, formatDistance } from 'date-fns'
 import { updateEndorse } from '../../../util/endorse/endorse.mutation'
-export default function View({ id, userid, close }: any) {
+
+import Cookies from 'js-cookie'
+import jwtDecode from 'jwt-decode'
+
+export default function View({ id: endorseID, userid, close }: any) {
+
+    const [ token, setToken ] = useState("");
+
+
+
+    useEffect(() => {
+        const cookies = Cookies.get('ghs_access_token');
+        if (cookies) {
+            const { userID }: any = jwtDecode(cookies);
+
+            setToken(userID)
+        }
+    }, [ token ])
 
     const { loading, data } = useQuery(getEndorseByIDs, {
         variables: {
-            endorseId: id
+            endorseId: endorseID
         },
-        
+
     })
 
+    console.log(endorseID)
 
-    const [ feedback, setFeedback ] = useState("")
+    const [ feedbacks, setFeedback ] = useState("")
     const [ open, setOpened ] = useState(false)
 
 
@@ -25,26 +43,18 @@ export default function View({ id, userid, close }: any) {
 
     const [ updateEndorseStatus ] = useMutation(updateEndorse)
 
-    const onCreateSubmit = (e: any) => {
-        e.preventDefault()
-        createAFeedback({
-            variables: {
-                feedback: feedback,
-                userId: userid,
-                endorseId: id
-            }
-        })
-    }
-
     const onUpdateStatus = (e: any) => {
         e.preventDefault();
         updateEndorseStatus({
             variables: {
                 endorseStatus: e.target.value,
-                endorseId: id
+                endorseId: endorseID,
+                userId: token
             }
         })
     }
+
+    if (loading) return null
 
     return (
         <div className={styles.container}>
@@ -59,10 +69,11 @@ export default function View({ id, userid, close }: any) {
             <div className={styles.contain}>
                 {loading ? "Loading" : data.getEndorseByID.map(({ endorseID, endorseStatus, createdAt, endorsement, feedback }: any) => (
                     endorsement.map(({ applicants }: any) => (
-                        applicants.map(({ applicantProfile, email }: any) => (
+                        applicants.map(({ applicantProfile, applicantID, email }: any) => (
                             applicantProfile.map(({ firstname, lastname, phone, birthday, profileAddress }: any) => (
                                 profileAddress.map(({ city, province, street, zipcode }: any) => (
                                     <div key={endorseID}>
+                                        {console.log(applicantID)}
                                         <div className={styles.header}>
                                             <h2>Personal Information</h2>
                                             <div className={styles.options}>
@@ -120,8 +131,18 @@ export default function View({ id, userid, close }: any) {
                                         {
                                             feedback.length === 0 ?
                                                 <div className={styles.feedback}>
-                                                    <form onSubmit={onCreateSubmit}>
-                                                        <textarea placeholder='Give a feedback...'  onChange={e => setFeedback(e.target.value)} />
+                                                    <form onSubmit={(e) => {
+                                                        e.preventDefault()
+                                                        createAFeedback({
+                                                            variables: {
+                                                                feedback: feedbacks,
+                                                                userId: userid,
+                                                                endorseId: endorseID,
+                                                                applicantId: applicantID
+                                                            }
+                                                        })
+                                                    }}>
+                                                        <textarea placeholder='Give a feedback...' onChange={e => setFeedback(e.target.value)} />
                                                         <button type="submit">Submit</button>
                                                     </form>
                                                 </div> :
@@ -129,7 +150,7 @@ export default function View({ id, userid, close }: any) {
                                                     <div className={styles.feedbacks} key={feedbackID}>
                                                         <div className={styles.dates}>
                                                             <h2>Feedback</h2>
-                                                            <span>{formatDistance(new Date(createdAt), new Date(), { addSuffix: true })}</span>
+                                                            <span>{format(new Date(createdAt), "MMMM dd yyyy")}</span>
                                                         </div>
                                                         <p>{feedback}</p>
                                                     </div>
