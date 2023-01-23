@@ -40,7 +40,10 @@ export default function Interview({ appId, close }: any) {
             <span>Do you want to interview this person?</span>
             <div className={styles.interviewBtn}>
                 <button onClick={() => close("")}>Cancel</button>
-                <button onClick={formInterview}>Yes, Interview</button>
+                <button onClick={(e) => {
+                    formInterview(e)
+                    close("")
+                }}>Yes, Interview</button>
             </div>
         </div>
     )

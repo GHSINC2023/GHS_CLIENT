@@ -6,11 +6,10 @@ import styles from '../../../../styles/components/dashboard/endorsement/endorsem
 import Image from 'next/image'
 import { endorsement_statusv2, OrderDate, limits } from '../../../../util/values/filter'
 import Data from '../../../../components/dashboard/admin/endrosement/data'
-import jwtDecode from 'jwt-decode'
 import EndorseExport from '../../../../components/dashboard/export/endorsement.export'
 
 
-const Endorsement: FC = ({ userid }: any) => {
+const Endorsement: FC = () => {
 
     const limitRef = useRef<HTMLDivElement>(null)
     const OrderRef = useRef<HTMLDivElement>(null)
@@ -172,13 +171,3 @@ const Endorsement: FC = ({ userid }: any) => {
 
 export default Endorsement
 
-
-export const getServerSideProps = async (context: any) => {
-    const cookies = context.req.headers.cookie
-    const { userID }: any = jwtDecode(cookies)
-    return {
-        props: {
-            userid: userID
-        }
-    }
-}

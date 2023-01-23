@@ -96,6 +96,7 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                     notes: ""
                 }
             },
+            refetchQueries: [ endorsementById ],
             onQueryUpdated: (observableQuery) => {
                 return observableQuery.refetch()
             }

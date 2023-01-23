@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import styles from '../../../styles/components/dashboard/endorse/data.module.scss'
 import { useQuery } from '@apollo/client'
 import { getEndorseByCompany } from '../../../util/endorse/endorse.query'
-import { useRouter } from 'next/router'
 import { format } from 'date-fns'
 import Image from 'next/image'
 import View from './view'
@@ -12,7 +11,6 @@ export default function EndorseData({ userid, status, limit, orders }: any) {
     const [ pages, setPages ] = useState(0);
     const [ view, setView ] = useState(false)
     const [ id, setId ] = useState("")
-    const [ ex, setExports ] = useState(false)
 
     const { loading, data, error } = useQuery(getEndorseByCompany, {
         variables: {
@@ -33,9 +31,6 @@ export default function EndorseData({ userid, status, limit, orders }: any) {
                         <View id={id} userid={userid} close={setView} />
                     </div> :
                     null
-            }
-            {
-                ex ? <div></div> : null
             }
             <div className={styles.tableContainer}>
                 <table>

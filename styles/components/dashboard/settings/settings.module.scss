@@ -12,27 +12,33 @@
             font-size: 24px;
         }
     }
-    .tabs {
-        width: 100%;
-        height: 40px;
+    .con {
         display: flex;
-        align-items: center;
-        gap: 5px;
-        button {
-            width: 100px;
-            height: 30px;
-            background-color: transparent;
-            border: none;
-            font-family: $primaryFont;
-            font-size: 14px;
-            outline: none;
-            color: #ccc;
-            cursor: pointer;
-        }
-        .active {
-            border-bottom: 2px solid $primaryColor;
-            font-weight: 600;
-            color: $primaryColor;
+        gap: 20px;
+        .tabs {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            position: sticky;
+            inset: 0;
+            button {
+                width: 200px;
+                height: 30px;
+                background-color: transparent;
+                border: none;
+                font-family: $primaryFont;
+                font-size: 15px;
+                outline: none;
+                color: #ccc;
+                cursor: pointer;
+                text-align: left;
+            }
+            .active {
+                width: 200px;
+                font-weight: 600;
+                color: $primaryColor;
+            }
         }
     }
 }

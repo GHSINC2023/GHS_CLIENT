@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { client } from '../_app'
 import { jobQueries, getJobById, getRelatedJob } from '../../util/job/job.query'
 import { useQuery } from '@apollo/client'
-
+import { useRouter } from 'next/router'
 import { details } from '../../interface/jobs.interface.query'
 import Apply from '../../components/main/apply'
 import PageWithLayout from '../../layout/page.layout'
@@ -44,18 +44,19 @@ export const getStaticProps = async (context: any) => {
 }
 const ID = ({ job }: any) => {
     const [ apply, setApply ] = useState(false)
-    const [category, setCategory] = useState("")
+    const [ category, setCategory ] = useState("")
     const [ id, setID ] = useState("")
 
+    const router = useRouter()
 
     useEffect(() => {
-        job.map(({ jobPostID,  details}: any) => {
+        job.map(({ jobPostID, details }: any) => {
             details.map(({ category }: any) => {
-                    setCategory(category)
-                    setID(jobPostID)
-            })    
+                setCategory(category)
+                setID(jobPostID)
+            })
         })
-    },[job])
+    }, [ job ])
     useEffect(() => {
         if (apply) {
             document.body.style.overflowY = 'hidden'
@@ -68,7 +69,7 @@ const ID = ({ job }: any) => {
         setApply(() => !apply)
     }
 
-    const { loading, data, error, fetchMore} = useQuery(getRelatedJob, {
+    const { loading, data, error, fetchMore } = useQuery(getRelatedJob, {
         variables: {
             category: category,
             limit: 5,
@@ -145,21 +146,22 @@ const ID = ({ job }: any) => {
                             <h2>Job Related</h2>
                         </div>
                         <div className={styles.box}>
-                            {loading ? null : data.getJobRelated.map(({jobType, jobPost}: any) => (
-                                jobPost.map(({ jobPostID, title}: any) => (
-                                    jobPostID == id ? null :  <div className={styles.jobRelatedContainer} key={jobPostID}>
-                                    <h2>{title}</h2>
-                                   <div className={styles.jobTypeContainer}>
-                                    {jobType.map((name: any) => (
-                                            <span key={name}>{name}</span>
-                                        ))}
-                                   </div>
-                                </div>
+                            {loading ? null : data.getJobRelated.map(({ jobType, jobPost }: any) => (
+                                jobPost.map(({ jobPostID, title }: any) => (
+                                    jobPostID == id ? null :
+                                        <div onClick={() => router.push(`/jobs/${jobPostID}`)} className={styles.jobRelatedContainer} key={jobPostID}>
+                                            <h2>{title}</h2>
+                                            <div className={styles.jobTypeContainer}>
+                                                {jobType.map((name: any) => (
+                                                    <span key={name}>{name}</span>
+                                                ))}
+                                            </div>
+                                        </div>
                                 ))
                             ))}
-                            {loading ? null : data.getJobRelated.length  > 5 ?    <div className={styles.lmContainer}>
-                                 <button>Load More</button>
-                            </div> : null }
+                            {loading ? null : data.getJobRelated.length > 5 ? <div className={styles.lmContainer}>
+                                <button>Load More</button>
+                            </div> : null}
                         </div>
                     </div>
                 </div>

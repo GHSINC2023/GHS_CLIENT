@@ -31,6 +31,11 @@ export const createAnApplication = gql`mutation Mutation($jobPostId: ID!, $email
     }
   }`
 
+export const createScreenApplicant = gql`mutation Mutation($applicantId: ID!, $end: String!, $userId: ID!, $start: String!) {
+  createScreening(applicantID: $applicantId, end: $end, userID: $userId, start: $start) {
+    screeningID
+  }
+}`
 
 export const updateApplicantStatus = gql`mutation Mutation($applicantId: ID!, $status: String!, $userId: ID!) {
   updateApplicantStatus(applicantID: $applicantId, status: $status, userID: $userId) {

@@ -1,0 +1,48 @@
+@import "../../../_mixins";
+@import "../../../_variables";
+
+
+.container {
+    width: 100%;
+   .userCon {
+    width: 100%;
+    .profile {
+        width: 100%;
+        height: 500px;
+
+        .pf {
+            width: 100%;
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            h2 {
+                font-family: $primaryFont;
+                font-size: 20px;
+                margin: 0;
+            }
+          .p{
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                tbody {
+                    border: none;
+                    tr{ 
+                        width: 100%;
+                    }
+                    th {
+                        width: 200px;
+                        text-align: left;
+                        font-size: 17px;
+                        height: 40px;
+                    }
+                    td {
+                        text-align: left;
+                        font-size: 18px;
+                    }
+                }
+            }
+          }
+        }
+    }
+   }
+}

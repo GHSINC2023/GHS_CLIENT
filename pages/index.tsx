@@ -233,15 +233,23 @@ const Home: FC = () => {
           }
           {filter.category !== "" || filter.jobType.length > 0 || filter.workType.length > 0 ?
             <div className={styles.pages}>
-              <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>Prev</button>
+              <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>
+                <Image src="/icon/arrow-left-line.svg" alt="" height={20} width={20} />
+              </button>
               <span>{pages + 1}</span>
-              <button disabled={loading ? true : data.getAllJobPost.length > 10} onClick={() => setPages(() => pages + 1)}>Next</button>
+              <button disabled={loading ? true : data.getAllJobPost.length > 10} onClick={() => setPages(() => pages + 1)}>
+                <Image src="/icon/arrow-right-line.svg" alt="" height={20} width={20} />
+              </button>
             </div>
             :
             <div className={styles.pages}>
-              <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>Prev</button>
+              <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>
+                <Image src="/icon/arrow-left-line.svg" alt="" height={20} width={20} />
+              </button>
               <span>{pages + 1}</span>
-              <button disabled={loading ? true : data.getAllJobPost.length < 10} onClick={() => setPages(() => pages + 1)}>Next</button>
+              <button disabled={loading ? true : data.getAllJobPost.length < 10} onClick={() => setPages(() => pages + 1)}>
+                <Image src="/icon/arrow-right-line.svg" alt="" height={20} width={20} />
+              </button>
             </div>}
         </div>
       </div>

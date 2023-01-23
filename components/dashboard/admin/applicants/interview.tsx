@@ -16,6 +16,7 @@ export default function Interview({ appId, close }: any) {
     }, [])
     const [ applicantInterview ] = useMutation(CreateInterviewer)
 
+    console.log(token)
 
     const formInterview = (e: any) => {
         e.preventDefault()
@@ -42,8 +43,8 @@ export default function Interview({ appId, close }: any) {
             <span>Do you want to interview this person?</span>
             <div className={styles.interviewBtn}>
                 <button onClick={() => close("")}>Cancel</button>
-                <button onClick={() => {
-                    formInterview
+                <button onClick={(e) => {
+                    formInterview(e)
                     close("")
                 }}>Yes, Interview</button>
             </div>

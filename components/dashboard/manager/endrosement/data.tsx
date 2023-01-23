@@ -6,7 +6,7 @@ import { endorsementByStatus } from '../../../../util/endorsement/endorsement.qu
 import { endorsementUpdate } from '../../../../util/endorsement/endorsement.mutation'
 import { useRouter } from 'next/router'
 import { format } from 'date-fns'
-import { useMutation, useQuery, gql } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 
 
 export default function Data({ limit, status, order }: any) {
@@ -20,8 +20,7 @@ export default function Data({ limit, status, order }: any) {
             limit,
             offset: pages * limit,
             order
-        },
-        pollInterval: 1500
+        }
     })
 
     const [ id, setID ] = useState("")
@@ -38,29 +37,12 @@ export default function Data({ limit, status, order }: any) {
                 endorsementId: id,
                 status: name
             },
-            update: (cache, { data: { updateEndorsement } }) => {
-                cache.modify({
-                    fields: {
-                        getEndorsementSpecificStatus(existing = []) {
-                            const newStatus = cache.writeFragment({
-                                data: updateEndorsement,
-                                id: name,
-                                fragment: gql`
-                                    fragment Newupdate on updateEndorsement {
-                                    endorsementID
-                                        Status
-                                        createdAt
-                                        updatedAt
-                                    }
-                                `,
-                            })
-                            return [ ...existing, newStatus ]
-                        }
-                    }
-                })
+            refetchQueries: [ endorsementByStatus ],
+            onQueryUpdated: (observableQuery) => {
+                return observableQuery.refetch()
             },
             onError: e => {
-                console.log(e.message)
+                console.log(e)
             }
         })
         setID(() => "")
@@ -73,8 +55,6 @@ export default function Data({ limit, status, order }: any) {
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Phone</th>
-                            <th>Birthday</th>
                             <th>Status</th>
                             <th>Endorse Date</th>
                             <th>Endorse by</th>
@@ -83,42 +63,44 @@ export default function Data({ limit, status, order }: any) {
                     </thead>
                     <tbody>
                         {loading ? null :
-                            data.getEndorsementSpecificStatus.map(({ endorsementID, Status, createdAt, profile, endorseBy }: any) => (
-                                profile.map(({ firstname, lastname, phone, birthday }: any) => (
-                                    endorseBy.map(({ profile: prof }: any) => (
-                                        prof.map(({ firstname: first, lastname: last }: any) => (
-                                            <tr key={endorsementID}>
-                                                <td className={styles.name}>{lastname}, {firstname}</td>
-                                                <td>{phone.includes('+63') ? phone.substring(3, 13) : phone}</td>
-                                                <td>{format(new Date(birthday), "MMM dd, yyy")}</td>
-                                                <td className={styles.status}>
-                                                    <button onClick={() => getEndorsementID(endorsementID)}>
-                                                        <div className={styles.box} about={Status} />
-                                                        <span>{Status}</span>
-                                                    </button>
-                                                    {id === endorsementID ?
-                                                        <div ref={statsRef} className={styles.containerButtons}>
-                                                            {endorsement_status.map((name) => (
-                                                                <button onClick={(e) => {
-                                                                    e.preventDefault()
-                                                                    updateEndorsementStatus(name)
-                                                                }} key={name} value={name} className={styles.statusContainer}>
-                                                                    <div className={styles.box} about={name} />
-                                                                    <span key={name}>{name}</span>
-                                                                </button>
-                                                            ))}
-                                                        </div> :
-                                                        null
-                                                    }
-                                                </td>
-                                                <td>{format(new Date(createdAt), "MMM dd, yyy")}</td>
-                                                <td>{first} {last}</td>
-                                                <td>
-                                                    <button onClick={() => router.push(`${router.pathname}/${endorsementID}`)}>
-                                                        <Image src="/dashboard/eye-line.svg" alt="" height={20} width={20} />
-                                                    </button>
-                                                </td>
-                                            </tr>
+                            data.getEndorsementSpecificStatus.map(({ endorsementID, Status, createdAt, applicants, endorseBy }: any) => (
+                                applicants.map(({ applicantProfile }: any) => (
+                                    applicantProfile.map(({ firstname, lastname }: any) => (
+                                        endorseBy.map(({ profile: prof }: any) => (
+                                            prof.map(({ firstname: first, lastname: last }: any) => (
+                                                <tr key={endorsementID}>
+                                                    <td className={styles.name}>{lastname}, {firstname}</td>
+                                                    <td className={styles.status}>
+                                                        <button onClick={() => getEndorsementID(endorsementID)}>
+                                                            <div className={styles.box} about={Status} />
+                                                            <span>{Status}</span>
+                                                        </button>
+                                                        {id === endorsementID ?
+                                                            <div ref={statsRef} className={styles.containerButtons}>
+                                                                {endorsement_status.map((name) => (
+                                                                    <button onClick={
+                                                                        (e) => {
+                                                                            e.preventDefault();
+                                                                            updateEndorsementStatus(name)
+                                                                        }
+                                                                    } key={name} value={name} className={styles.statusContainer}>
+                                                                        <div className={styles.box} about={name} />
+                                                                        <span key={name}>{name}</span>
+                                                                    </button>
+                                                                ))}
+                                                            </div> :
+                                                            null
+                                                        }
+                                                    </td>
+                                                    <td>{format(new Date(createdAt), "MMM dd, yyy")}</td>
+                                                    <td>{first} {last}</td>
+                                                    <td>
+                                                        <button onClick={() => router.push(`${router.pathname}/${endorsementID}`)}>
+                                                            <Image src="/dashboard/eye-line.svg" alt="" height={20} width={20} />
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))
                                         ))
                                     ))
                                 ))
@@ -131,8 +113,13 @@ export default function Data({ limit, status, order }: any) {
                 </table>
             </div>
             {loading ? "Loading " : data.getEndorsementSpecificStatus.length > limit ? <div className={styles.pages}>
-                <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>Prev</button>
-                <button disabled={loading ? true : data.getEndorsementSpecificStatus.length < limit} onClick={() => setPages(() => pages + 1)}>Next</button>
+                <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>
+                    <Image src="/dashboard/arrow-left-line.svg" alt="" height={20} width={20} />
+                </button>
+                <span>{pages + 1}</span>
+                <button disabled={loading ? true : data.getEndorsementSpecificStatus.length < limit} onClick={() => setPages(() => pages + 1)}>
+                    <Image src="/dashboard/arrow-right-line.svg" alt="" height={20} width={20} />
+                </button>
             </div> : null}
         </div>
     )

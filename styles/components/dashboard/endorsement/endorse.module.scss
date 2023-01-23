@@ -88,22 +88,27 @@
         height: 60px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        button {
-            width: 80px;
-            height: 40px;
-            border: none;
-            border-radius: 5px;
-            border: 2px solid $primaryColor;
-            background-color: transparent;
-            cursor: pointer;
-            color: $primaryColor;
-            &:disabled{ 
-                background-color: #eee;
-                border: none;
-                pointer-events: none;
-                color: #fff;
+        justify-content: center;
+        gap: 10px;
+        
+            span {
+                font-family: $primaryFont;
+                font-size: 20px;
             }
+            button {
+                width: 40px;
+                height: 35px;
+                border: none;
+                border-radius: 5px;
+                background-color: transparent;
+                cursor: pointer;
+                color: $primaryColor;
+                &:disabled{ 
+                    background-color: #eee;
+                    border: none;
+                    pointer-events: none;
+                    color: #fff;
+                }
         }
     }
 }

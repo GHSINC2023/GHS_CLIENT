@@ -93,8 +93,10 @@ export const CSVSort = [
 
 
 export const tabs = [
-    { name: "User", value: "user" },
-    { name: "Profile", value: "profile" },
+    { name: "Account", value: "account" },
+    { name: "Edit Profile", value: "eprof" },
+    { name: "Changed Password", value: "cpass" },
+    { name: "Activtiy Log", value: "log" },
 ]
 
 

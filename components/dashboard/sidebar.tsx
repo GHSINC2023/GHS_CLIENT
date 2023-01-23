@@ -4,18 +4,24 @@ import { useRouter } from 'next/router';
 import jwtDecode from 'jwt-decode'
 import Cookies from 'js-cookie';
 import { client } from '../../pages/_app';
+import { useMutation } from '@apollo/client';
+import { logoutLog } from '../../util/logs/log.mutation';
 
 
 export default function Sidebar() {
     const [ roles, setRoles ] = useState("")
-
+    const [ userid, setuserid ] = useState("")
     useEffect(() => {
         const cookies = Cookies.get("ghs_access_token")
         if (cookies) {
-            const { role }: any = jwtDecode(cookies)
+            const { userID, role }: any = jwtDecode(cookies)
+            setuserid(userID)
             setRoles(role)
         }
     }, [])
+
+
+
 
     const admin = [
         { name: "overview", url: `/dashboard/${roles}/overview` },
@@ -37,8 +43,6 @@ export default function Sidebar() {
         { name: "overview", url: `/dashboard/${roles}/overview` },
         { name: "post", url: `/dashboard/${roles}/post` },
         { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
-        { name: "user", url: `/dashboard/${roles}/user` },
-        { name: "applicants", url: `/dashboard/${roles}/applicants` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
     const moderator = [
@@ -49,15 +53,21 @@ export default function Sidebar() {
     ]
 
     const employer = [
-        { name: "overview", url: `/dashboard/${roles}/overview` },
         { name: "endorse", url: `/dashboard/${roles}/endorse` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
     const router = useRouter()
 
 
+    const [ createLogoutLogs ] = useMutation(logoutLog, {
+        variables: {
+            userId: userid
+        }
+    })
+
     const handleLogoutnBtn = () => {
         client.resetStore()
+        createLogoutLogs()
         Cookies.remove("ghs_access_token")
         router.push("/")
     }

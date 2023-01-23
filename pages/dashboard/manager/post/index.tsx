@@ -141,7 +141,7 @@ const Post: FC = ({ userid }: any) => {
 
 
 export const getServerSideProps = async (context: any) => {
-    const cookies = context.req.headers.cookie
+    const cookies = context.req.cookies[ "ghs_access_token" ]
     const { userID }: any = jwtDecode(cookies)
     return {
         props: {
@@ -149,7 +149,6 @@ export const getServerSideProps = async (context: any) => {
         }
     }
 }
-
 (Post as PageWithLayout).layout = Dashboard
 
 export default Post

@@ -3,17 +3,22 @@
 .container {
     width: 100%;   
     padding: 10px;
-     .pages {
+    .pages {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
+        align-items: center;
         margin: 10px 0;
+        gap: 10px;
+        span {
+            font-family: $primaryFont;
+            font-size: 20px;
+        }
         button {
-            width: 80px;
-            height: 40px;
+            width: 40px;
+            height: 35px;
             border: none;
             border-radius: 5px;
-            border: 2px solid $primaryColor;
             background-color: transparent;
             cursor: pointer;
             color: $primaryColor;
@@ -43,6 +48,7 @@
     .tableContainer {
         table {
             width: 100%;      
+            border-collapse: collapse;
             thead, th {
                 color: $primaryColor;
                 height: 40px;

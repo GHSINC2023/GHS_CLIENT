@@ -4,14 +4,28 @@ import { useQuery, useMutation } from '@apollo/client'
 import { getUserByProfileID } from '../../../../util/user/user.query'
 import { resetUserPassword } from '../../../../util/user/user.mutation'
 import { format } from 'date-fns'
+import { getUserLog } from '../../../../util/account/profile.query'
 import Message from '../../../message/message'
+import Image from 'next/image'
 
 export default function User({ id, close, open }: any) {
     const [ tabValue, setTabValue ] = useState("about")
     const [ message, setMessage ] = useState(false)
+
+    const [ pages, setPages ] = useState(0)
+
     const { loading, data } = useQuery(getUserByProfileID, {
         variables: {
             userId: id
+        }
+    })
+
+
+    const { loading: loadingLog, data: dataLog } = useQuery(getUserLog, {
+        variables: {
+            userId: id,
+            limit: 6,
+            offset: pages * 6
         }
     })
 
@@ -109,6 +123,37 @@ export default function User({ id, close, open }: any) {
                                         </div>
                                         : null
                                     }
+                                    {tabValue === "logs" ? <div>{loadingLog ? null :
+                                        <div className={styles.tableContainer}>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Title</th>
+                                                        <th>Modified</th>
+                                                        <th>Timestamp</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {loadingLog ? null : dataLog.getUserLogs.map(({ logsID, modifiedBy, title, createdAt }: any) => (
+                                                        <tr key={logsID}>
+                                                            <td>{title}</td>
+                                                            <td>{modifiedBy}</td>
+                                                            <td>{format(new Date(createdAt), "MMMM dd, yyyy")}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                            <div className={styles.pages}>
+                                                <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>
+                                                    <Image src="/dashboard/arrow-left-line.svg" alt="" height={20} width={20} />
+                                                </button>
+                                                <span>{pages + 1}</span>
+                                                <button disabled={loadingLog ? true : dataLog.getUserLogs.length < 6} onClick={() => setPages(() => pages + 1)}>
+                                                    <Image src="/dashboard/arrow-right-line.svg" alt="" height={20} width={20} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    }</div> : null}
                                 </div>
                             </div>
                         ))

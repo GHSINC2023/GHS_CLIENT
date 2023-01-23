@@ -83,24 +83,24 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
         }, 1000)
     }, [])
 
-    const [ createComment, { data } ] = useMutation(commentEndorsement, {
-        variables: {
-            endorsementId: id,
-            comments: {
-                message: comment,
-                notes: ""
-            }
-        },
-        update: (cache, { data }) => {
-            
-        }   
-
-    })
+    const [ createComment, { data } ] = useMutation(commentEndorsement)
 
 
     const submitCommentForm = (e: any) => {
         e.preventDefault()
-        createComment()
+        createComment({
+            variables: {
+                endorsementId: id,
+                comments: {
+                    message: comment,
+                    notes: ""
+                }
+            },
+            refetchQueries: [ endorsementById ],
+            onQueryUpdated: (observableQuery) => {
+                return observableQuery.refetch()
+            }
+        })
     }
 
     return (
@@ -120,9 +120,9 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                     <div className={styles.newTable}>
                         <table>
                             {
-                                endorsement.map(({ endorsementID, email, Status, createdAt, endorseBy, profile, endorsementComment }: any) => (
-                                    profile.map(({ firstname, lastname, birthday, phone, profileAddress }: any) => (
-                                        profileAddress.map(({ zipcode, street, province, city }: any) => (
+                                endorsement.map(({ endorsementID, Status, createdAt, endorseBy, applicants }: any) => (
+                                    applicants.map(({ applicantProfile, email }: any) => (
+                                        applicantProfile.map(({ firstname, lastname, birthday, phone }: any) => (
                                             <tbody key={endorsementID}>
                                                 <Head>
                                                     <title>{`${firstname} ${lastname}`}</title>
@@ -141,12 +141,12 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                                                 </tr>
                                                 <tr>
                                                     <th>Phone</th>
-                                                    <td>{phone}</td>
+                                                    <td>{phone.includes(+63) ? phone.substring(3, 13) : phone}</td>
                                                 </tr>
-                                                <tr>
+                                                {/* <tr>
                                                     <th>Address</th>
                                                     <td>{street}, {city} {province}, {zipcode}</td>
-                                                </tr>
+                                                </tr> */}
                                                 <tr>
                                                     <th>Status</th>
                                                     <td className={styles.status}>
@@ -195,14 +195,20 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                     <h2>Employer Feedback</h2>
                 </div>
                 <div className={styles.body}>
-                    {feedback.map(({ endorseID, feedback, company }: any) => (
+                    {feedback.map(({ endorseID, endorseStatus, feedback, company }: any) => (
                         <div className={styles.bodyContainer} key={endorseID} >
                             {
                                 feedback.map(({ feedbackID, feedback, createdAt }: any) => (
                                     <div className={styles.feedcontainer} key={feedbackID}>
                                         <div className={styles.info}>
                                             {company.map(({ companyName }: any) => (
-                                                <h2 key={companyName}>{companyName}</h2>
+                                                <div className={styles.hel} key={companyName}>
+                                                    <h2>{companyName}</h2>
+                                                    <span>
+                                                        {endorseStatus === "approved" ? "Approved" : null}
+                                                        {endorseStatus === "rejected" ? "Rejected" : null}
+                                                    </span>
+                                                </div>
                                             ))}
                                         </div>
                                         <div className={styles.feed}>

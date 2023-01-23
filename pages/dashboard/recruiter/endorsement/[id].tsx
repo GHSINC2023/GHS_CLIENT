@@ -13,7 +13,7 @@ import Dashboard from '../../../../layout/dashboard.layout'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 
-const Endorse = dynamic(() => import("../../../../components/dashboard/admin/endrosement/endorse"), {
+const Endorse = dynamic(() => import("../../../../components/dashboard/recruiter/endrosement/endorse"), {
     ssr: false
 })
 
@@ -71,11 +71,11 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
     const [ id, setId ] = useState("")
 
 
-    // useEffect(() => {
-    //     endorsement.map(({ endorsementID }: any) => {
-    //         setId(endorsementID)
-    //     })
-    // }, [ endorsement ])
+    useEffect(() => {
+        endorsement.map(({ endorsementID }: any) => {
+            setId(endorsementID)
+        })
+    }, [ endorsement ])
 
     useEffect(() => {
         setTimeout(() => {
@@ -96,16 +96,16 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                     notes: ""
                 }
             },
-            update: (cache, { data }) => {
-
+            refetchQueries: [ endorsementById ],
+            onQueryUpdated: (observableQuery) => {
+                return observableQuery.refetch()
             }
-
         })
     }
 
     return (
         <div className={styles.container}>
-          {endorse ? <div className={styles.end}>
+            {endorse ? <div className={styles.end}>
                 <Endorse endorsementID={id} close={setEndorse} />
             </div> : null}
             {
@@ -121,7 +121,7 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                         <table>
                             {
                                 endorsement.map(({ endorsementID, Status, createdAt, endorseBy, applicants }: any) => (
-                                    applicants.map(({  applicantProfile, email }: any) => (
+                                    applicants.map(({ applicantProfile, email }: any) => (
                                         applicantProfile.map(({ firstname, lastname, birthday, phone }: any) => (
                                             <tbody key={endorsementID}>
                                                 <Head>
@@ -195,14 +195,20 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                     <h2>Employer Feedback</h2>
                 </div>
                 <div className={styles.body}>
-                    {feedback.map(({ endorseID, feedback, company }: any) => (
+                    {feedback.map(({ endorseID, endorseStatus, feedback, company }: any) => (
                         <div className={styles.bodyContainer} key={endorseID} >
                             {
                                 feedback.map(({ feedbackID, feedback, createdAt }: any) => (
                                     <div className={styles.feedcontainer} key={feedbackID}>
                                         <div className={styles.info}>
                                             {company.map(({ companyName }: any) => (
-                                                <h2 key={companyName}>{companyName}</h2>
+                                                <div className={styles.hel} key={companyName}>
+                                                    <h2>{companyName}</h2>
+                                                    <span>
+                                                        {endorseStatus === "approved" ? "Approved" : null}
+                                                        {endorseStatus === "rejected" ? "Rejected" : null}
+                                                    </span>
+                                                </div>
                                             ))}
                                         </div>
                                         <div className={styles.feed}>

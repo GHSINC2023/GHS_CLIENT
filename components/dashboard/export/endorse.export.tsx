@@ -30,7 +30,7 @@ export default function EndorseExports({ close, userid }: any) {
 
     const headers = [
         { label: "Email", key: "Email" },
-        { label: "Job Apply", key: "JobApply" },
+        { label: "Job Application", key: "JobApply" },
         { label: "Firstname", key: "Firstname" },
         { label: "Lastname", key: "Lastname" },
         { label: "Phone", key: "Phone" },
@@ -40,7 +40,12 @@ export default function EndorseExports({ close, userid }: any) {
     console.log(data ? data.getEndorseByCSV : null)
     const datas = data ? data.getEndorseByCSV.map(({ endorse }: any) => {
         return {
-            Email: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].email
+            Email: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].email,
+            JobApply: "",
+            Firstname: "",
+            Lastname: "",
+            Phone: "",
+            endorse: "",
         }
 
 

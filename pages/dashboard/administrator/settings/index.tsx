@@ -4,11 +4,14 @@ import Dashboard from '../../../../layout/dashboard.layout'
 import Head from 'next/head'
 import styles from '../../../../styles/components/dashboard/settings/settings.module.scss'
 import { tabs } from '../../../../util/values/filter'
-import User from '../../../../components/dashboard/admin/settings/user'
 import jwtDecode from 'jwt-decode'
+import Account from '../../../../components/dashboard/admin/settings/account'
+import CPass from '../../../../components/dashboard/admin/settings/cpass'
+import Log from '../../../../components/dashboard/admin/settings/log'
+import Eprofile from '../../../../components/dashboard/admin/settings/eprofile'
 
 const Settings: FC = ({ userid }: any) => {
-    const [ tab, setTabs ] = useState("user")
+    const [ tab, setTabs ] = useState("account")
 
     const changeTabValue = (e: any) => {
         setTabs(e.target.value)
@@ -22,7 +25,19 @@ const Settings: FC = ({ userid }: any) => {
             <div className={styles.header}>
                 <h2>Settings</h2>
             </div>
-            <User userid={userid} />
+            <div className={styles.con}>
+                <div className={styles.tabs}>
+                    {tabs.map(({ name, value }) => (
+                        <button key={name} onClick={changeTabValue}
+                            className={value === tab ? styles.active : ""}
+                            value={value}>{name}</button>
+                    ))}
+                </div>
+                {tab === "account" ? <Account userid={userid} /> : null}
+                {tab === "log" ? <Log userid={userid} /> : null}
+                {tab === "cpass" ? <CPass userid={userid} /> : null}
+                {tab === "eprof" ? <Eprofile userid={userid} /> : null}
+            </div>
         </div >
     )
 }
@@ -31,7 +46,7 @@ const Settings: FC = ({ userid }: any) => {
 export default Settings
 
 export const getServerSideProps = async (context: any) => {
-    const cookies = context.req.cookies['ghs_access_token']
+    const cookies = context.req.cookies[ 'ghs_access_token' ]
     const { userID }: any = jwtDecode(cookies)
     return {
         props: {

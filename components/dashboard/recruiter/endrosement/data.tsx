@@ -115,8 +115,13 @@ export default function Data({ limit, status, order }: any) {
                 </table>
             </div>
             {loading ? "Loading " : data.getEndorsementSpecificStatus.length > limit ? <div className={styles.pages}>
-                <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>Prev</button>
-                <button disabled={loading ? true : data.getEndorsementSpecificStatus.length < limit} onClick={() => setPages(() => pages + 1)}>Next</button>
+                <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>
+                    <Image src="/icon/arrow-left-line.svg" alt="" height={20} width={20} />
+                </button>
+                <span>{pages + 1}</span>
+                <button disabled={loading ? true : data.getEndorsementSpecificStatus.length < limit} onClick={() => setPages(() => pages + 1)}>
+                    <Image src="/icon/arrow-left-line.svg" alt="" height={20} width={20} />
+                </button>
             </div> : null}
         </div>
     )

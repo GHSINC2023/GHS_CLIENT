@@ -5,11 +5,17 @@ import { createAnApplication } from '../../util/applicaiton/application.mutation
 import Image from 'next/image'
 import { applications } from '../../interface/application.interface';
 import Message from '../message/message';
+import OTPS from './OTP/otp';
+import { createOTPS } from '../../util/OTP/otp.mutation';
 
 export default function Apply({ jobid, close, open }: any) {
 
     const [ fileUpload, setFileUpload ] = useState(null)
     const [ videoUpload, setVideoUpload ] = useState(null)
+    const [ otps, setOTP ] = useState(false)
+
+
+
 
     const [ message, setMessage ] = useState(false)
 
@@ -44,9 +50,13 @@ export default function Apply({ jobid, close, open }: any) {
         close(() => !open)
     }
 
+    const [ createNewOTP ] = useMutation(createOTPS, {
+        variables: {
+            email: applications.email
+        }
+    })
 
     const applicaitonForm = (e: any) => {
-        e.preventDefault()
         application({
             variables: {
                 jobPostId: jobid,
@@ -89,10 +99,6 @@ export default function Apply({ jobid, close, open }: any) {
 
         })
     }
-
-
-    console.log(fileUpload)
-    console.log(videoUpload)
     const onChangeFileUpload = (e: any) => {
         const file = e.target.files[ 0 ]
         if (file.size > 10485760 || !file) {
@@ -114,6 +120,10 @@ export default function Apply({ jobid, close, open }: any) {
             setMessage(false)
         }, 15000)
     }, [ message ])
+
+
+
+
     return (
         <div className={styles.container}>
             <div className={styles.applicationHeader}>
@@ -125,11 +135,14 @@ export default function Apply({ jobid, close, open }: any) {
                     </svg>
                 </button>
             </div>
+            {otps ? <div className={styles.otps}>
+                <OTPS email={applications.email} applicantForm={applicaitonForm} />
+            </div> : null}
             {data && message ?
                 <div className={styles.message}>
                     <Message label={data ? 'Successfully Created' : error ? "Error Occurred" : ""} message={data ? "Thank you for applying" : error ? "Error Occurred" : ""} status={data ? "success" : "error"} />
                 </div> : null}
-            <form onSubmit={applicaitonForm}>
+            <form>
                 <div className={styles.profile}>
                     <h2>Personal Information</h2>
                     <input type="text" value={applications.firstname}
@@ -190,12 +203,16 @@ export default function Apply({ jobid, close, open }: any) {
                     </div>
                 </div>
                 <button
-
+                    onClick={(e) => {
+                        setOTP(() => !otps)
+                        e.preventDefault()
+                        createNewOTP()
+                    }}
                     disabled={!applications.bday || !applications.city || !applications.email || !applications.firstname || !applications.lastname || !applications.phone || !applications.province || !applications.street || !applications.zipcode ||
                         !fileUpload || !videoUpload
                     }
 
-                    type='submit'>Submit</button>
+                    type='button'>Submit</button>
             </form>
         </div>
     )

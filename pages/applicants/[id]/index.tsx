@@ -139,7 +139,7 @@ export default function Index({ appId }: any) {
                     status === "rejected" ? null :
                       <>
                         <div className={styles.dvtitle}>
-                          <h2>Feedbacks</h2>
+                          <h2>Company Endorse</h2>
                         </div>
                         <div className={styles.ftable}>
                           <div className={styles.tableHeader}>

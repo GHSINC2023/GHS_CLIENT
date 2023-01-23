@@ -41,8 +41,22 @@ export default function Login() {
                     })
                     if (token) {
                         const { userID, role }: decodedToken = jwtDecode(token)
-                        if (role === "administrator" || "recruiter" || "manager" || "moderator") {
-                            router.push(`/dashboard/${role}/overview`)
+                        console.log(role)
+                        if (role === "administrator") {
+                            router.push(`/dashboard/administrator/overview`)
+                        }
+
+                        if (role === "recruiter") {
+                            router.push(`/dashboard/recruiter/overview`)
+                        }
+                        if (role === "manager") {
+                            router.push(`/dashboard/manager/overview`)
+                        }
+                        if (role === "moderator") {
+                            router.push(`/dashboard/moderator/overview`)
+                        }
+                        if (role === "employer") {
+                            router.push(`/dashboard/employer/endorse`)
                         }
                     }
                 }
