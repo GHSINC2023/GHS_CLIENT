@@ -29,7 +29,20 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            h2 {
+        .con {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            input{ 
+                width: 220px;
+                height: 40px;
+                padding: 10px;
+                border-radius: 5px;
+                border: none;
+                box-shadow: 0px 0px 3px 0px #ccc;
+                outline: none;
+            }
+              h2 {
                 font-family: $primaryFont;
                 font-weight: 600;
                 font-size: 24px;
@@ -49,6 +62,7 @@
                 font-family: $primaryFont;
                 color: $primaryColor;
             }
+        }
           .option {
             display: flex;
             align-items: center;

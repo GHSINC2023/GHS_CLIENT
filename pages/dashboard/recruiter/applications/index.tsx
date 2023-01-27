@@ -6,7 +6,8 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import ApplicantExport from '../../../../components/dashboard/export/applicant.export'
-
+import { getSearchApplicant } from '../../../../util/applicaiton/application.query'
+import { useLazyQuery } from '@apollo/client'
 const ApplicantData = dynamic(() => import("../../../../components/dashboard/admin/applicants/data"), {
     ssr: false
 })
@@ -16,6 +17,8 @@ const Applicants: FC = () => {
 
     const limitRef = useRef<HTMLDivElement>(null)
     const OrderRef = useRef<HTMLDivElement>(null)
+
+    const [ search, setSearch ] = useState("")
 
     const [ exports, setExport ] = useState(false)
     const [ limit, setLimit ] = useState(false)
@@ -70,6 +73,25 @@ const Applicants: FC = () => {
         }
     }, [ order ])
 
+    const [ searchData, { data, } ] = useLazyQuery(getSearchApplicant)
+
+
+    const onChangeFindAppID = (e: any) => {
+        searchData({
+            variables: {
+                search,
+                status: status,
+                limit: limVal,
+                offset: 0,
+                order: orders
+            }
+        })
+
+        setSearch(e.target.value)
+    }
+
+    console.log(data)
+
     return (
         <div className={styles.container}>
             <Head>
@@ -77,15 +99,18 @@ const Applicants: FC = () => {
             </Head>
             {
                 exports ? <div className={styles.export}>
-                    <ApplicantExport close={setExport}/>
+                    <ApplicantExport close={setExport} />
                 </div> : null
             }
             <div className={styles.header}>
                 <div className={styles.container}>
                     <h2>Applicants</h2>
-                     <button onClick={() => setExport(() => !exports)} className={styles.csv}>
-                        <Image src="/dashboard/download.svg" alt="" height={20} width={20} />
-                    </button>
+                    <div className={styles.con}>
+                        <input type="search" placeholder='Find Applicant no.' onChange={onChangeFindAppID} />
+                        <button onClick={() => setExport(() => !exports)} className={styles.csv}>
+                            <Image src="/dashboard/download.svg" alt="" height={20} width={20} />
+                        </button>
+                    </div>
                 </div>
                 <div className={styles.applicant}>
                     <div className={styles.tab}>
@@ -125,7 +150,7 @@ const Applicants: FC = () => {
                     </div>
                 </div>
                 <div style={{ margin: "10px 0", padding: "0.5rem" }}>
-                    <ApplicantData status={status} orders={orders} limit={limVal} />
+                    {search.length === 0 ? <ApplicantData status={status} orders={orders} limit={limVal} /> : <ApplicantData status={status} orders={orders} limit={limVal} dataSearch={data} />}
                 </div>
             </div>
         </div >

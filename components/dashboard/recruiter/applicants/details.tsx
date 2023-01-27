@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import styles from '../../../../styles/components/dashboard/applicants/details.module.scss'
 import Video from './video'
-import  { useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { updateApplicantStatus } from '../../../../util/applicaiton/application.mutation'
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
+import Gcalendar from './gcalanedar'
+import Message from '../../../message/message'
 
 export default function ApplicantDetails({ close, apid, id, profile, email, interviewer, upload, status, job, date }: any) {
 
     const [ vid, setVideo ] = useState(false)
-    const [open, setOpened ] = useState(false)
-    const [token, setToken] = useState("")
+    const [ open, setOpened ] = useState(false)
+    const [ gcl, setgcl ] = useState(false)
+    const [ token, setToken ] = useState("")
+    const [ message, setMessage ] = useState(false)
 
     const onClickFileBtn = (file: any) => {
         window.open(file)
@@ -18,18 +22,18 @@ export default function ApplicantDetails({ close, apid, id, profile, email, inte
 
     useEffect(() => {
         const cookie = Cookies.get("ghs_access_token");
-        if(cookie) {
+        if (cookie) {
             const { userID }: any = jwtDecode(cookie)
             setToken(userID)
         }
     }, [])
 
-    const [ updateAppStats, { data, error}] = useMutation(updateApplicantStatus, {
-        
+    const [ updateAppStats, { data, error } ] = useMutation(updateApplicantStatus, {
+
     })
     const upStatused = [
-        { name: "Approved", value: "approved"},
-        { name: "Rejected", value: "rejected"}
+        { name: "Approved", value: "approved" },
+        { name: "Rejected", value: "rejected" }
     ]
 
 
@@ -41,13 +45,27 @@ export default function ApplicantDetails({ close, apid, id, profile, email, inte
                 userId: token
             },
             onCompleted: data => {
-                console.log(`Updated Statused`)
+                setMessage(true)
             }
         })
     }
 
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage(false)
+        }, 1000)
+    }, [])
+
     return (
         <div className={styles.container}>
+            {gcl ?
+                <div className={styles.calendar}>
+                    <Gcalendar applicantID={id} userID={token} close={setgcl} />
+                </div> : null
+            }
+            {data && message ? <div>
+                <Message status='success' label='Successfully Updated' message='' />
+            </div> : null}
             <div className={styles.header}>
                 <button onClick={() => close("")}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="" stroke="#D02222" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x">
@@ -58,24 +76,28 @@ export default function ApplicantDetails({ close, apid, id, profile, email, inte
             </div>
             <div className={styles.body}>
                 <div className={styles.aa}>
-                  <h2>Personal Information</h2>
-                  {status === "waiting" ?  <div className={styles.options}>
-                    <button onClick={() => setOpened(() =>!open)}>
-                        <div />
-                        <div />
-                        <div />
-                    </button>
-                    {open && status === "waiting" ?  
-                    <div className={styles.option}>
-                          <button>Create google interview date</button> 
-                          <hr />
-                            {upStatused.map(({ name, value}) => (
-                                <button onClick={updateApp} key={name} value={value}>{name}</button>
-                            ))}
-                    </div> : 
-                   null
-                    }
-                  </div>: null}
+                    <h2>Personal Information</h2>
+                    {status === "waiting" ? <div className={styles.options}>
+                        <button onClick={() => {
+
+                            setOpened(() => !open)
+                            setgcl(false)
+                        }}>
+                            <div />
+                            <div />
+                            <div />
+                        </button>
+                        {open && status === "waiting" ?
+                            <div className={styles.option}>
+                                <button onClick={() => setgcl(() => !gcl)}>Create google interview date</button>
+                                <hr />
+                                {upStatused.map(({ name, value }) => (
+                                    <button onClick={updateApp} key={name} value={value}>{name}</button>
+                                ))}
+                            </div> :
+                            null
+                        }
+                    </div> : null}
                 </div>
                 <div className={styles.info}>
                     <div className={styles.upload}>
@@ -108,6 +130,12 @@ export default function ApplicantDetails({ close, apid, id, profile, email, inte
                                     <tr key={profielID}>
                                         <th>Name</th>
                                         <td>{lastname}, {firstname}</td>
+                                    </tr>
+                                ))}
+                                {profile.map(({ profielID, phone }: any) => (
+                                    <tr key={profielID}>
+                                        <th>Phone</th>
+                                        <td>{phone.includes(+63) ? phone.substring(3, 13) : phone}</td>
                                     </tr>
                                 ))}
                                 {profile.map(({ profileAddress }: any) => (

@@ -1,4 +1,4 @@
-import Head from 'next/head'
+
 import React, { ReactNode } from 'react'
 import dynamic from 'next/dynamic'
 import styles from '../styles/components/dashboard/layout.module.scss';

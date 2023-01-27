@@ -58,7 +58,7 @@ export const JobStatus = [
 
 
 export const jobType = [
-    "Full-Time", "Part-Time", "Internship", "Contract"
+    "Consultant", "Contract", "Freelance", "Full-Time", "OJT / Internship", "Part-Time"
 ]
 
 export const workType = [
@@ -66,18 +66,42 @@ export const workType = [
 ]
 
 export const category = [
-    "Agriculture, Food, and Natural Resources",
-    "Architecture and Construction",
-    "Arts, Audio/Voice Technolog, and Communication",
-    "IT and Computer Science",
-    "Business and Finance",
-    "Government and Public Administration",
-    "Health Science",
-    "Law, Public Safety, Corrections, and Security",
-    "Marketing",
-    "Science, Technology, Engineering, and Math",
-    "Business Process Outsourcing",
+    "Accounting and Finance",
+    "Administration and Coordination",
+    "Administrative Staff",
+    "Agriculture",
+    "Architecture / Engineering / Construction ",
+    "Arts and Sports",
+    "Aviation",
+    "Biotechnology / Chemical",
+    "Business Consulting and Services",
+    "Conglomerate",
+    "Customer Service",
+    "Customer Support",
+    "Education and Training",
+    "Electronics / Automotive Engineering",
+    "Entertainment",
+    "Food and Beverages",
+    "General Services",
+    "Geology / Geophysics",
+    "Healthcare and Medical",
+    "Hospitality and Tourism",
+    "Human Resources",
+    "Information Technology and Software",
+    "Journalist / Editors",
+    "Law and Legal Services",
+    "Logistic / Supply Chain",
+    "Management and Consultancy",
+    "Manufacturing and Production",
+    "Media and Creatives",
+    "Public Service and NGOs",
+    "Retail",
+    "Safety and Security",
+    "Sales and Marketing",
+    "Sciences",
+    "Writing and Content",
     "Others"
+
 ]
 
 

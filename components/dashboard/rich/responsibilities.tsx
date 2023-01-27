@@ -9,8 +9,11 @@ const toolBarOption = [
     [ { 'list': 'bullet' } ],
 ]
 
-export default function Responsibilities({ value, setValue }: any) {
+export default function Responsibilities({ value, setValue, data }: any) {
 
+    if (data) {
+        setValue("")
+    }
 
     return (
         <div>

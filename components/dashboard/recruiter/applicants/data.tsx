@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import ApplicantCard from './details'
 import styles from '../../../../styles/components/dashboard/applicants/data.module.scss'
-import { useQuery } from '@apollo/client'
-import { applicationQuery } from '../../../../util/applicaiton/application.query'
+import { useLazyQuery, useQuery } from '@apollo/client'
+import { applicationQuery, getSearchApplicant } from '../../../../util/applicaiton/application.query'
 import { applicant } from '../../../../interface/applicant'
 import { format } from 'date-fns'
 import Image from 'next/image'
 import Interview from './interview'
 
-export default function DataApplicants({ status, orders, limit }: any) {
+export default function DataApplicants({ status, orders, limit, dataSearch }: any) {
     const [ pages, setPages ] = useState(0)
+
     const { loading, data } = useQuery(applicationQuery, {
         variables: {
             status: status,
@@ -18,6 +19,9 @@ export default function DataApplicants({ status, orders, limit }: any) {
             offset: pages * limit
         },
         pollInterval: 1000,
+        onCompleted: () => {
+            setID("")
+        },
         onError: error => {
             console.log(error.message)
         }
@@ -50,9 +54,38 @@ export default function DataApplicants({ status, orders, limit }: any) {
                         {status === "rejected" ? null : <th>Action</th>}
                     </tr>
                 </thead>
-
                 <tbody>
-                    {loading ? null : data.getApplicationByStatus.map((
+                    {dataSearch ? dataSearch?.searchApplicantID.map(({ applicantID, id, applicantInterviewer, applicantProfile, createdAt, applyJobPost }: applicant) => (
+                        applicantProfile.map(({ firstname, lastname }) => (
+                            applyJobPost.map(({ title }) => (
+                                <tr key={applicantID}>
+                                    <td>{firstname} {lastname}</td>
+                                    <td>{id}</td>
+                                    <td>{title}</td>
+                                    <td>{format(new Date(createdAt), "MMM dd, yyyy")}</td>
+                                    {applicantInterviewer.length === 0 ?
+                                        <td className={styles.int}>
+
+                                            <button onClick={() => setInterview(applicantID)} className={styles.interview}>Interview</button>
+                                        </td> : applicantInterviewer.map(({ user }: any) => (
+                                            user.map(({ profile }: any) => (
+                                                profile.map(({ profileID, firstname, lastname }: any) => (
+                                                    <td key={profileID}>{firstname} {lastname}</td>
+                                                ))
+                                            ))
+                                        ))}
+                                    {
+                                        status === "rejected" ? null :
+                                            <td className={styles.buttons}>
+                                                <button onClick={() => setID(() => applicantID)}>
+                                                    <Image src="/dashboard/eye-line.svg" alt="" height={25} width={25} />
+                                                </button>
+                                            </td>
+                                    }
+                                </tr>
+                            ))
+                        ))
+                    )) : loading ? null : data.getApplicationByStatus.map((
                         { applicantID, id, applicantInterviewer, applicantProfile, createdAt, applyJobPost }: applicant
                     ) => (
                         applicantProfile.map(({ firstname, lastname }) => (
@@ -89,10 +122,11 @@ export default function DataApplicants({ status, orders, limit }: any) {
             </table>
             {loading ? "Loading" : data.getApplicationByStatus.length >= limit ? <div className={styles.pages}>
                 <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>
-                    <Image src="/icon/arrow-left-line.svg" alt="" height={20} width={20} />
+                    <Image src="/dashboard/arrow-left-lie.svg" alt="" height={20} width={20} />
                 </button>
+                <span>{pages + 1}</span>
                 <button disabled={loading ? true : data.getJobByStatus.length < limit} onClick={() => setPages(() => pages + 1)}>
-                    <Image src="/icon/arrow-right-line.svg" alt="" height={20} width={20} />
+                    <Image src="/dashboard/arrow-right-lie.svg" alt="" height={20} width={20} />
                 </button>
             </div> : null}
         </div>

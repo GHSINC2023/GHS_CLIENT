@@ -14,6 +14,7 @@ query GetApplicationByStatus($status: String!, $limit: Int!, $order: orderedBy!)
       profileID
       firstname
       lastname
+      phone
       profileAddress {
         addressID
         city
@@ -82,6 +83,30 @@ export const getApplicationID = gql`query GetApplicationByStatus($applicationId:
   }
 }`
 
+
+export const getSearchApplicant = gql`query SearchApplicantID($search: String!, $status: String!, $limit: Int!, $offset: Int!, $order: orderedBy!) {
+  searchApplicantID(search: $search, status: $status, limit: $limit, offset: $offset, order: $order) {
+    applicantID
+    id
+    createdAt
+    applyJobPost {
+      title
+    }
+    applicantInterviewer {
+      interviewerID
+      user {
+        profile {
+          firstname
+          lastname
+        }
+      }
+    }
+    applicantProfile {
+      firstname
+      lastname
+    }
+  }
+}`
 
 export const getApplications = gql`query GetAllApplication {
   getAllApplication {

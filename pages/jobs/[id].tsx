@@ -145,23 +145,31 @@ const ID = ({ job }: any) => {
                         <div className={styles.header}>
                             <h2>Job Related</h2>
                         </div>
-                        <div className={styles.box}>
-                            {loading ? null : data.getJobRelated.map(({ jobType, jobPost }: any) => (
-                                jobPost.map(({ jobPostID, title }: any) => (
-                                    jobPostID == id ? null :
-                                        <div onClick={() => router.push(`/jobs/${jobPostID}`)} className={styles.jobRelatedContainer} key={jobPostID}>
-                                            <h2>{title}</h2>
-                                            <div className={styles.jobTypeContainer}>
-                                                {jobType.map((name: any) => (
-                                                    <span key={name}>{name}</span>
-                                                ))}
+                        <div className={styles.jrContainer}>
+                            <div className={styles.box}>
+                                {loading ? null : data.getJobRelated.map(({ jobType, jobPost }: any) => (
+                                    jobPost.map(({ jobPostID, title }: any) => (
+                                        jobPostID == id ? null :
+                                            <div onClick={() => router.push(`/jobs/${jobPostID}`)} className={styles.jobRelatedContainer} key={jobPostID}>
+                                                <h2>{title}</h2>
+                                                <div className={styles.jobTypeContainer}>
+                                                    {jobType.map((name: any) => (
+                                                        <span key={name}>{name}</span>
+                                                    ))}
+                                                </div>
                                             </div>
-                                        </div>
-                                ))
-                            ))}
-                            {loading ? null : data.getJobRelated.length > 5 ? <div className={styles.lmContainer}>
-                                <button>Load More</button>
-                            </div> : null}
+                                    ))
+                                ))}
+                                {loading ? null : data.getJobRelated.length > 5 ? <div className={styles.lmContainer}>
+                                    <button onClick={() => fetchMore({
+                                        variables: {
+                                            category: category,
+                                            limit: 5,
+                                            offset: 0
+                                        }
+                                    })}>Load More</button>
+                                </div> : null}
+                            </div>
                         </div>
                     </div>
                 </div>

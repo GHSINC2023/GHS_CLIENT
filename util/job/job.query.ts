@@ -75,6 +75,7 @@ export const getJobSearch = gql`query Query($search: String!) {
   getJobPostSearch(search: $search) {
     jobPostID
     title
+    description
     details {
       jobType
     }

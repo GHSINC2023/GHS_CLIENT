@@ -1,25 +1,20 @@
-import React, { FC, useRef, useEffect, useState } from 'react'
-import Dashboard from '../../../../layout/dashboard.layout'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import PageWithLayout from '../../../../layout/page.layout'
-import styles from '../../../../styles/components/dashboard/applicants/applicants.module.scss'
+import Dashboard from '../../../../layout/dashboard.layout'
 import Head from 'next/head'
-import dynamic from 'next/dynamic'
+import styles from '../../../../styles/components/dashboard/applicantLogs/applicantlogs.module.scss'
+import { OrderDate, applicantsStatus, limits } from '../../../../util/values/filter'
 import Image from 'next/image'
 import ApplicantExport from '../../../../components/dashboard/export/applicant.export'
-import { getSearchApplicant } from '../../../../util/applicaiton/application.query'
-import { useLazyQuery } from '@apollo/client'
-const ApplicantData = dynamic(() => import("../../../../components/dashboard/admin/applicants/data"), {
+import dynamic from 'next/dynamic'
+const ApplicantData = dynamic(() => import("../../../../components/dashboard/recruiter/applicants/data"), {
     ssr: false
 })
-import { limits, OrderDate, applicantsStatus } from '../../../../util/values/filter'
-const Applicants: FC = () => {
-    const [ status, setStatus ] = useState("waiting")
+const ApplicantLogs: FC = () => {
 
     const limitRef = useRef<HTMLDivElement>(null)
     const OrderRef = useRef<HTMLDivElement>(null)
-
-    const [ search, setSearch ] = useState("")
-
+    const [ status, setStatus ] = useState("waiting")
     const [ exports, setExport ] = useState(false)
     const [ limit, setLimit ] = useState(false)
     const [ limVal, setLimitVal ] = useState(10)
@@ -73,29 +68,10 @@ const Applicants: FC = () => {
         }
     }, [ order ])
 
-    const [ searchData, { data, } ] = useLazyQuery(getSearchApplicant)
-
-
-    const onChangeFindAppID = (e: any) => {
-        searchData({
-            variables: {
-                search,
-                status: status,
-                limit: limVal,
-                offset: 0,
-                order: orders
-            }
-        })
-
-        setSearch(e.target.value)
-    }
-
-    console.log(data)
-
     return (
         <div className={styles.container}>
             <Head>
-                <title>Applicants</title>
+                <title>Applicant Logs</title>
             </Head>
             {
                 exports ? <div className={styles.export}>
@@ -103,10 +79,9 @@ const Applicants: FC = () => {
                 </div> : null
             }
             <div className={styles.header}>
-                <div className={styles.container}>
-                    <h2>Applicants</h2>
-                    <div className={styles.con}>
-                        <input type="search" placeholder='Find Applicant no.' onChange={onChangeFindAppID} />
+                <div className={styles.header}>
+                    <div className={styles.container}>
+                        <h2>Applicant Logs</h2>
                         <button onClick={() => setExport(() => !exports)} className={styles.csv}>
                             <Image src="/dashboard/download.svg" alt="" height={20} width={20} />
                         </button>
@@ -150,14 +125,15 @@ const Applicants: FC = () => {
                     </div>
                 </div>
                 <div style={{ margin: "10px 0", padding: "0.5rem" }}>
-                    {search.length === 0 ? <ApplicantData status={status} orders={orders} limit={limVal} /> : <ApplicantData status={status} orders={orders} limit={limVal} dataSearch={data} />}
+                    <ApplicantData status={status} orders={orders} limit={limVal} />
                 </div>
             </div>
-        </div >
+
+        </div>
     )
 }
 
 
-(Applicants as PageWithLayout).layout = Dashboard
+(ApplicantLogs as PageWithLayout).layout = Dashboard
 
-export default Applicants
+export default ApplicantLogs

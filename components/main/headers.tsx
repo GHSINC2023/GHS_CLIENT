@@ -23,10 +23,15 @@ export default function Header() {
             <div className={styles.logo}>
                 <Image src="/logo/GHS.webp" alt="logo" height={50} width={200} />
             </div>
-            {token ? <div className={styles.token}>
-                <Link href={`/dashboard/${roles}/overview`}>Go To Dashboard</Link></div> : <div className={styles.link}>
-                <Link href="/auth/applicant/login">Login</Link>
-            </div>}
+            {token ?
+                <div className={styles.token}>
+                    {roles === "employer" ? <Link href={`/dashboard/${roles}/endorse`}>Go To Dashboard</Link> : <Link href={`/dashboard/${roles}/overview`}>Go To Dashboard</Link>}
+                </div> :
+
+                <div className={styles.link}>
+                    <Link href="/auth/applicant/login">Login</Link>
+                </div>
+            }
         </div>
     )
 }

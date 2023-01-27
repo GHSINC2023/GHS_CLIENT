@@ -41,11 +41,11 @@ export default function EndorseExports({ close, userid }: any) {
     const datas = data ? data.getEndorseByCSV.map(({ endorse }: any) => {
         return {
             Email: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].email,
-            JobApply: "",
-            Firstname: "",
-            Lastname: "",
-            Phone: "",
-            endorse: "",
+            JobApply: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applyJobPost[ 0 ].title,
+            Firstname: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].firstname,
+            Lastname: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].lastname,
+            Phone: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].phone,
+            endorse: endorse[ 0 ].createdAt,
         }
 
 

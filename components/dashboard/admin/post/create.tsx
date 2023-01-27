@@ -256,9 +256,9 @@ export default function Create({ userid, close }: any) {
                     </div> : null}
                     <input type="text" placeholder='Salary' value={create.salary} onChange={e => setCreate({ ...create, salary: e.target.value })} />
                     <label>Qualification</label>
-                    <Qualifications value={qualifications} setValue={setQualification} />
+                    <Qualifications data={data} value={qualifications} setValue={setQualification} />
                     <label>Responsibilities</label>
-                    <Responsibilties value={responsibilities} setValue={setResponsibilities} />
+                    <Responsibilties data={data} value={responsibilities} setValue={setResponsibilities} />
                     <button
                         disabled={
                             !create.category || !create.salary || create.jobType.length === 0 || !create.overview || create.workType.length === 0 ||
