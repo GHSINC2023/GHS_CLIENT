@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
-import { useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { getMyApplicaiton } from '../../../util/applicaiton/application.query'
 import jwtDecode from 'jwt-decode'
 import styles from '../../../styles/components/applicant/applicant.module.scss'
 import { format } from 'date-fns'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
-
+import { terminateApplication } from '../../../util/applicaiton/application.mutation'
 
 
 export default function Index({ appId }: any) {
@@ -16,6 +16,19 @@ export default function Index({ appId }: any) {
       applicationId: appId
     }
   })
+
+  const [ terminate ] = useMutation(terminateApplication)
+
+  const onHandleTerminateApp = (e: any) => {
+    e.preventDefault();
+    terminate({
+      variables: {
+        applicantId: appId
+      }
+    })
+    router.push("/")
+  }
+
 
   const router = useRouter()
   const onLogouthandle = () => {
@@ -27,15 +40,15 @@ export default function Index({ appId }: any) {
       <div className={styles.header}>
         <button onClick={onLogouthandle}>Logout</button>
       </div>
-      <div>{loading ? null : data.getApplicantByID.map(({ id, email, status, createdAt, applyJobPost, applicantProfile, applicantUpload, endorseFeedback, applicantInterviewer }: any) => (
+      {loading ? null : data.getApplicantByID.map(({ id, email, status, createdAt, applyJobPost, applicantProfile, applicantUpload, endorseFeedback, applicantInterviewer }: any) => (
         applicantProfile.map(({ firstname, lastname, birthday, phone, profileAddress }: any) => (
-          applicantUpload.map(() => (
-            applicantInterviewer.map(({ user }: any) => (
-              applyJobPost.map(({ title }: any) => (
-                <div className={styles.body} key={id}>
-                  <Head>
-                    <title>{`${firstname} ${lastname} - ${id}`}</title>
-                  </Head>
+          applicantUpload.map(({ file, upload }: any) => (
+            <div className={styles.body} key={id}>
+              <Head>
+                <title>{`${firstname} ${lastname} - ${id}`}</title>
+              </Head>
+              <div className={styles.xyz}>
+                <div className={styles.app}>
                   <div className={styles.dvtitle}>
                     <h2>Personal Information</h2>
                   </div>
@@ -104,77 +117,74 @@ export default function Index({ appId }: any) {
                         {format(new Date(birthday), "MMMM dd, yyyy")}
                       </div>
                     </div>
-                    <div className={styles.row}>
-                      <div className={styles.head}>
-                        <div>Job Apply</div>
-                      </div>
-                      <div className={styles.cell}>
-                        {title}
-                      </div>
-                    </div>
-                    <div className={styles.row}>
-                      <div className={styles.head}>
-                        <div>Interviewed by</div>
-                      </div>
-                      <div className={styles.cell}>
-                        {user.map(({ profile }: any) => (
-                          profile.map(({ profileID, firstname, lastname }: any) => (
-                            <div key={profileID}> {firstname} {lastname}</div>
-                          ))
-                        ))}
-                      </div>
-                    </div>
-                    <div className={styles.row}>
-                      <div className={styles.head}>
-                        <div>Date Applied</div>
-                      </div>
-                      <div className={styles.cell}>
-                        <div>
-                          {format(new Date(createdAt), "MMMM dd, yyyy")}
-                        </div>
-                      </div>
-                    </div>
                   </div>
-                  {
-                    status === "rejected" ? null :
-                      <>
-                        <div className={styles.dvtitle}>
-                          <h2>Company Endorse</h2>
-                        </div>
-                        <div className={styles.ftable}>
-                          <div className={styles.tableHeader}>
-                            <div className={styles.fHeader}>
-                              <div>Company</div>
-                              <div>Status</div>
-                              <div>Comments</div>
-                            </div>
-                          </div>
-                          {endorseFeedback.map(({ feedback, feedbackID, endorse }: any) => (
-                            endorse.map(({ company, endorseStatus }: any) => (
-                              company.map(({ companyName }: any) => (
-                                <div key={feedbackID} className={styles.tableBody}>
-                                  <div className={styles.fbody}>
-                                    <div>{companyName}</div>
-                                    <div>
-                                      {endorseStatus === "approved" ? "Approved" : null}
-                                      {endorseStatus === "rejected" ? "Rejected" : null}
-                                    </div>
-                                    <div>{feedback}</div>
-                                  </div>
-                                </div>
-                              ))
-                            ))
-                          ))}
-                        </div>
-                      </>
-                  }
                 </div>
-              ))
-            ))
+                <div className={styles.application}>
+                  <div>
+                    <div className={styles.dvtitle}>
+                      <h2>Application</h2>
+                    </div>
+                    {applyJobPost.map(({ title }: any) => (
+                      <table key={title}>
+                        <tbody>
+                          <tr>
+                            <th>Job Applied</th>
+                            <td>{title}</td>
+                          </tr>
+                          <tr>
+                            <th>Date Applied</th>
+                            <td>{format(new Date(createdAt), "MMMM dd yyyy")}</td>
+                          </tr>
+                          {applicantInterviewer.length === 0 ? <tr><th>Interviewer</th>
+                            <td>N/A</td></tr> : applicantInterviewer.map(({ user }: any) => (
+                              user.map(({ profile }: any) => (
+                                profile.map(({ profileID, firstname, lastname }: any) => (
+                                  <tr key={profileID}>
+                                    <th>Interviewer</th>
+                                    <td>{firstname} {lastname}</td>
+                                  </tr>
+                                ))
+                              ))
+                            ))}
+                        </tbody>
+                      </table>
+                    ))}
+                  </div>
+                  <button onClick={onHandleTerminateApp}>Terminate</button>
+                </div>
+              </div>
+              <div className={styles.feedback}>
+                <div className={styles.dvtitle}>
+                  <h2>Endorse Feedback</h2>
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Company</th>
+                      <th>Status</th>
+                      <th>Feedback</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {endorseFeedback.map(({ feedback, feedbackID, endorse }: any) => (
+                      endorse.map(({ endorseStatus, company }: any) => (
+                        company.map(({ companyName }: any) => (
+                          <tr key={feedbackID}>
+                            <td>{companyName}</td>
+                            <td>{endorseStatus}</td>
+                            <td>{feedback}</td>
+                          </tr>
+                        ))
+                      ))
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           ))
         ))
-      ))}</div>
-    </div>
+      ))}
+    </div >
   )
 }
 

@@ -43,3 +43,10 @@ export const updateApplicantStatus = gql`mutation Mutation($applicantId: ID!, $s
     id
   }
 }`
+
+
+export const terminateApplication = gql`mutation TerminateMyApplication($applicantId: ID!) {
+  terminateMyApplication(applicantID: $applicantId) {
+    id
+  }
+}`

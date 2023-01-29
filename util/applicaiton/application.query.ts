@@ -144,38 +144,39 @@ export const getMyApplicaiton = gql`query GetApplicantByID($applicationId: ID!) 
       title
     }
     applicantProfile {
+      birthday
       firstname
       lastname
       phone
-      birthday
       profileAddress {
-        province
-        street
-        zipcode
+        addressID
         city
+        zipcode
+        street
       }
     }
     applicantUpload {
       file
       video
     }
+
     status
     endorseFeedback {
       feedback
       feedbackID
       endorse {
+        endorseStatus
         company {
           companyName
         }
-        endorseStatus
       }
     }
     applicantInterviewer {
       user {
         profile {
-          profileID
-          firstname
           lastname
+          firstname
+          profileID
         }
       }
     }
