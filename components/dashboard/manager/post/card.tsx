@@ -3,7 +3,6 @@ import styles from '../../../../styles/components/dashboard/post/card.module.scs
 import { statused } from '../../../../util/values/filter'
 import { useRouter } from 'next/router'
 import { jobStatusMutation } from '../../../../util/job/job.mutation'
-import { getJobStatus } from '../../../../util/job/job.query'
 import { useMutation } from '@apollo/client'
 import DeleteCard from '../../card/deleteCard'
 import Message from '../../../message/message'
@@ -112,7 +111,7 @@ export default function CardPost({ id, title, description, status, author }: any
                     <h3>{author}</h3>
                 </div>
                 <div className={styles.descriptions}>
-                    <p>{description.substring(0, 100)}</p>
+                    <p>{description.substring(0, 80)}</p>
                 </div>
             </div>
             <div className={styles.btnContainer}>

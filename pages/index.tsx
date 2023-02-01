@@ -31,6 +31,7 @@ const Home: FC = () => {
     }
   })
 
+
   const [ filter, setFilter ] = useState<Filter>({
     jobType: [],
     workType: [],

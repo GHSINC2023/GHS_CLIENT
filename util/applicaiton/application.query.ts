@@ -182,3 +182,12 @@ export const getMyApplicaiton = gql`query GetApplicantByID($applicationId: ID!) 
     }
   }
 }`
+
+
+export const userRoles = gql`query($name: String!) {
+  __type(name: $name) {
+    enumValues {
+      name
+    }
+  }
+}`

@@ -49,7 +49,6 @@ export const getJobStatus = gql`
 query Query($status: String!, $take: Int!, $order: orderedBy, $offset: Int!) {
   getJobByStatus(status: $status, take: $take, order: $order, offset: $offset) {
     jobPostID
-    title
     description
     status
     createdAt
@@ -94,7 +93,7 @@ export const getRelatedJob = gql`query GetJobRelated($category: String!, $limit:
 }`
 
 
-export const  getJobFilterSearch = gql`query GetSpecificJob($category: String, $jobType: [String], $workType: [String], $limit: Int!, $offset: Int!) {
+export const getJobFilterSearch = gql`query GetSpecificJob($category: String, $jobType: [String], $workType: [String], $limit: Int!, $offset: Int!) {
   getSpecificJob(category: $category, jobType: $jobType, workType: $workType limit: $limit, offset: $offset) {
     jobDetailsID
     jobPost {
@@ -117,7 +116,7 @@ export const getAllJobCount = gql`query GetAllCountJob {
 }`
 
 
-export const getJobChart =gql`query GetGroubyByJob {
+export const getJobChart = gql`query GetGroubyByJob {
   getGroubyByJob {
     _count
     createdAt

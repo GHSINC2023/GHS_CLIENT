@@ -42,12 +42,14 @@ export default function Sidebar() {
     const manager = [
         { name: "overview", url: `/dashboard/${roles}/overview` },
         { name: "post", url: `/dashboard/${roles}/post` },
+        { name: "applicants", url: `/dashboard/${roles}/applications` },
         { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
     const moderator = [
         { name: "overview", url: `/dashboard/${roles}/overview` },
         { name: "post", url: `/dashboard/${roles}/post` },
+        { name: "applicants", url: `/dashboard/${roles}/applications` },
         { name: "Applicant Logs", url: `/dashboard/${roles}/applicant_logs` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]

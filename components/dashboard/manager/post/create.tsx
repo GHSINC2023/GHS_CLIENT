@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import styles from '../../../../styles/components/dashboard/post/create.module.scss'
-import jwtDecode from 'jwt-decode'
 import dynamic from 'next/dynamic'
 import { CreateJob } from '../../../../interface/create.interface'
 import { useMutation } from '@apollo/client'
@@ -104,20 +103,21 @@ export default function Create({ userid, close }: any) {
                 userId: userid,
             },
             onCompleted: (data) => {
-                if (data) {
-                    setMessage(true)
-                    responsibilities
-                    qualifications
-                    setCreate({
-                        category: "",
-                        jobType: [],
-                        location: [],
-                        overview: "",
-                        salary: "",
-                        title: "",
-                        workType: []
-                    })
-                }
+
+                setMessage(true)
+
+                setResponsibilities: "";
+                setQualification: "";
+                setCreate({
+                    category: "",
+                    jobType: [],
+                    location: [],
+                    overview: "",
+                    salary: "",
+                    title: "",
+                    workType: [],
+                })
+
             },
             onError: (error) => {
                 alert()
@@ -256,9 +256,9 @@ export default function Create({ userid, close }: any) {
                     </div> : null}
                     <input type="text" placeholder='Salary' value={create.salary} onChange={e => setCreate({ ...create, salary: e.target.value })} />
                     <label>Qualification</label>
-                    <Qualifications value={qualifications} setValue={setQualification} />
+                    <Qualifications data={data} value={qualifications} setValue={setQualification} />
                     <label>Responsibilities</label>
-                    <Responsibilties value={responsibilities} setValue={setResponsibilities} />
+                    <Responsibilties data={data} value={responsibilities} setValue={setResponsibilities} />
                     <button
                         disabled={
                             !create.category || !create.salary || create.jobType.length === 0 || !create.overview || create.workType.length === 0 ||

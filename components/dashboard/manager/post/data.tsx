@@ -6,6 +6,7 @@ import styles from '../../../../styles/components/dashboard/post/data.module.scs
 import CardPost from './card'
 import Image from 'next/image'
 
+
 export default function DataStatus({ status, limit, order }: any) {
 
     const [ pages, setPages ] = useState(0)
@@ -17,6 +18,7 @@ export default function DataStatus({ status, limit, order }: any) {
             order: order,
             offset: pages * limit
         },
+        pollInterval: 1000
     })
 
 
