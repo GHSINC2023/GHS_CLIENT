@@ -95,12 +95,16 @@ export default function EndorseExport({ close }: any) {
                         <input type="date" value={start} onChange={e => setStart(e.target.value)} placeholder='Start - YYYY-MM-DD' />
                         <input value={end} onChange={e => setEnd(e.target.value)} type="date" placeholder='End - YYYY-MM-DD' />
                     </div>
-                    {data ? <CSVLink headers={headers} data={datas} filename={filename}>DOWNLOAD</CSVLink> : <button disabled={!start || !end || !status} type='submit' className={styles.endorse} onClick={(e) => {
-                        e.preventDefault()
-                        createEndorsementCSV()
-                    }}>
-                        GENERATE REPORT
-                    </button>}
+                    {data ?
+                        <CSVLink headers={headers}
+                            style={{ width: "100%", textAlign: "center", border: "1px solid #D02222", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "5px" }}
+                            data={datas}
+                            filename={filename}>DOWNLOAD</CSVLink> : <button disabled={!start || !end || !status} type='submit' className={styles.endorse} onClick={(e) => {
+                                e.preventDefault()
+                                createEndorsementCSV()
+                            }}>
+                            GENERATE REPORT
+                        </button>}
                 </form>
             </div >
         </div >

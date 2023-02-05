@@ -58,7 +58,7 @@ const Create: FC<Props> = ({ closed, opens }) => {
                 profile: {
                     firstname: users.firstname,
                     lastname: users.lastname,
-                    phone: `+630${users.phone}`,
+                    phone: `+63${users.phone}`,
                     birthday: users.bday
                 },
             },
@@ -165,7 +165,7 @@ const Create: FC<Props> = ({ closed, opens }) => {
                     </div>
                     <div className={styles.phone}>
                         <label>Phone</label>
-                        <input maxLength={10} type="tel" value={users.phone} onChange={e => setUser({ ...users, phone: e.target.value })} placeholder='+63 912345678' />
+                        <input maxLength={11} type="tel" value={users.phone} onChange={e => setUser({ ...users, phone: e.target.value })} placeholder='0912345678' />
                     </div>
                 </div>
                 <div className={styles.btnContainer}>

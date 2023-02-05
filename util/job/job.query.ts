@@ -52,6 +52,7 @@ query Query($status: String!, $take: Int!, $order: orderedBy, $offset: Int!) {
     description
     status
     createdAt
+    title
     updatedAt
     users {
       userID
@@ -127,5 +128,12 @@ export const getAllJobDWMY = gql`query GetGroubyByJob($select: String!) {
   getJobPostDWMY(select: $select) {
     _count
     createdAt
+  }
+}`
+
+
+export const getsAllCateg = gql`query Query {
+  getAllCategories {
+    category
   }
 }`

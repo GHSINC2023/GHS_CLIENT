@@ -108,6 +108,7 @@ export default function ApplicantExport({ close }: any) {
                 {data ?
                     <CSVLink data={datas}
                         headers={headers}
+                        style={{ width: "100%", textAlign: "center", border: "1px solid #D02222", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "5px" }}
                         filename={filename}>Download</CSVLink> :
                     <button disabled={!start || !end || !status} type="submit"
                         onClick={(e) => {

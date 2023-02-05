@@ -9,7 +9,7 @@ import Account from '../../../../components/dashboard/admin/settings/account'
 import CPass from '../../../../components/dashboard/admin/settings/cpass'
 import Log from '../../../../components/dashboard/admin/settings/log'
 import Eprofile from '../../../../components/dashboard/admin/settings/eprofile'
-
+import Pin from '../../../../components/dashboard/admin/settings/pin'
 const Settings: FC = ({ userid }: any) => {
     const [ tab, setTabs ] = useState("account")
 
@@ -37,6 +37,7 @@ const Settings: FC = ({ userid }: any) => {
                 {tab === "log" ? <Log userid={userid} /> : null}
                 {tab === "cpass" ? <CPass userid={userid} /> : null}
                 {tab === "eprof" ? <Eprofile userid={userid} /> : null}
+                {tab === "pin" ? <Pin userid={userid} /> : null}
             </div>
         </div >
     )

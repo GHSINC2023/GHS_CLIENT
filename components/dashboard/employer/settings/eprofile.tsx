@@ -20,6 +20,7 @@ interface Profile {
 export default function Eprofile({ userid }: any) {
 
 
+
     const [ message, setMessage ] = useState(false)
     const [ render, setRender ] = useState(false)
 
@@ -31,7 +32,7 @@ export default function Eprofile({ userid }: any) {
 
     useEffect(() => {
         if (!render) {
-            loading ? null : data.getUserByID.map(({ profile }: any) => {
+            data.getUserByID.map(({ profile }: any) => {
                 profile.map(({ firstname, lastname, birthday, phone, profileAddress }: any) => {
                     if (profileAddress.length === 0) {
                         setUser({
@@ -59,7 +60,7 @@ export default function Eprofile({ userid }: any) {
 
             setRender(true)
         }
-    }, [ data, loading, render ])
+    }, [ data.getUserByID, render ])
 
     const [ user, setUser ] = useState<Profile>({
         firstname: "",
@@ -115,7 +116,6 @@ export default function Eprofile({ userid }: any) {
 
     return (
         <>
-
             {loading ? null : data.getUserByID.map(({ userID, profile }: any) => (
                 profile.map(({ firstname, lastname, birthday, phone, profileAddress }: any) => (
                     <form className={styles.container} key={userID}>

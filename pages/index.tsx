@@ -5,10 +5,10 @@ import PageWithLayout from '../layout/page.layout'
 import styles from '../styles/Home.module.scss'
 import Image from 'next/image'
 import JobCard from '../components/card/jobcard'
-import { getAllJobQuery, getJobFilterSearch, getJobSearch } from '../util/job/job.query'
+import { getAllJobQuery, getJobFilterSearch, getJobSearch, getsAllCateg } from '../util/job/job.query'
 import { useQuery, useLazyQuery } from '@apollo/client'
 import { JobQuery, Filter } from '../interface/jobs.interface.query'
-import { category, jobType, workType } from '../util/values/filter'
+import { jobType, workType } from '../util/values/filter'
 import { OrderDate } from '../util/values/filter'
 
 
@@ -30,6 +30,8 @@ const Home: FC = () => {
       order: dateFilter
     }
   })
+
+  const { loading: categLoading, data: categData } = useQuery(getsAllCateg)
 
 
   const [ filter, setFilter ] = useState<Filter>({
@@ -120,19 +122,16 @@ const Home: FC = () => {
             </div>
             <div className={styles.optionContainer}>
               <h2>Category</h2>
-              {category.map((name) => (
-                <div className={styles.holder} key={name}>
-                  <input type="checkbox" value={name}
-                    checked={filter.category === name}
-                    onChange={e => {
-                      setFilter({ ...filter, category: e.target.value })
 
-                      if (filter.category === e.target.value) {
-                        setFilter({ ...filter, category: "" })
-                      }
+              {categLoading ? null : categData.getAllCategories.map(({ category }: any) => (
+                <div className={styles.holder} key={category}>
+                  <input type="checkbox" onChange={(e) => {
+                    setFilter({ ...filter, category: e.target.value })
+                    if (filter.category === e.target.value) {
+                      setFilter({ ...filter, category: "" })
                     }
-                    } />
-                  <label>{name}</label>
+                  }} value={category} />
+                  <label>{category}</label>
                 </div>
               ))}
             </div>

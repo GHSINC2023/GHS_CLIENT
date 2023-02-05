@@ -120,6 +120,7 @@ export const tabs = [
     { name: "Account", value: "account" },
     { name: "Edit Profile", value: "eprof" },
     { name: "Changed Password", value: "cpass" },
+    { name: "Change Pin", value: "pin" },
     { name: "Activtiy Log", value: "log" },
 ]
 

@@ -25,21 +25,21 @@ export default function Login() {
         e.preventDefault()
         usersLogin({
             variables: {
-                    email: users.email,
-                    viewMyApplicationId: users.id
+                email: users.email,
+                viewMyApplicationId: users.id
             },
             onCompleted: data => {
-              if(data) {
-                const cookie = Cookies.set("ghs_access_applicant", data.viewMyApplication.token, {
-                    secure: true,
-                    sameSite:"none",
-                    expires: 60 * 60 * 24
-                })
-                if(cookie) {
-                    const { applicantID }: decodedToken = jwtDecode(cookie)
-                    router.push(`/applicants/${applicantID}`)
+                if (data) {
+                    const cookie = Cookies.set("ghs_access_applicant", data.viewMyApplication.token, {
+                        secure: true,
+                        sameSite: "none",
+                        expires: 60 * 60 * 24
+                    })
+                    if (cookie) {
+                        const { applicantID }: decodedToken = jwtDecode(cookie)
+                        router.push(`/applicants/${applicantID}`)
+                    }
                 }
-              }
             },
             onError: err => {
                 console.log(err.message)
@@ -61,7 +61,7 @@ export default function Login() {
                     </div>
                     <input type="text" value={users.id} onChange={e => setUsers({ ...users, id: e.target.value })} placeholder='Applicant No.' />
                     <input type="email" value={users.email} onChange={e => setUsers({ ...users, email: e.target.value })} placeholder='Email Address' />
-                    
+
                     <button type='submit'>Login</button>
                 </form>
             </div>
