@@ -12,7 +12,7 @@ const DataUser = dynamic(() => import("../../../../components/dashboard/admin/us
     ssr: false
 })
 const User: FC = () => {
-    const [ status, setStatus ] = useState("manager")
+    const [ status, setStatus ] = useState("administrator")
 
 
 

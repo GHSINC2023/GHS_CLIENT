@@ -49,10 +49,6 @@ export default function UserData({ limit, orders, roles }: Filters) {
         },
     })
 
-
-    // useEffect(() => {
-    //     startPolling(500);
-    // })
     return (
         <div className={styles.container}>
             {
