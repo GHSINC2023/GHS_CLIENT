@@ -3,7 +3,7 @@ import Dashboard from '../../../../layout/dashboard.layout'
 import PageWithLayout from '../../../../layout/page.layout'
 import Head from 'next/head'
 import styles from '../../../../styles/components/dashboard/user/user.module.scss'
-import { roles, OrderDate, limits, MR } from '../../../../util/values/filter'
+import { OrderDate, limits, MR } from '../../../../util/values/filter'
 import dynamic from 'next/dynamic'
 
 const DataUser = dynamic(() => import("../../../../components/dashboard/manager/user/data"), {
@@ -80,9 +80,9 @@ const User: FC = () => {
                 </div>
                 <div className={styles.post}>
                     <div className={styles.tab}>
-                        {MR.map(({ name, value }) =>
+                        {MR.map(({ name, value }) => (
                             <button onClick={handleStatusClick} className={value === status ? styles.active : ""} key={name} value={value}>{name}</button>
-                        )}
+                        ))}
                     </div>
                     <div className={styles.tkl}>
                         <div className={styles.take}>

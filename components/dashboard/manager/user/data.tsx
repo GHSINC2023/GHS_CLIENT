@@ -26,8 +26,6 @@ export default function UserData({ limit, orders, roles }: Filters) {
         },
     })
 
-
-    if (loading) null
     return (
         <div className={styles.container}>
             {
@@ -48,7 +46,7 @@ export default function UserData({ limit, orders, roles }: Filters) {
                         </tr>
                     </thead>
                     <tbody>
-                        {loading ? null : data.getUserByRoles.map(({ userID, email, createdAt, profile, updatedAt, company }: any) => (
+                        {loading ? null : data.getUserByRoles.map(({ userID, createdAt, profile, company }: any) => (
                             profile.map(({ firstname, lastname, birthday }: any) => (
                                 <tr key={userID}>
                                     <td>{lastname}, {firstname}</td>
