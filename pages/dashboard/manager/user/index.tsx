@@ -3,14 +3,14 @@ import Dashboard from '../../../../layout/dashboard.layout'
 import PageWithLayout from '../../../../layout/page.layout'
 import Head from 'next/head'
 import styles from '../../../../styles/components/dashboard/user/user.module.scss'
-import { roles, OrderDate, limits } from '../../../../util/values/filter'
+import { roles, OrderDate, limits, MR } from '../../../../util/values/filter'
 import dynamic from 'next/dynamic'
 
-const DataUser = dynamic(() => import("../../../../components/dashboard/admin/user/data"), {
+const DataUser = dynamic(() => import("../../../../components/dashboard/manager/user/data"), {
     ssr: false
 })
 const User: FC = () => {
-    const [ status, setStatus ] = useState("Manager")
+    const [ status, setStatus ] = useState("manager")
 
 
 
@@ -20,7 +20,6 @@ const User: FC = () => {
     const [ limit, setLimit ] = useState(false)
     const [ limVal, setLimitVal ] = useState(10)
     const [ orders, setOrders ] = useState("desc")
-    const [ create, setCreate ] = useState(false)
 
     const [ order, setOrder ] = useState(false)
     const handleStatusClick = (e: any) => {
@@ -81,10 +80,9 @@ const User: FC = () => {
                 </div>
                 <div className={styles.post}>
                     <div className={styles.tab}>
-                        {roles.map(({ name, value }) => (
-                            value === "administrator" ? null :
-                                <button onClick={handleStatusClick} className={value === status ? styles.active : ""} key={name} value={value}>{name}</button>
-                        ))}
+                        {MR.map(({ name, value }) =>
+                            <button onClick={handleStatusClick} className={value === status ? styles.active : ""} key={name} value={value}>{name}</button>
+                        )}
                     </div>
                     <div className={styles.tkl}>
                         <div className={styles.take}>

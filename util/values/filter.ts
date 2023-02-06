@@ -6,6 +6,12 @@ export const roles = [
     { name: "Employer", value: "employer" }
 ]
 
+export const MR = [
+
+    { name: "Manager", value: "manager" },
+    { name: "Moderator", value: "moderator" },
+    { name: "Recruiter", value: "recruiter" },
+]
 
 export const OrderDate = [
     { name: "Newest", value: "desc" },

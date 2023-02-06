@@ -12,7 +12,7 @@ const DataUser = dynamic(() => import("../../../../components/dashboard/admin/us
     ssr: false
 })
 const User: FC = () => {
-    const [ status, setStatus ] = useState("administrator")
+    const [ status, setStatus ] = useState("manager")
 
 
 
@@ -79,7 +79,7 @@ const User: FC = () => {
             </Head>
             {
                 create ? <div className={styles.create}>
-                    <CreateUsers closed={setCreate} opens={create}/>
+                    <CreateUsers closed={setCreate} opens={create} />
                 </div> : null
             }
             <div className={styles.header}>
