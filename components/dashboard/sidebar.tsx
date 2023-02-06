@@ -44,6 +44,7 @@ export default function Sidebar() {
         { name: "post", url: `/dashboard/${roles}/post` },
         { name: "applicants", url: `/dashboard/${roles}/applications` },
         { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
+        { name: "user", url: `/dashboard/${roles}/user` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
     const moderator = [
