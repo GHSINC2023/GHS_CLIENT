@@ -2,11 +2,9 @@ import React, { FC, useState, useEffect, useRef } from 'react'
 import Dashboard from '../../../../layout/dashboard.layout'
 import PageWithLayout from '../../../../layout/page.layout'
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../../../../styles/components/dashboard/user/user.module.scss'
 import { roles, OrderDate, limits } from '../../../../util/values/filter'
 import dynamic from 'next/dynamic'
-import CreateUsers from '../../../../components/dashboard/admin/user/create'
 
 const DataUser = dynamic(() => import("../../../../components/dashboard/admin/user/data"), {
     ssr: false
@@ -77,27 +75,16 @@ const User: FC = () => {
             <Head>
                 <title>User</title>
             </Head>
-            {
-                create ? <div className={styles.create}>
-                    <CreateUsers closed={setCreate} opens={create}/>
-                </div> : null
-            }
             <div className={styles.header}>
                 <div className={styles.container}>
                     <h2>Users</h2>
-                    <div className={styles.option}>
-                        <button onClick={() => setCreate(() => !create)} >
-                            <Image src="/dashboard/plus-line.svg" alt="" height={20} width={20} />
-                        </button>
-                        <span>
-                            Create
-                        </span>
-                    </div>
                 </div>
                 <div className={styles.post}>
                     <div className={styles.tab}>
                         {roles.map(({ name, value }) => (
-                            <button onClick={handleStatusClick} className={value === status ? styles.active : ""} key={name} value={value}>{name}</button>
+                            value === "administrator" || "employer" ? null :
+
+                                <button onClick={handleStatusClick} className={value === status ? styles.active : ""} key={name} value={value}>{name}</button>
                         ))}
                     </div>
                     <div className={styles.tkl}>
