@@ -282,7 +282,7 @@ export default function Create({ userid, close }: any) {
                     <button
                         disabled={
                             !create.category || !create.salary || create.jobType.length === 0 || !create.overview || create.workType.length === 0 ||
-                            !create.title || !responsibilities || !qualifications
+                            !create.title || !responsibilities || !qualifications || create.location.length === 0
                         }
                         onClick={formSubmit} className={styles.submit}>Submit
                     </button>

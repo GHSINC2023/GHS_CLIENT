@@ -7,7 +7,7 @@ import { OrderDate, applicantsStatus, limits } from '../../../../util/values/fil
 import Image from 'next/image'
 import ApplicantExport from '../../../../components/dashboard/export/applicant.export'
 import dynamic from 'next/dynamic'
-const ApplicantData = dynamic(() => import("../../../../components/dashboard/recruiter/applicants/data"), {
+const ApplicantData = dynamic(() => import("../../../../components/dashboard/moderator/applicant_logs/data"), {
     ssr: false
 })
 const ApplicantLogs: FC = () => {
