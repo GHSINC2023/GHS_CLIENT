@@ -10,7 +10,7 @@ const DataUser = dynamic(() => import("../../../../components/dashboard/admin/us
     ssr: false
 })
 const User: FC = () => {
-    const [ status, setStatus ] = useState("administrator")
+    const [ status, setStatus ] = useState("Manager")
 
 
 
@@ -82,8 +82,7 @@ const User: FC = () => {
                 <div className={styles.post}>
                     <div className={styles.tab}>
                         {roles.map(({ name, value }) => (
-                            value === "administrator" || "employer" ? null :
-
+                            value === "administrator" ? null :
                                 <button onClick={handleStatusClick} className={value === status ? styles.active : ""} key={name} value={value}>{name}</button>
                         ))}
                     </div>
