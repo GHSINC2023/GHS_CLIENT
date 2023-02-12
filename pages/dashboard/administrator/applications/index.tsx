@@ -90,8 +90,6 @@ const Applicants: FC = () => {
         setSearch(e.target.value)
     }
 
-    console.log(data)
-
     return (
         <div className={styles.container}>
             <Head>
@@ -107,9 +105,12 @@ const Applicants: FC = () => {
                     <h2>Applicants</h2>
                     <div className={styles.con}>
                         <input type="search" placeholder='Find Applicant no.' onChange={onChangeFindAppID} />
-                        <button onClick={() => setExport(() => !exports)} className={styles.csv}>
-                            <Image src="/dashboard/download.svg" alt="" height={20} width={20} />
-                        </button>
+                        <div className={styles.option}>
+                            <button onClick={() => setExport(() => !exports)} className={styles.csv}>
+                                <Image src="/dashboard/download.svg" alt="" height={20} width={20} />
+                            </button>
+                            <span>Export Applicant</span>
+                        </div>
                     </div>
                 </div>
                 <div className={styles.applicant}>

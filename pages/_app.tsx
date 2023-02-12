@@ -5,7 +5,9 @@ import { createUploadLink } from 'apollo-upload-client'
 import { createClient } from 'graphql-ws'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
-
+import { useEffect } from 'react'
+import Cookies from 'js-cookie'
+import jwtDecode from 'jwt-decode'
 
 type AppLayoutPage = {
   Component: PageWithLayout
@@ -79,6 +81,17 @@ export const client = new ApolloClient({
 function MyApp({ Component, pageProps }: AppLayoutPage) {
 
   const Layout = Component.layout || (({ children }: any) => <>{children}</>)
+
+
+  useEffect(() => {
+    const cookies = Cookies.get("ghs_access_token")
+    if (cookies) {
+      const { exp }: any = jwtDecode(cookies)
+      if (new Date().getTime() === exp) {
+        Cookies.remove("ghs_access_token")
+      }
+    }
+  })
 
   return (
     <ApolloProvider client={client}>

@@ -82,9 +82,12 @@ const ApplicantLogs: FC = () => {
                 <div className={styles.header}>
                     <div className={styles.container}>
                         <h2>Applicant Logs</h2>
-                        <button onClick={() => setExport(() => !exports)} className={styles.csv}>
-                            <Image src="/dashboard/download.svg" alt="" height={20} width={20} />
-                        </button>
+                        <div className={styles.option}>
+                            <button onClick={() => setExport(() => !exports)} className={styles.csv}>
+                                <Image src="/dashboard/download.svg" alt="" height={20} width={20} />
+                            </button>
+                            <span>Export Applicant</span>
+                        </div>
                     </div>
                 </div>
                 <div className={styles.applicant}>
