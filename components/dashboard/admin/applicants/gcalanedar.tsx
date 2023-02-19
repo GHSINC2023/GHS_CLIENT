@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../../../../styles/components/dashboard/applicants/calendar.module.scss'
 import { createScreenApplicant } from '../../../../util/applicaiton/application.mutation'
 import { useMutation } from '@apollo/client'
-
+import Message from '../../../message/message'
 
 export default function Gcalendar({ applicantID, userID, close }: any) {
 
@@ -12,16 +12,25 @@ export default function Gcalendar({ applicantID, userID, close }: any) {
         end: ""
     })
 
+    const [ message, setMessage ] = useState(false)
 
-    const [ createGoogleCalendar ] = useMutation(createScreenApplicant, {
+    const [ createGoogleCalendar, { data } ] = useMutation(createScreenApplicant, {
         variables: {
             applicantId: applicantID,
             start: cal.start,
             end: cal.end,
             userId: userID
+        },
+        onCompleted: () => {
+            setMessage(false)
         }
     })
 
+    useEffect(() => {
+        setInterval(() => {
+            setMessage(false)
+        }, 1000)
+    }, [])
 
     const onHandleGoogleCalendar = (e: any) => {
         e.preventDefault();
@@ -29,6 +38,9 @@ export default function Gcalendar({ applicantID, userID, close }: any) {
     }
     return (
         <div className={styles.container}>
+            {data && message ? <div className={styles.message}>
+                <Message label='Successfully Link Created' message='' status='success' />
+            </div> : null}
             <div className={styles.header}>
                 <button onClick={() => close(false)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d02222" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x">

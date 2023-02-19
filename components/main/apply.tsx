@@ -159,7 +159,7 @@ export default function Apply({ jobid, close, open }: any) {
                     <input type="tel"
                         value={applications.phone}
                         onChange={e => setApplications({ ...applications, phone: e.target.value })}
-                        maxLength={11} placeholder="09123456789" />
+                        maxLength={12} placeholder="09123456789" />
                     <input type="date"
                         value={applications.bday}
                         onChange={e => setApplications({ ...applications, bday: e.target.value })}
