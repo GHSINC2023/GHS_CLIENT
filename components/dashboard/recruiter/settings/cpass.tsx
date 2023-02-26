@@ -40,11 +40,11 @@ export default function CPass({ userid }: any) {
             <h2>Change Password</h2>
             <form onSubmit={handleResetPass}>
                 <label>New Password</label>
-                <input type="text" value={pass.password} pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 3}$' onChange={e => setPass({ ...pass, password: e.target.value })}
+                <input type="password" value={pass.password} pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 3}$' onChange={e => setPass({ ...pass, password: e.target.value })}
                     placeholder='Enter your new password'
                 />
                 <label>Retype Password</label>
-                <input type="text" value={pass.password} onChange={e => setPass({ ...pass, password: e.target.value })}
+                <input type="password" value={pass.retype} onChange={e => setPass({ ...pass, password: e.target.value })}
                     placeholder='Re-type your new password'
                 />
                 <button type="submit">Change Password</button>
