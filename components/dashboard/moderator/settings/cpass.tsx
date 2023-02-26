@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../../../../styles/components/dashboard/settings/changePass.module.scss'
 
 import { useMutation } from '@apollo/client'
 import { userPass } from '../../../../util/account/profile.mutation'
+import Message from '../../../message/message'
 
 
 interface Password {
@@ -18,8 +19,9 @@ export default function CPass({ userid }: any) {
         password: ""
     })
 
+    const [ message, setMessage ] = useState(false)
 
-    const [ resetPass ] = useMutation(userPass, {
+    const [ resetPass, { data, error } ] = useMutation(userPass, {
         variables: {
 
             userId: userid,
@@ -38,6 +40,12 @@ export default function CPass({ userid }: any) {
     return (
         <div className={styles.container}>
             <h2>Change Password</h2>
+            {data && message ? <div>
+                <Message label='Successfully Password Update' message='' status='success' />
+            </div> : null}
+            {error?.message === "Password is not Matched" ? <div>
+                <Message label='Password is not Matched' message='' status='error' />
+            </div> : null}
             <form onSubmit={handleResetPass}>
                 <label>New Password</label>
                 <input type="password" value={pass.password} pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 3}$' onChange={e => setPass({ ...pass, password: e.target.value })}
