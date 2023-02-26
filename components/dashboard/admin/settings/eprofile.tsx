@@ -190,7 +190,7 @@ export default function Eprofile({ userid }: any) {
 
                         </div>
                         <div className={styles.save}>
-                            <button onClick={onHandleUserProfile}>Save</button>
+                            <button disabled={!user.firstname || !user.lastname || !user.birthday || !user.city || !user.phone || !user.province || !user.street || !user.zipcode} onClick={onHandleUserProfile}>Save</button>
                         </div>
                     </form>
                 ))

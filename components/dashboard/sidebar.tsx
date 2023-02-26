@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from '../../styles/components/dashboard/sidebar.module.scss';
 import { useRouter } from 'next/router';
 import jwtDecode from 'jwt-decode'
-import Cookies from 'js-cookie';
+import Cookies from 'js-cookie'
 import { client } from '../../pages/_app';
 import { useMutation } from '@apollo/client';
 import { logoutLog } from '../../util/logs/log.mutation';
