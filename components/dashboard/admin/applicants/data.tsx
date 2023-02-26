@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import ApplicantCard from './details'
 import styles from '../../../../styles/components/dashboard/applicants/data.module.scss'
-import { useLazyQuery, useQuery } from '@apollo/client'
-import { applicationQuery, getSearchApplicant } from '../../../../util/applicaiton/application.query'
+import { useQuery } from '@apollo/client'
+import { applicationQuery } from '../../../../util/applicaiton/application.query'
 import { applicant } from '../../../../interface/applicant'
 import { format } from 'date-fns'
 import Image from 'next/image'
@@ -62,7 +62,7 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                                     <td>{firstname} {lastname}</td>
                                     <td>{id}</td>
                                     <td>{title}</td>
-                                    <td>{format(new Date(createdAt), "MMM dd, yyyy")}</td>
+                                    <td>{format(new Date(createdAt), "MMM dd, yyyy h:mm:ss a")}</td>
                                     {applicantInterviewer.length === 0 ?
                                         <td className={styles.int}>
 
@@ -94,7 +94,7 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                                     <td>{firstname} {lastname}</td>
                                     <td>{id}</td>
                                     <td>{title}</td>
-                                    <td>{format(new Date(createdAt), "MMM dd, yyyy")}</td>
+                                    <td>{format(new Date(createdAt), "MMM dd, yyyy h:mm:ss a")}</td>
                                     {applicantInterviewer.length === 0 ?
                                         <td className={styles.int}>
 

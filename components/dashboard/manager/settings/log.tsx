@@ -30,7 +30,7 @@ export default function Log({ userid }: any) {
                             <tr key={logsID}>
                                 <td>{title}</td>
                                 <td>{modifiedBy}</td>
-                                <td>{format(new Date(createdAt), "MMMM dd, yyyy")}</td>
+                                <td>{format(new Date(createdAt), "MMMM dd, yyyy h:mm:ss a")}</td>
                             </tr>
                         ))}
                     </tbody>

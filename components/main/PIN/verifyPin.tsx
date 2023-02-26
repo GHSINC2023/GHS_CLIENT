@@ -5,7 +5,7 @@ import { LoginUsers } from '../../../util/auth/login'
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 import { useRouter } from 'next/router'
-
+import Message from '../../message/message'
 
 interface decodedToken {
     role: string
@@ -23,9 +23,18 @@ export default function VerifyPin({ email, password, close }: any) {
         four: ""
     })
 
+    const [ message, setMessage ] = useState(false)
 
 
-    const [ usersLogin, { error } ] = useMutation(LoginUsers)
+    const [ usersLogin, { data, error } ] = useMutation(LoginUsers, {
+
+    })
+
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage(false)
+        }, 1500)
+    }, [ message ])
 
 
     useEffect(() => {
@@ -68,14 +77,23 @@ export default function VerifyPin({ email, password, close }: any) {
                         }
                     }
                 }
+                setMessage(true)
             },
             onError: err => {
-                console.log(err.message)
+                setMessage(true)
             }
         })
     }, [ email, password, router, usersLogin, verifyPin.four, verifyPin.one, verifyPin.three, verifyPin.two ])
     return (
         <div className={styles.container}>
+            {data && message ?
+                <div className={styles.message}>
+                    <Message label={'Successfully Login'} message='' status='success' />
+                </div> : null}
+            {error && message ?
+                <div className={styles.message}>
+                    <Message label={`${error.message}`} message='' status='error' />
+                </div> : null}
             <div className={styles.closeBtn}>
                 <button onClick={() => close(false)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d02222" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x">
@@ -84,7 +102,6 @@ export default function VerifyPin({ email, password, close }: any) {
                     </svg>
                 </button>
             </div>
-            {error ? <div>{error.message}</div> : null}
             <div className={styles.hel}>
                 <h2>Enter your 4-Digit Pin</h2>
                 <form>

@@ -138,7 +138,7 @@ export default function User({ id, close, open }: any) {
                                                         <tr key={logsID}>
                                                             <td>{title}</td>
                                                             <td>{modifiedBy}</td>
-                                                            <td>{format(new Date(createdAt), "MMMM dd, yyyy")}</td>
+                                                            <td>{format(new Date(createdAt), "MMMM dd, yyyy h:m:s a ")}</td>
                                                         </tr>
                                                     ))}
                                                 </tbody>

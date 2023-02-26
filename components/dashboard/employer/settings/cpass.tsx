@@ -28,6 +28,9 @@ export default function CPass({ userid }: any) {
             retype: pass.retype,
             password: pass.password
         },
+        onError: () => {
+            setMessage(true)
+        },
         onCompleted: () => {
             setMessage(true)
         }
@@ -40,8 +43,8 @@ export default function CPass({ userid }: any) {
     }
 
     useEffect(() => {
-        setTimeout(() => { setMessage(false) }, 1000)
-    }, [])
+        setTimeout(() => { setMessage(false) }, 1500)
+    }, [ message ])
 
     return (
         <div className={styles.container}>
@@ -49,13 +52,15 @@ export default function CPass({ userid }: any) {
             {data && message ? <div className={styles.message}>
                 <Message label='Successfully Password Update' message='' status='success' />
             </div> : null}
-            {error?.message === "Password is not Matched" && message ? <div className={styles.message}>
+            {error && message ? <div className={styles.message}>
                 <Message label='Password is not Matched' message='' status='error' />
             </div> : null}
             <form onSubmit={handleResetPass}>
                 <label>New Password</label>
-                <input type="password" value={pass.password} pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[$!#$%^&*])[A-Za-z\d$!#$%^&*]+$"
-                    maxLength={8} onChange={e => setPass({ ...pass, password: e.target.value })}
+                <input type="password" value={pass.password}
+
+                    pattern="[a-zA-Z0-9]+[!@#$%^&_]"
+                    onChange={e => setPass({ ...pass, password: e.target.value })}
                     placeholder='Enter your new password'
                 />
                 <label>Retype Password</label>
