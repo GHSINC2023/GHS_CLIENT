@@ -33,6 +33,7 @@ export const getJobById = gql`query GetJobPostById($jobPostId: ID!) {
     description
     responsibilities
     qualification
+    status
     details {
       category
       jobDetailsID

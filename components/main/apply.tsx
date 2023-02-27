@@ -94,22 +94,28 @@ export default function Apply({ jobid, close, open }: any) {
                 setVideoUpload(null)
             },
             onError: err => {
-                console.log(err.message)
+                setMessage(true)
             },
 
         })
     }
     const onChangeFileUpload = (e: any) => {
         const file = e.target.files[ 0 ]
+        console.log(file)
         if (file.size > 10485760 || !file) {
-            alert("hello no file")
+            alert("File exceed on 2MB")
+        }
+        if (file.type !== "application/pdf") {
+            alert("PDF Only")
+            return
         }
         setFileUpload(file)
     }
     const onChangeVideoUpload = (e: any) => {
         const video = e.target.files[ 0 ]
-        if (video.size > 10485760 || !video) {
-            alert("hello no video")
+        if (video.size > 1e+7 || !video) {
+            alert("Video is exceed in 10MB")
+            return
         }
         setVideoUpload(video)
     }
@@ -140,7 +146,11 @@ export default function Apply({ jobid, close, open }: any) {
             </div> : null}
             {data && message ?
                 <div className={styles.message}>
-                    <Message label={data ? 'Successfully Created' : error ? "Error Occurred" : ""} message={data ? "Thank you for applying" : error ? "Error Occurred" : ""} status={data ? "success" : "error"} />
+                    <Message label={'Successfully Created'} message={''} status={'success'} />
+                </div> : null}
+            {error && message ?
+                <div className={styles.message}>
+                    <Message label={"Error Occurred"} message={''} status={"error"} />
                 </div> : null}
             <form>
                 <div className={styles.profile}>

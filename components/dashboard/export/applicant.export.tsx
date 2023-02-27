@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import { CSVSort, CSVStatused } from '../../../util/values/filter'
 import styles from '../../../styles/components/exports/application.export.module.scss'
 import { applicationCSV } from '../../../util/export/applicantExport'
 import { CSVLink } from 'react-csv'
+import Message from '../../message/message'
 export default function ApplicantExport({ close }: any) {
 
     const dates = new Date()
@@ -12,7 +13,7 @@ export default function ApplicantExport({ close }: any) {
     const [ end, setEnd ] = useState("")
     const [ sort, setSort ] = useState("asc")
     const [ filename, setFilename ] = useState(`Applicants - ${dates.toDateString()}`)
-
+    const [ message, setMessage ] = useState(false)
 
     const [ stats, setStats ] = useState(false)
     const [ or, setOr ] = useState(false)
@@ -24,6 +25,9 @@ export default function ApplicantExport({ close }: any) {
             start: start,
             end: end,
             order: sort
+        },
+        onCompleted: () => {
+            setMessage(true)
         }
     })
 
@@ -57,8 +61,18 @@ export default function ApplicantExport({ close }: any) {
 
     }) : null
 
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage(false)
+        }, 1500)
+    }, [ message ])
+
     return (
         <div className={styles.container}>
+            {data && message ?
+                <div className={styles.message}>
+                    <Message label={'Successfully Generate CSV'} status={'success'} message={''} />
+                </div> : null}
             <div className={styles.header}>
                 <h2>Export - Applicants</h2>
                 <button onClick={() => close(false)}>
@@ -108,7 +122,7 @@ export default function ApplicantExport({ close }: any) {
                 {data ?
                     <CSVLink data={datas}
                         headers={headers}
-                        style={{ width: "100%", textAlign: "center", border: "1px solid #D02222", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "5px" }}
+                        className={styles.csvgen}
                         filename={filename}>Download</CSVLink> :
                     <button disabled={!start || !end || !status} type="submit"
                         onClick={(e) => {
