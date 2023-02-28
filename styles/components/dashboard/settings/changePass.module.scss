@@ -38,6 +38,9 @@
          border: none;
          font-size: 16px;
          color: #fff;
+         &:disabled {
+            background-color: #ccc;
+         }
       }
    }
 }
