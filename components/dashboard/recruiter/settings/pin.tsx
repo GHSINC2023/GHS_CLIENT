@@ -18,13 +18,16 @@ export default function Pin({ userid }: any) {
 
     const [ message, setMessage ] = useState(false)
 
-    const [ changedPin, { data } ] = useMutation(changeUserPin, {
+    const [ changedPin, { data, error } ] = useMutation(changeUserPin, {
         variables: {
             pin: userPin.pin,
             rePin: userPin.repin,
             userId: userid
         },
         onCompleted: () => {
+            setMessage(true)
+        },
+        onError: () => {
             setMessage(true)
         }
     })
@@ -46,6 +49,9 @@ export default function Pin({ userid }: any) {
             {
                 data && message ? <div className={styles.message}><Message label='Successfully Updated' message='' status='success' /></div> : null
             }
+            {
+                error && message ? <div className={styles.message}><Message label={`${error.message}`} message='' status='error' /></div> : null
+            }
             <h2>Change Pin</h2>
             <form onSubmit={handleResetPin}>
                 <input type="password" value={userPin.pin}
@@ -54,7 +60,7 @@ export default function Pin({ userid }: any) {
                 <input type="password"
                     onChange={e => setUserpin({ ...userPin, repin: e.target.value })}
                     value={userPin.repin} maxLength={4} placeholder='Re-Enter your pin' />
-                <button>Submit</button>
+                <button disabled={!userPin.pin || !userPin.repin}>Submit</button>
             </form>
         </div>
     )

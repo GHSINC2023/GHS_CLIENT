@@ -46,6 +46,7 @@ export default function CPass({ userid }: any) {
         setTimeout(() => { setMessage(false) }, 1500)
     }, [ message ])
 
+
     return (
         <div className={styles.container}>
             <h2>Change Password</h2>
@@ -59,7 +60,10 @@ export default function CPass({ userid }: any) {
                 <label>New Password</label>
                 <input type="password" value={pass.password}
 
+                    onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Must contain at least one uppercase, lowercase, digit, and special character')}
+                    onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
                     pattern="[a-zA-Z0-9]+[!@#$%^&_]"
+                    required
                     onChange={e => setPass({ ...pass, password: e.target.value })}
                     placeholder='Enter your new password'
                 />
@@ -67,7 +71,7 @@ export default function CPass({ userid }: any) {
                 <input type="password" value={pass.retype} onChange={e => setPass({ ...pass, retype: e.target.value })}
                     placeholder='Re-type your new password'
                 />
-                <button type="submit">Change Password</button>
+                <button disabled={pass.password.length <= 6} type="submit">Change Password</button>
             </form>
         </div>
     )

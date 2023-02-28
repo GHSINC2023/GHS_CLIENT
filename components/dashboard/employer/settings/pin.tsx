@@ -6,25 +6,28 @@ import Message from '../../../message/message'
 
 
 interface Pin {
-    pin: number,
-    repin: number
+    pin: string,
+    repin: string
 }
 export default function Pin({ userid }: any) {
 
     const [ userPin, setUserpin ] = useState<Pin>({
-        pin: "" as unknown as number,
-        repin: "" as unknown as number,
+        pin: "",
+        repin: "",
     })
 
     const [ message, setMessage ] = useState(false)
 
-    const [ changedPin, { data } ] = useMutation(changeUserPin, {
+    const [ changedPin, { data, error } ] = useMutation(changeUserPin, {
         variables: {
             pin: userPin.pin,
             rePin: userPin.repin,
             userId: userid
         },
         onCompleted: () => {
+            setMessage(true)
+        },
+        onError: () => {
             setMessage(true)
         }
     })
@@ -46,15 +49,18 @@ export default function Pin({ userid }: any) {
             {
                 data && message ? <div className={styles.message}><Message label='Successfully Updated' message='' status='success' /></div> : null
             }
+            {
+                error && message ? <div className={styles.message}><Message label={`${error.message}`} message='' status='error' /></div> : null
+            }
             <h2>Change Pin</h2>
             <form onSubmit={handleResetPin}>
                 <input type="password" value={userPin.pin}
-                    onChange={e => setUserpin({ ...userPin, pin: parseInt(e.target.value) })}
+                    onChange={e => setUserpin({ ...userPin, pin: e.target.value })}
                     maxLength={4} placeholder='Enter your pin' />
                 <input type="password"
-                    onChange={e => setUserpin({ ...userPin, repin: parseInt(e.target.value) })}
+                    onChange={e => setUserpin({ ...userPin, repin: e.target.value })}
                     value={userPin.repin} maxLength={4} placeholder='Re-Enter your pin' />
-                <button>Submit</button>
+                <button disabled={!userPin.pin || !userPin.repin}>Submit</button>
             </form>
         </div>
     )
