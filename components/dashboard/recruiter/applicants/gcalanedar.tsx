@@ -22,7 +22,7 @@ export default function Gcalendar({ applicantID, userID, close }: any) {
             userId: userID
         },
         onCompleted: () => {
-            setMessage(false)
+            setMessage(true)
         }
     })
 

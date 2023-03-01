@@ -124,6 +124,7 @@ export default function Eprofile({ userid }: any) {
                             <Message label='Successfully Update' message='' status='success' />
                         </div> : null}
                         <div>
+                            <h2 className={styles.h}>Profile</h2>
                             <div className={styles.PAContainer}>
                                 <div>
                                     <label>Firstname</label>
@@ -189,7 +190,7 @@ export default function Eprofile({ userid }: any) {
 
                         </div>
                         <div className={styles.save}>
-                            <button disabled={!user.firstname || !user.lastname || !user.birthday || !user.city || !user.phone || !user.province || !user.street || !user.zipcode} onClick={onHandleUserProfile}>Save</button>
+                            <button disabled={!user.province || !user.street || !user.zipcode} onClick={onHandleUserProfile}>Save</button>
                         </div>
                     </form>
                 ))

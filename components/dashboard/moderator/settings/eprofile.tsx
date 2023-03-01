@@ -124,7 +124,6 @@ export default function Eprofile({ userid }: any) {
                             <Message label='Successfully Update' message='' status='success' />
                         </div> : null}
                         <div>
-                            <h2 className={styles.h}>Profile</h2>
                             <div className={styles.PAContainer}>
                                 <div>
                                     <label>Firstname</label>

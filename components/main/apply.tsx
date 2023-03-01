@@ -65,7 +65,7 @@ export default function Apply({ jobid, close, open }: any) {
                     birthday: applications.bday,
                     firstname: applications.firstname,
                     lastname: applications.lastname,
-                    phone: `+63${applications.phone}`
+                    phone: `+630${applications.phone}`
                 },
                 address: {
                     city: applications.city,
@@ -101,20 +101,21 @@ export default function Apply({ jobid, close, open }: any) {
     }
     const onChangeFileUpload = (e: any) => {
         const file = e.target.files[ 0 ]
-        console.log(file)
-        if (file.size > 10485760 || !file) {
-            alert("File exceed on 2MB")
-        }
-        if (file.type !== "application/pdf") {
-            alert("PDF Only")
+        if (file?.size > 10485760 || !file) {
+            alert("File size exceed 2MB")
             return
         }
+        if (file?.type === "application/pdf") {
+            alert("Attach PDF only")
+            return
+        }
+        setMessage(true)
         setFileUpload(file)
     }
     const onChangeVideoUpload = (e: any) => {
         const video = e.target.files[ 0 ]
-        if (video.size > 1e+7 || !video) {
-            alert("Video is exceed in 10MB")
+        if (video?.size > 2097152 || !video) {
+            alert("File size is exceed 10MB")
             return
         }
         setVideoUpload(video)
@@ -124,7 +125,7 @@ export default function Apply({ jobid, close, open }: any) {
     useEffect(() => {
         setTimeout(() => {
             setMessage(false)
-        }, 15000)
+        }, 1500)
     }, [ message ])
 
 
@@ -169,7 +170,7 @@ export default function Apply({ jobid, close, open }: any) {
                     <input type="tel"
                         value={applications.phone}
                         onChange={e => setApplications({ ...applications, phone: e.target.value })}
-                        maxLength={12} placeholder="09123456789" />
+                        maxLength={10} placeholder="9123456789" />
                     <input type="date"
                         value={applications.bday}
                         onChange={e => setApplications({ ...applications, bday: e.target.value })}
@@ -206,10 +207,10 @@ export default function Apply({ jobid, close, open }: any) {
                     <h2>Upload your Video</h2>
                     <span>Maximum file is 10mb</span>
                     <span>Maximum of 20 seconds</span>
-                    <input ref={videoRef} type="file" accept="video/mp4" hidden onChange={onChangeVideoUpload} />
+                    <input ref={videoRef} type="file" accept="video/*" hidden onChange={onChangeVideoUpload} />
                     <div onClick={onClickVideoFile} className={styles.containerResume}>
                         <Image src="/icon/video-plus-line.svg" alt="" height={30} width={30} />
-                        <span>{videoUpload ? "Upload Successfully" : " Upload your resume here."}</span>
+                        <span>{videoUpload ? "Upload Successfully" : " Upload your video here."}</span>
                     </div>
                 </div>
                 <button

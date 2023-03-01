@@ -34,7 +34,7 @@ export default function NotifCard({ createdAt, id, rec, title }: any) {
                     {rec.map(({ profile }: any) => (
                         profile.map(({ firstname, lastname }: any) => (
 
-                            <h2 key={firstname}> {title} from {firstname}{lastname}</h2>
+                            <h2 key={firstname}> {title} from {firstname} {lastname}</h2>
                         ))
                     ))}
                     <span>{createdAt}</span>

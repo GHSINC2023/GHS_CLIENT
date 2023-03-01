@@ -5,7 +5,7 @@ import { getEndorseByIDs, } from '../../../util/endorse/endorse.query'
 import { statused } from '../../../util/values/filter'
 import { useMutation, useQuery } from '@apollo/client'
 import { feedCreate } from '../../../util/feedback/feedback.mutation'
-import { format, formatDistance } from 'date-fns'
+import { format } from 'date-fns'
 import { updateEndorse } from '../../../util/endorse/endorse.mutation'
 
 import Cookies from 'js-cookie'
@@ -143,7 +143,7 @@ export default function View({ id: endorseID, userid, close }: any) {
                                                         })
                                                     }}>
                                                         <textarea placeholder='Give a feedback...' onChange={e => setFeedback(e.target.value)} />
-                                                        <button type="submit">Submit</button>
+                                                        <button disabled={!feedbacks} type="submit">Submit</button>
                                                     </form>
                                                 </div> :
                                                 feedback.map(({ feedbackID, feedback, createdAt }: any) => (

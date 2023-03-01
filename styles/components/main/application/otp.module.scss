@@ -24,6 +24,10 @@
          inset: 0;
          width: 100%;
       }
+      span {
+         text-align: center;
+         width: 100%;
+      }
       h2 {
          margin: 0;
          font-family: $primaryFont;
@@ -58,7 +62,6 @@
       }
    }
    .rsendOTP {
-      // width: 100%;
       span {
          font-family: $secondaryFont;
          font-size: 15px;

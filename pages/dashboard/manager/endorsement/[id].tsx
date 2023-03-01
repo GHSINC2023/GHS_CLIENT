@@ -143,10 +143,6 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                                                     <th>Phone</th>
                                                     <td>{phone.includes(+63) ? phone.substring(3, 13) : phone}</td>
                                                 </tr>
-                                                {/* <tr>
-                                                    <th>Address</th>
-                                                    <td>{street}, {city} {province}, {zipcode}</td>
-                                                </tr> */}
                                                 <tr>
                                                     <th>Status</th>
                                                     <td className={styles.status}>
@@ -177,7 +173,7 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                     < div className={styles.formContainer}>
                         <form onSubmit={submitCommentForm}>
                             <textarea placeholder='Comment Here' value={comment} onChange={e => setComment(e.target.value)} />
-                            <button type="submit">Submit</button>
+                            <button disabled={!comment} type="submit">Submit</button>
                         </form>
                     </div>
                     :

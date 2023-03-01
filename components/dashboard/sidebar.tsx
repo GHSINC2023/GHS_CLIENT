@@ -69,7 +69,6 @@ export default function Sidebar() {
 
     const handleLogoutnBtn = () => {
         createLogoutLogs()
-        client.resetStore()
         Cookies.remove("ghs_access_token")
         router.push("/")
     }
