@@ -43,7 +43,7 @@ const ID: FC = ({ job }: any) => {
 
 
     return (
-        job.map(({ title, jobPostID, details, description, qualification, responsibilities }: any) => (
+        job.map(({ title, jobPostID, details, description, qualification, responsibilities, status }: any) => (
             <div key={jobPostID} className={styles.containter}>
                 <Head>
                     <title>{title}</title>
@@ -54,12 +54,12 @@ const ID: FC = ({ job }: any) => {
                 <div className={styles.job}>
                     <div className={styles.header}>
                         <h2>{title}</h2>
-                        <div className={styles.options}>
+                        {status === "rejected" ? null : <div className={styles.options}>
                             <button onClick={() => setEdited(() => !edited)}>
                                 <Image src="/dashboard/edit-pen-2-line.svg" alt="" height={25} width={25} />
                             </button>
                             <span>Edit</span>
-                        </div>
+                        </div>}
                     </div>
                     <div className={styles.details}>
                         {details.map(({ jobDetailsID, jobType, location, salary, workType }: details) => (

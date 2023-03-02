@@ -25,7 +25,7 @@ export default function Endorse({ endorsementID, close }: any) {
     const limit = 10
 
 
-    const { loading, data, error } = useQuery(endorseTo, {
+    const { loading, data } = useQuery(endorseTo, {
         variables: {
             limit: limit,
             offset: pages * limit
@@ -78,22 +78,23 @@ export default function Endorse({ endorsementID, close }: any) {
                         <h2>{companyName}</h2>
                         {!dataEndorse ? <button onClick={sendEndorsement} value={companyID}>
                             Endorse
-                        </button> : dataEndorse.createEndorse.company[ 0 ].companyID === companyID ? <button onClick={sendEndorsement} value={companyID}>
-                            <Image src="/dashboard/send-line.svg" alt="" height={25} width={25} />
-                        </button> : <button onClick={sendEndorsement} value={companyID}>
-                            Endorse
-                        </button>
+                        </button> : dataEndorse.createEndorse.company[ 0 ].companyID === companyID ?
+                            <button disabled onClick={sendEndorsement} value={companyID}>
+                                Endorsed
+                            </button> : <button onClick={sendEndorsement} value={companyID}>
+                                Endorse
+                            </button>
                         }
                     </div>
                 ))
                 }
             </div>
             <div className={styles.footer}>
-                <button disabled>
+                <button disabled={!pages}>
                     <Image src="/icon/arrow-left-line.svg" alt="" height={20} width={20} />
                 </button>
                 <span>{pages + 1}</span>
-                <button>
+                <button disabled={loading ? true : data.getEmployerCompany.length < 10 || data.getEmployerCompany === 0} onClick={() => setPages(pages + 1)}>
                     <Image src="/icon/arrow-right-line.svg" alt="" height={20} width={20} />
                 </button>
             </div>

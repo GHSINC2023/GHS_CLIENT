@@ -105,7 +105,7 @@ export default function Apply({ jobid, close, open }: any) {
             alert("File size exceed 2MB")
             return
         }
-        if (file?.type === "application/pdf") {
+        if (file?.type !== "application/pdf") {
             alert("Attach PDF only")
             return
         }
@@ -200,8 +200,16 @@ export default function Apply({ jobid, close, open }: any) {
                     <input ref={fileRef} type="file" accept='application/pdf' hidden onChange={onChangeFileUpload} />
                     <div onClick={onClickFile} className={styles.containerResume}>
                         <Image src="/icon/file-plus-line.svg" alt="" height={25} width={25} />
-                        <span>{fileUpload ? "Upload Successfully" : " Upload your resume here."}</span>
+                        <span>{fileUpload !== null ? "Upload Successfully" : " Upload your resume here."}</span>
                     </div>
+                    {fileUpload ? <div className={styles.removeBtn}>
+                        <button type="button" onClick={() => setFileUpload(() => null)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                                <path stroke="#d02222" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 7v0a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v0M9 7h6M9 7H6m9 0h3m2 0h-2M4 7h2m0 0v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" />
+                            </svg>
+                        </button>
+                    </div> : null}
                 </div>
                 <div className={styles.video}>
                     <h2>Upload your Video</h2>
@@ -210,10 +218,19 @@ export default function Apply({ jobid, close, open }: any) {
                     <input ref={videoRef} type="file" accept="video/*" hidden onChange={onChangeVideoUpload} />
                     <div onClick={onClickVideoFile} className={styles.containerResume}>
                         <Image src="/icon/video-plus-line.svg" alt="" height={30} width={30} />
-                        <span>{videoUpload ? "Upload Successfully" : " Upload your video here."}</span>
+                        <span>{videoUpload !== null ? "Upload Successfully" : " Upload your video here."}</span>
+                    </div>
+                    <div className={styles.removeBtn}>
+                        <button type="button" onClick={() => setVideoUpload(() => null)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                                <path stroke="#d02222" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 7v0a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v0M9 7h6M9 7H6m9 0h3m2 0h-2M4 7h2m0 0v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
                 <button
+                    className={styles.applybtn}
                     onClick={(e) => {
                         setOTP(() => !otps)
                         e.preventDefault()

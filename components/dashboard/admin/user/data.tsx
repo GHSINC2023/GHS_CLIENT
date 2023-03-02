@@ -43,7 +43,7 @@ export default function UserData({ limit, orders, roles }: Filters) {
     }
 
 
-    const { loading, data, error, startPolling } = useQuery(getUserRoles, {
+    const { loading, data } = useQuery(getUserRoles, {
         variables: {
             limit: limit, offset: 0, role: roles, order: orders
         },
