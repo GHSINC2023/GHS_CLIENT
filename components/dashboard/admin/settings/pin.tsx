@@ -26,6 +26,10 @@ export default function Pin({ userid }: any) {
         },
         onCompleted: () => {
             setMessage(true)
+            setUserpin({
+                pin: "",
+                repin: ""
+            })
         },
         onError: () => {
             setMessage(true)
@@ -38,12 +42,12 @@ export default function Pin({ userid }: any) {
     }
 
     useEffect(() => {
-        if (data) {
-            setTimeout(() => {
-                setMessage(false)
-            }, 1000)
-        }
-    }, [ data ])
+
+        setTimeout(() => {
+            setMessage(false)
+        }, 2000)
+
+    }, [ message ])
     return (
         <div className={styles.container}>
             {

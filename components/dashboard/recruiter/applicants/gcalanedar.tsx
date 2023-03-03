@@ -29,7 +29,7 @@ export default function Gcalendar({ applicantID, userID, close }: any) {
     useEffect(() => {
         setInterval(() => {
             setMessage(false)
-        }, 1000)
+        }, 2000)
     }, [])
 
     const onHandleGoogleCalendar = (e: any) => {

@@ -123,7 +123,9 @@ export default function Eprofile({ userid }: any) {
                         {updateData && message ? <div className={styles.message}>
                             <Message label='Successfully Update' message='' status='success' />
                         </div> : null}
-                        <div>
+
+                        <h2>Personal Information</h2>
+                        <div className={styles.pa}>
                             <div className={styles.PAContainer}>
                                 <div>
                                     <label>Firstname</label>
@@ -147,6 +149,8 @@ export default function Eprofile({ userid }: any) {
                         </div>
                         <div>
                             <h2 className={styles.h}>Address</h2>
+
+                            
                             {profileAddress.length === 0 ?
                                 <div className={styles.PAContainer}>
                                     <div>

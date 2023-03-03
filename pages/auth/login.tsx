@@ -30,7 +30,6 @@ export default function Login() {
             <div className={styles.bground} />
             <div className={styles.login}>
                 <form>
-
                     <div className={styles.titleContainer}>
                         <h2>Login</h2>
                     </div>

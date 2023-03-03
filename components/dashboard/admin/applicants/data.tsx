@@ -62,7 +62,7 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                                     <td>{firstname} {lastname}</td>
                                     <td>{id}</td>
                                     <td>{title}</td>
-                                    <td>{format(new Date(createdAt), "MMM dd, yyyy h:mm:ss a")}</td>
+                                    <td>{format(new Date(createdAt), "MMM dd, yyyy")}</td>
                                     {applicantInterviewer.length === 0 ?
                                         <td className={styles.int}>
 
@@ -94,7 +94,7 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                                     <td>{firstname} {lastname}</td>
                                     <td>{id}</td>
                                     <td>{title}</td>
-                                    <td>{format(new Date(createdAt), "MMM dd, yyyy h:mm:ss a")}</td>
+                                    <td>{format(new Date(createdAt), "MMM dd, yyyy")}</td>
                                     {applicantInterviewer.length === 0 ?
                                         <td className={styles.int}>
 

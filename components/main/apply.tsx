@@ -143,7 +143,7 @@ export default function Apply({ jobid, close, open }: any) {
                 </button>
             </div>
             {otps ? <div className={styles.otps}>
-                <OTPS email={applications.email} applicantForm={applicaitonForm} />
+                <OTPS email={applications.email} applicantForm={applicaitonForm} close={setOTP} />
             </div> : null}
             {data && message ?
                 <div className={styles.message}>
@@ -169,7 +169,13 @@ export default function Apply({ jobid, close, open }: any) {
                         placeholder='Email Address' />
                     <input type="tel"
                         value={applications.phone}
-                        onChange={e => setApplications({ ...applications, phone: e.target.value })}
+                        onChange={e => {
+                            let phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+                            if (!applications.phone.match(phoneno)) {
+                                alert("Contact Number must not container non-digit characters.")
+                            }
+                            setApplications({ ...applications, phone: e.target.value })
+                        }}
                         maxLength={10} placeholder="9123456789" />
                     <input type="date"
                         value={applications.bday}
@@ -191,14 +197,16 @@ export default function Apply({ jobid, close, open }: any) {
                         placeholder='Province' />
                     <input type="text"
                         value={applications.zipcode}
-                        onChange={e => setApplications({ ...applications, zipcode: e.target.value })}
+                        onChange={e => {
+                            setApplications({ ...applications, zipcode: e.target.value })
+                        }}
                         maxLength={4} placeholder="Zipcode" />
                 </div>
                 <div className={styles.resume}>
                     <h2>Upload your resume</h2>
                     <span>Maximum file is 2mb</span>
                     <input ref={fileRef} type="file" accept='application/pdf' hidden onChange={onChangeFileUpload} />
-                    <div onClick={onClickFile} className={styles.containerResume}>
+                    <div onClick={() => fileUpload ? null : onClickFile()} className={styles.containerResume}>
                         <Image src="/icon/file-plus-line.svg" alt="" height={25} width={25} />
                         <span>{fileUpload !== null ? "Upload Successfully" : " Upload your resume here."}</span>
                     </div>
@@ -213,21 +221,20 @@ export default function Apply({ jobid, close, open }: any) {
                 </div>
                 <div className={styles.video}>
                     <h2>Upload your Video</h2>
-                    <span>Maximum file is 10mb</span>
-                    <span>Maximum of 20 seconds</span>
+                    <span>Introduce yourself not exceeding 20 seconds. The video and must not exceed 10MB.</span>
                     <input ref={videoRef} type="file" accept="video/*" hidden onChange={onChangeVideoUpload} />
-                    <div onClick={onClickVideoFile} className={styles.containerResume}>
+                    <div onClick={() => videoUpload ? null : onClickVideoFile()} className={styles.containerResume}>
                         <Image src="/icon/video-plus-line.svg" alt="" height={30} width={30} />
                         <span>{videoUpload !== null ? "Upload Successfully" : " Upload your video here."}</span>
                     </div>
-                    <div className={styles.removeBtn}>
+                    {videoUpload ? <div className={styles.removeBtn}>
                         <button type="button" onClick={() => setVideoUpload(() => null)}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
                                 <path stroke="#d02222" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 7v0a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v0M9 7h6M9 7H6m9 0h3m2 0h-2M4 7h2m0 0v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" />
                             </svg>
                         </button>
-                    </div>
+                    </div> : null}
                 </div>
                 <button
                     className={styles.applybtn}

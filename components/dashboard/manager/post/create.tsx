@@ -108,6 +108,7 @@ export default function Create({ userid, close }: any) {
 
                 setResponsibilities: "";
                 setQualification: "";
+                close(false)
                 setCreate({
                     category: "",
                     jobType: [],

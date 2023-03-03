@@ -5,7 +5,6 @@ import { useMutation } from '@apollo/client'
 import { updateApplicantStatus } from '../../../../util/applicaiton/application.mutation'
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
-import Gcalendar from './gcalanedar'
 import Message from '../../../message/message'
 
 export default function ApplicantDetails({ close, apid, id, profile, email, interviewer, upload, status, job, date }: any) {
@@ -58,11 +57,6 @@ export default function ApplicantDetails({ close, apid, id, profile, email, inte
 
     return (
         <div className={styles.container}>
-            {gcl ?
-                <div className={styles.calendar}>
-                    <Gcalendar applicantID={id} userID={token} close={setgcl} />
-                </div> : null
-            }
             {data && message ? <div>
                 <Message status='success' label='Successfully Updated' message='' />
             </div> : null}

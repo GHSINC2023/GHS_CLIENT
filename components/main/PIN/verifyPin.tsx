@@ -81,9 +81,10 @@ export default function VerifyPin({ email, password, close }: any) {
             },
             onError: err => {
                 setMessage(true)
+                close(false)
             }
         })
-    }, [ email, password, router, usersLogin, verifyPin.four, verifyPin.one, verifyPin.three, verifyPin.two ])
+    }, [ close, email, password, router, usersLogin, verifyPin.four, verifyPin.one, verifyPin.three, verifyPin.two ])
     return (
         <div className={styles.container}>
             {data && message ?

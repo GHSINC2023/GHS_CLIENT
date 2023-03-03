@@ -1,12 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../../../styles/components/main/application/otp.module.scss'
 import { useMutation } from '@apollo/client'
 import { createOTPS, verifyMyOTP } from '../../../util/OTP/otp.mutation'
+import Message from '../../message/message'
 
-export default function OTPS({ email, applicantForm }: any) {
+export default function OTPS({ email, applicantForm, close }: any) {
 
     const [ timer, setTimer ] = useState(180)
-
+    const [ message, setMessage ] = useState(false)
     const [ one, setOne ] = useState("")
     const [ two, setTwo ] = useState("")
     const [ three, setThree ] = useState("")
@@ -24,9 +25,13 @@ export default function OTPS({ email, applicantForm }: any) {
 
         onCompleted: () => {
             applicantForm()
+            setMessage(true)
         },
         onError: (e) => {
-            console.log(e.message)
+            setMessage(true)
+            setInterval(() => {
+                close(false)
+            }, 1000)
         }
     })
     useEffect(() => {
@@ -39,6 +44,11 @@ export default function OTPS({ email, applicantForm }: any) {
     }, [ timer ])
 
 
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage(false)
+        }, 1500)
+    }, [ close, message ])
 
 
     const handleCreateNewOTP = (e: any) => {
@@ -62,40 +72,34 @@ export default function OTPS({ email, applicantForm }: any) {
                 <h2>OTP Verification</h2>
                 <span>Enter your code that sent into your email {email} </span>
             </div>
-            {error ? <div>
-                {error.message}
+            {error && message ? <div className={styles.message}>
+                <Message label={error.message} message='' status='error' />
             </div> : null}
             <div className={styles.enterOTP}>
 
                 <form id="form" onSubmit={handleCreateNewOTP}>
                     <input type="text" inputMode='numeric'
                         value={one}
-                        autoFocus
                         onChange={e => setOne(e.target.value)}
                         autoComplete='one-time-code' maxLength={1} />
                     <input type="text" inputMode='numeric'
                         value={two}
-                        autoFocus
                         onChange={e => setTwo(e.target.value)}
                         autoComplete='one-time-code' maxLength={1} />
                     <input type="text" inputMode='numeric'
                         value={three}
-                        autoFocus
                         onChange={e => setThree(e.target.value)}
                         autoComplete='one-time-code' maxLength={1} />
                     <input type="text" inputMode='numeric'
                         value={four}
-                        autoFocus
                         onChange={e => setFour(e.target.value)}
                         autoComplete='one-time-code' maxLength={1} />
                     <input type="text" inputMode='numeric'
                         value={five}
-                        autoFocus
                         onChange={e => setFive(e.target.value)}
                         autoComplete='one-time-code' maxLength={1} />
                     <input type="text" inputMode='numeric'
                         value={six}
-                        autoFocus
                         onChange={e => setSix(e.target.value)}
                         autoComplete='one-time-code' maxLength={1} />
                 </form>
@@ -113,6 +117,7 @@ export default function OTPS({ email, applicantForm }: any) {
                         >RESEND OTP</button>
                     </>}
             </div>
+            <button onClick={() => close(false)} className={styles.closeBtn}>Close</button>
         </div>
     )
 }
