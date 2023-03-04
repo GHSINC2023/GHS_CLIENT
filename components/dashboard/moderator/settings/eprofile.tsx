@@ -10,7 +10,7 @@ interface Profile {
     firstname: string
     lastname: string
     birthday: string
-    phone: string
+    phone: number
     city?: string
     province?: string
     street?: string
@@ -67,7 +67,7 @@ export default function Eprofile({ userid }: any) {
         birthday: "",
         city: "",
         lastname: "",
-        phone: "",
+        phone: "" as unknown as number,
         province: "",
         street: "",
         zipcode: "",
@@ -123,7 +123,9 @@ export default function Eprofile({ userid }: any) {
                         {updateData && message ? <div className={styles.message}>
                             <Message label='Successfully Update' message='' status='success' />
                         </div> : null}
-                        <div>
+
+                        <h2>Personal Information</h2>
+                        <div className={styles.pa}>
                             <div className={styles.PAContainer}>
                                 <div>
                                     <label>Firstname</label>
@@ -141,12 +143,16 @@ export default function Eprofile({ userid }: any) {
                                 <div>
                                     <label>Phone</label>
                                     <input type="tel" defaultValue={phone}
-                                        onChange={e => setUser({ ...user, phone: e.target.value })} />
+                                        onChange={e => {
+                                            setUser({ ...user, phone: parseInt(e.target.value) })
+                                        }} />
                                 </div>
                             </div>
                         </div>
                         <div>
                             <h2 className={styles.h}>Address</h2>
+
+
                             {profileAddress.length === 0 ?
                                 <div className={styles.PAContainer}>
                                     <div>
@@ -189,7 +195,7 @@ export default function Eprofile({ userid }: any) {
 
                         </div>
                         <div className={styles.save}>
-                            <button onClick={onHandleUserProfile}>Save</button>
+                            <button disabled={!user.province || !user.street || !user.zipcode} onClick={onHandleUserProfile}>Save</button>
                         </div>
                     </form>
                 ))

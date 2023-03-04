@@ -1,103 +1,108 @@
 @import "../../../_mixins";
 @import "../../../_variables";
 .containter {
-    width: 100%;
-    .background {
-        width: 100%;
-        height: 500px;
-        background-image: url("/background/bg2.jpg");
-        background-repeat: no-repeat ;
-        background-size: cover;
-        background-position: center;
-        filter: brightness(50%);
-    }
-    .application {
-        width: 100%;
-        position: fixed;
-        inset: 0;
-        background-color: rgba(255,255,255, 0.6);
-        z-index: 999;
-        display: flex;
-        justify-content: flex-end;
-
-    }
+   width: 100%;
+   .background {
+      width: 100%;
+      height: 500px;
+      background-image: url("/background/bg2.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(50%);
+   }
+   .application {
+      width: 100%;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(255, 255, 255, 0.6);
+      z-index: 999;
+      display: flex;
+      justify-content: flex-end;
+   }
    .cont {
-    width: 100%;
-    display: flex;
+      width: 100%;
+      display: flex;
 
-    justify-content: center;
-    gap: 10px;
-    position: absolute;
-    top: 200px;
-    .job {
-        width:700px;
-        height: auto;
-        background-color: #fff;
-        border-radius: 5px;
-        padding: 10px 20px;
-        box-shadow: 0px 0px 2px 0px #ccc;
-        @include mediaQuery(700px){
+      justify-content: center;
+      gap: 15px;
+      position: absolute;
+      top: 200px;
+      .job {
+         width: 700px;
+         background-color: #fff;
+         border-radius: 5px;
+         padding: 10px 20px;
+         box-shadow: 0px 0px 2px 0px #ccc;
+         display: flex;
+         flex-direction: column;
+         gap: 15px;
+         @include mediaQuery(700px) {
             width: 100%;
-        }
-        .header {
+         }
+         .header {
             width: 100%;
             h2 {
-                font-weight: 500;
-                font-family: $primaryFont;
-                font-size: 2rem;
+               font-weight: 500;
+               font-family: $primaryFont;
+               font-size: 2rem;
             }
-        }
-        .details {
+         }
+         .details {
             width: 100%;
             .detailsContainer {
-                width: 100%;
-                .location, .jobTypes, .workType, .salary{
-                    width: 100%;
-                    display: flex;
-                    gap: 10px;
-                    margin: 15px 0;
-                        span {
-                            font-weight: 500;
-                            font-family: $secondaryFont;
-                        }
-                    .loc {
-                        width: 100%;
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 10px;
-                    }
-                }
+               width: 100%;
+               .location,
+               .jobTypes,
+               .workType,
+               .salary {
+                  width: 100%;
+                  display: flex;
+                  gap: 10px;
+                  margin: 15px 0;
+                  span {
+                     font-weight: 500;
+                     font-family: $secondaryFont;
+                  }
+                  .loc {
+                     width: 100%;
+                     display: flex;
+                     flex-wrap: wrap;
+                     gap: 10px;
+                  }
+               }
             }
-        }
-        .body {
+         }
+         .body {
             div {
-                width: 100%;
-                height: auto;
-                h2 {
-                    font-size: 22px;
-                    font-weight: 500;
-                    font-family: $primaryFont;
-                    margin: 5px 0;
-                }
-                p {
-                    font-size: 16px;
-                    font-family: $secondaryFont;
-                    text-align: justify;
-                    margin: 0;
-                }
-                div {
-                    li {
-                        font-size: 16px;
-                        margin: 5px 0;     
-                        font-family: $secondaryFont;
-                        &::marker{
-                            color: $primaryColor;
-                        }
-                    }
-                }
+               width: 100%;
+               min-height: 250px;
+               max-height: auto;
+               h2 {
+                  font-size: 22px;
+                  font-weight: 500;
+                  font-family: $primaryFont;
+                  margin: 5px 0;
+               }
+               p {
+                  font-size: 16px;
+                  font-family: $secondaryFont;
+                  text-align: justify;
+                  margin: 0;
+               }
+               div {
+                  li {
+                     font-size: 16px;
+                     margin: 5px 0;
+                     font-family: $secondaryFont;
+                     &::marker {
+                        color: $primaryColor;
+                     }
+                  }
+               }
             }
-        }
-        button {
+         }
+         button {
             width: 100%;
             height: 50px;
             border: none;
@@ -110,56 +115,56 @@
             border: 2px solid $primaryColor;
             cursor: pointer;
             &:hover {
-                background-color: $primaryColor;
-                color: #fff;
+               background-color: $primaryColor;
+               color: #fff;
             }
-        }
-    }
-    .jr {
-        width: 500px;
-        height: 900px;
-        background-color: #fff;
-        border-radius: 5px;
-        padding: 10px 0;
-        box-shadow: 0px 0px 5px 0px #eee;
-        .header {
+         }
+      }
+      .jr {
+         width: 500px;
+         height: 900px;
+         background-color: #fff;
+         border-radius: 5px;
+         padding: 10px 0;
+         box-shadow: 0px 0px 3px 0px #eee;
+         .header {
             width: 100%;
             padding: 0 20px;
             h2 {
-                font-weight: 500;
-                font-family: $primaryFont;
-                font-size: 2rem;
+               font-weight: 500;
+               font-family: $primaryFont;
+               font-size: 2rem;
             }
-        }
-      .jrContainer {
-        width: 100%;
-        height: 600px;
-        overflow-y: auto;
-        padding:  0 10px;
-        .box {
-            .jobRelatedContainer {
-                width: 100%;
-                padding: 15px;
-                border-radius: 5px;
-                border: 1px solid #eee;
-                margin: 5px 0;
-                user-select: none;
-                cursor: pointer;
-                &:hover {
-                    box-shadow: 0px 0px 3px 0px #ccc;
-                }
-                h2 {
-                    font-family: $primaryFont;
-                    font-weight: 500;
-                    font-size: 1.2rem;
-                    margin: 5px 0;
-                }
-                .jobTypeContainer {
-                    width: 100%;
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    span {
+         }
+         .jrContainer {
+            width: 100%;
+            height: 600px;
+            overflow-y: auto;
+            padding: 0 10px;
+            .box {
+               .jobRelatedContainer {
+                  width: 100%;
+                  padding: 15px;
+                  border-radius: 5px;
+                  border: 1px solid #eee;
+                  margin: 5px 0;
+                  user-select: none;
+                  cursor: pointer;
+                  &:hover {
+                     box-shadow: 0px 0px 3px 0px #ccc;
+                  }
+                  h2 {
+                     font-family: $primaryFont;
+                     font-weight: 500;
+                     font-size: 1.2rem;
+                     margin: 5px 0;
+                  }
+                  .jobTypeContainer {
+                     width: 100%;
+                     display: flex;
+                     align-items: center;
+                     gap: 10px;
+                     span {
                         width: auto;
                         height: 35px;
                         background-color: #eee;
@@ -167,34 +172,34 @@
                         border-radius: 3px;
                         text-align: center;
                         font-size: 14px;
-                    }
-                }
-            }
-            .lmContainer {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 10px;
-                button {
-                    width: 100px;
-                    height: 35px;
-                    border: none;
-                    border: 1px solid $primaryColor;
-                    background-color: transparent;
-                    border-radius: 3px;
-                    cursor: pointer;
-                    color: $primaryColor;
-                    font-weight: 500;
-                    &:hover {
+                     }
+                  }
+               }
+               .lmContainer {
+                  width: 100%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 10px;
+                  button {
+                     width: 100px;
+                     height: 35px;
+                     border: none;
+                     border: 1px solid $primaryColor;
+                     background-color: transparent;
+                     border-radius: 3px;
+                     cursor: pointer;
+                     color: $primaryColor;
+                     font-weight: 500;
+                     &:hover {
                         background-color: $primaryColor;
                         color: #fff;
                         border: none;
-                    }
-                }
+                     }
+                  }
+               }
             }
-        }
+         }
       }
-    }
    }
 }

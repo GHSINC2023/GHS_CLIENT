@@ -87,7 +87,7 @@ export default function UserData({ limit, orders, roles }: Filters) {
                                     {roles === "employer" ? company.map(({ companyName }: any) => (
                                         <td key={companyName}>{companyName}</td>
                                     )) : null}
-                                    <td>{format(new Date(createdAt), "MMM dd, yyy h:mm:ss a")}</td>
+                                    <td>{format(new Date(createdAt), "MMM dd, yyyy")}</td>
                                     <td>
                                         <button onClick={onCopyEmailAddress} value={email}>
                                             <Image src="/dashboard/email.svg" alt="" height={20} width={20} />

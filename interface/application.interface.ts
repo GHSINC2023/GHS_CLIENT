@@ -3,9 +3,9 @@ export interface applications {
     firstname: string
     lastname: string
     bday: string
-    phone: string
+    phone: number
     city: string
     province: string
     street: string
-    zipcode: string
+    zipcode: number
 }

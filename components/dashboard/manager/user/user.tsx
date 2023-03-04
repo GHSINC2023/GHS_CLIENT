@@ -4,11 +4,9 @@ import { useQuery, useMutation } from '@apollo/client'
 import { getUserByProfileID } from '../../../../util/user/user.query'
 import { resetUserPassword } from '../../../../util/user/user.mutation'
 import { format } from 'date-fns'
-import { getUserLog } from '../../../../util/account/profile.query'
 import Message from '../../../message/message'
-import Image from 'next/image'
 
-export default function User({ id, close, open }: any) {
+export default function User({ id, close }: any) {
     const [ tabValue, setTabValue ] = useState("about")
     const [ message, setMessage ] = useState(false)
 

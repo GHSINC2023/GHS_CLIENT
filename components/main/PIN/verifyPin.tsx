@@ -17,10 +17,10 @@ export default function VerifyPin({ email, password, close }: any) {
     const router = useRouter()
 
     const [ verifyPin, setVerifyPin ] = useState({
-        one: "",
-        two: "",
-        three: "",
-        four: ""
+        one: "" as unknown as number,
+        two: "" as unknown as number,
+        three: "" as unknown as number,
+        four: "" as unknown as number
     })
 
     const [ message, setMessage ] = useState(false)
@@ -34,7 +34,13 @@ export default function VerifyPin({ email, password, close }: any) {
         setTimeout(() => {
             setMessage(false)
         }, 1500)
-    }, [ message ])
+
+        if (error) {
+            setTimeout(() => {
+                close(false)
+            }, 1500)
+        }
+    }, [ close, error, message ])
 
 
     useEffect(() => {
@@ -81,7 +87,6 @@ export default function VerifyPin({ email, password, close }: any) {
             },
             onError: err => {
                 setMessage(true)
-                close(false)
             }
         })
     }, [ close, email, password, router, usersLogin, verifyPin.four, verifyPin.one, verifyPin.three, verifyPin.two ])
@@ -108,14 +113,36 @@ export default function VerifyPin({ email, password, close }: any) {
                 <form>
                     <input type="text"
                         maxLength={1}
-                        value={verifyPin.one} onChange={e => setVerifyPin({ ...verifyPin, one: e.target.value })} />
+                        autoFocus
+                        value={verifyPin.one} onChange={e => {
+                            setVerifyPin({ ...verifyPin, one: parseInt(e.target.value) })
+
+                            if (isNaN(parseInt(e.target.value))) {
+                                setVerifyPin({ ...verifyPin, one: "" as unknown as number })
+                            }
+                        }} />
                     <input type="text" maxLength={1}
-                        value={verifyPin.two} onChange={e => setVerifyPin({ ...verifyPin, two: e.target.value })}
+                        value={verifyPin.two} onChange={e => {
+                            setVerifyPin({ ...verifyPin, two: parseInt(e.target.value) })
+                            if (isNaN(parseInt(e.target.value))) {
+                                setVerifyPin({ ...verifyPin, two: "" as unknown as number })
+                            }
+                        }}
                     />
                     <input type="text" maxLength={1}
-                        value={verifyPin.three} onChange={e => setVerifyPin({ ...verifyPin, three: e.target.value })} />
+                        value={verifyPin.three} onChange={e => {
+                            setVerifyPin({ ...verifyPin, three: parseInt(e.target.value) })
+                            if (isNaN(parseInt(e.target.value))) {
+                                setVerifyPin({ ...verifyPin, three: "" as unknown as number })
+                            }
+                        }} />
                     <input type="text" maxLength={1}
-                        value={verifyPin.four} onChange={e => setVerifyPin({ ...verifyPin, four: e.target.value })} />
+                        value={verifyPin.four} onChange={e => {
+                            setVerifyPin({ ...verifyPin, four: parseInt(e.target.value) })
+                            if (isNaN(parseInt(e.target.value))) {
+                                setVerifyPin({ ...verifyPin, four: "" as unknown as number })
+                            }
+                        }} />
                 </form>
             </div>
         </div>

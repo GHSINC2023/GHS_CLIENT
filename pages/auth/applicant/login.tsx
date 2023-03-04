@@ -6,6 +6,7 @@ import { ApplicantLogs } from '../../../util/auth/login'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
+import Message from '../../../components/message/message'
 
 interface decodedToken {
     applicantID: string
@@ -14,7 +15,8 @@ interface decodedToken {
 export default function Login() {
     const router = useRouter()
 
-    const [ usersLogin, { error } ] = useMutation(ApplicantLogs)
+    const [ usersLogin, { data, error } ] = useMutation(ApplicantLogs)
+    const [ message, setMessage ] = useState(false)
     const [ users, setUsers ] = useState({
         id: "",
         email: ""
@@ -48,6 +50,9 @@ export default function Login() {
     }
     return (
         <div className={styles.container}>
+            {data && message ? <div className={styles.message}>
+                <Message label={`${error?.message}`} status={'error'} message={''} />
+            </div> : null}
             <Head>
                 <title>Login</title>
             </Head>

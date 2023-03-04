@@ -1,73 +1,77 @@
 @import "../../_mixins";
 @import "../../_variables";
 .container {
-    width: 100%;
-    display: flex;
-    height: 100vh;
-    .bground {
-        width: 100%;
-        background-image: url("/ghs2.webp");
-        background-repeat: no-repeat;
-        background-size: cover;
-        @include mediaQuery(700px){
-            display: none;
-        }
-    }
-    .login {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        form {
-            width: 500px;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
+   width: 100%;
+   display: flex;
+   height: 100vh;
+   .message {
+      position: absolute;
+      inset: 0;
+   }
+   .bground {
+      width: 100%;
+      background-image: url("/ghs2.webp");
+      background-repeat: no-repeat;
+      background-size: cover;
+      @include mediaQuery(700px) {
+         display: none;
+      }
+   }
+   .login {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      form {
+         width: 500px;
+         display: flex;
+         align-items: center;
+         flex-direction: column;
+         padding: 10px;
+         gap: 10px;
+         .titleContainer {
+            width: 100%;
+            h2 {
+               font-family: $primaryFont;
+               font-weight: 600;
+               font-size: 22px;
+               color: $primaryColor;
+            }
+         }
+         @include mediaQuery(700px) {
+            width: 100%;
+         }
+         input {
+            width: 100%;
+            height: 46px;
             padding: 10px;
-            gap: 10px;
-            .titleContainer {
-                width: 100%;
-                h2 {
-                    font-family: $primaryFont;
-                    font-weight: 600;
-                    font-size: 22px;
-                    color :$primaryColor;
-                }
+            border-radius: 5px;
+            border: none;
+            box-shadow: 0px 0px 3px 0px #ccc;
+            font-family: $primaryFont;
+            outline: none;
+            &:focus {
+               box-shadow: none;
+               border-bottom: 2px solid $primaryColor;
             }
-            @include mediaQuery(700px){
-                width: 100%;
-            }
-            input {
-                width: 100%;
-                height: 46px;
-                padding: 10px;
-                border-radius: 5px;
-                border: none;
-                box-shadow: 0px 0px 3px 0px #ccc;
-                font-family: $primaryFont;
-                outline: none;
-                &:focus {
-                    box-shadow: none;
-                    border-bottom: 2px solid $primaryColor;
-                }
-            }
+         }
 
-            button {
-                width: 100%;
-                height: 40px;
-                font-size: 14px;
-                border: none;
-                border: 1px solid $primaryColor;
-                border-radius: 5px;
-                background-color: transparent;
-                font-weight: 600;
-                color: $primaryColor;
-                cursor: pointer;
-                &:hover {
-                    background-color: $primaryColor;
-                    color: #fff;
-                }
+         button {
+            width: 100%;
+            height: 40px;
+            font-size: 14px;
+            border: none;
+            border: 1px solid $primaryColor;
+            border-radius: 5px;
+            background-color: transparent;
+            font-weight: 600;
+            color: $primaryColor;
+            cursor: pointer;
+            &:hover {
+               background-color: $primaryColor;
+               color: #fff;
             }
-        }
-    }
+         }
+      }
+   }
 }

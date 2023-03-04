@@ -14,7 +14,7 @@ interface UserForm {
     firstname: string
     lastname: string
     bday: string
-    phone: string
+    phone: number
     role: string
     companyName: string | undefined
 }
@@ -33,7 +33,7 @@ const Create: FC<Props> = ({ closed, opens }) => {
         firstname: "",
         lastname: "",
         bday: "",
-        phone: "",
+        phone: "" as unknown as number,
         role: "",
         companyName: ""
     })
@@ -58,7 +58,7 @@ const Create: FC<Props> = ({ closed, opens }) => {
                 profile: {
                     firstname: users.firstname,
                     lastname: users.lastname,
-                    phone: `+63${users.phone}`,
+                    phone: `+630${users.phone}`,
                     birthday: users.bday
                 },
             },
@@ -70,7 +70,7 @@ const Create: FC<Props> = ({ closed, opens }) => {
                         firstname: "",
                         lastname: "",
                         password: "",
-                        phone: "",
+                        phone: "" as unknown as number,
                         role: "",
                         companyName: ""
                     })
@@ -166,13 +166,12 @@ const Create: FC<Props> = ({ closed, opens }) => {
                     </div>
                     <div className={styles.phone}>
                         <label>Phone</label>
-                        <input maxLength={11} type="tel" value={users.phone} onChange={e => {
-                            let phoneno =  /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
-                            if(!users.phone.match(phoneno)) {
-                                alert("Contact Number must not container non-digit characters.")
+                        <input maxLength={10} type="tel" value={users.phone} onChange={e => {
+                            setUser({ ...users, phone: parseInt(e.target.value) })
+                            if (isNaN(parseInt(e.target.value))) {
+                                setUser({ ...users, phone: "" as unknown as number })
                             }
-                            setUser({ ...users, phone: e.target.value })
-                        }} placeholder='0912345678' />
+                        }} placeholder='912345678' />
                     </div>
                 </div>
                 <div className={styles.btnContainer}>

@@ -7,6 +7,7 @@ import { applications } from '../../interface/application.interface';
 import Message from '../message/message';
 import OTPS from './OTP/otp';
 import { createOTPS } from '../../util/OTP/otp.mutation';
+import { parse } from 'path';
 
 export default function Apply({ jobid, close, open }: any) {
 
@@ -36,12 +37,12 @@ export default function Apply({ jobid, close, open }: any) {
         firstname: "",
         lastname: "",
         email: "",
-        phone: "",
+        phone: "" as unknown as number,
         bday: "",
         street: "",
         city: "",
         province: "",
-        zipcode: ""
+        zipcode: "" as unknown as number
     })
 
 
@@ -85,10 +86,10 @@ export default function Apply({ jobid, close, open }: any) {
                     email: "",
                     firstname: "",
                     lastname: "",
-                    phone: "",
+                    phone: "" as unknown as number,
                     province: "",
                     street: "",
-                    zipcode: ""
+                    zipcode: "" as unknown as number
                 })
                 setFileUpload(null);
                 setVideoUpload(null)
@@ -101,6 +102,12 @@ export default function Apply({ jobid, close, open }: any) {
     }
     const onChangeFileUpload = (e: any) => {
         const file = e.target.files[ 0 ]
+
+
+        if (!file) return
+
+
+
         if (file?.size > 10485760 || !file) {
             alert("File size exceed 2MB")
             return
@@ -109,20 +116,35 @@ export default function Apply({ jobid, close, open }: any) {
             alert("Attach PDF only")
             return
         }
-        setMessage(true)
+
+
         setFileUpload(file)
+
     }
-    const onChangeVideoUpload = (e: any) => {
+
+
+
+
+
+    const onClickVideoUpload = (e: any) => {
         const video = e.target.files[ 0 ]
+
+        if (!video) return
+
         if (video?.size > 2097152 || !video) {
             alert("File size is exceed 10MB")
             return
         }
+
+
         setVideoUpload(video)
     }
 
 
     useEffect(() => {
+        if (videoRef.current?.contains(null)) {
+            videoRef.current.value = ''
+        }
         setTimeout(() => {
             setMessage(false)
         }, 1500)
@@ -169,12 +191,14 @@ export default function Apply({ jobid, close, open }: any) {
                         placeholder='Email Address' />
                     <input type="tel"
                         value={applications.phone}
+                        inputMode='numeric'
                         onChange={e => {
-                            let phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
-                            if (!applications.phone.match(phoneno)) {
-                                alert("Contact Number must not container non-digit characters.")
+                            setApplications({ ...applications, phone: parseInt(e.target.value) })
+
+                            if (isNaN(parseInt(e.target.value))) {
+                                setApplications({ ...applications, phone: "" as unknown as number })
                             }
-                            setApplications({ ...applications, phone: e.target.value })
+
                         }}
                         maxLength={10} placeholder="9123456789" />
                     <input type="date"
@@ -198,44 +222,68 @@ export default function Apply({ jobid, close, open }: any) {
                     <input type="text"
                         value={applications.zipcode}
                         onChange={e => {
-                            setApplications({ ...applications, zipcode: e.target.value })
+                            setApplications({ ...applications, zipcode: parseInt(e.target.value) })
+
+                            if (isNaN(parseInt(e.target.value))) {
+                                setApplications({ ...applications, zipcode: "" as unknown as number })
+
+                            }
                         }}
                         maxLength={4} placeholder="Zipcode" />
                 </div>
                 <div className={styles.resume}>
                     <h2>Upload your resume</h2>
                     <span>Maximum file is 2mb</span>
-                    <input ref={fileRef} type="file" accept='application/pdf' hidden onChange={onChangeFileUpload} />
-                    <div onClick={() => fileUpload ? null : onClickFile()} className={styles.containerResume}>
+                    <input ref={fileRef} type="file" accept='application/pdf' multiple hidden onClick={onChangeFileUpload} onChange={onChangeFileUpload} />
+
+
+                    <div className={styles.containerResume} onClick={onClickFile}>
                         <Image src="/icon/file-plus-line.svg" alt="" height={25} width={25} />
-                        <span>{fileUpload !== null ? "Upload Successfully" : " Upload your resume here."}</span>
+                        <span>{fileUpload ? fileUpload?.name : "Upload your Resume"}</span>
                     </div>
-                    {fileUpload ? <div className={styles.removeBtn}>
-                        <button type="button" onClick={() => setFileUpload(() => null)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-                                <path stroke="#d02222" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 7v0a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v0M9 7h6M9 7H6m9 0h3m2 0h-2M4 7h2m0 0v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" />
-                            </svg>
-                        </button>
-                    </div> : null}
+
+
+                    {
+                        fileUpload ? <div className={styles.removeBtn}>
+                            <button type="button" onClick={() => setFileUpload(() => null)}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                                    <path stroke="#d02222" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                        d="M9 7v0a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v0M9 7h6M9 7H6m9 0h3m2 0h-2M4 7h2m0 0v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" />
+                                </svg>
+                            </button>
+                        </div> : null
+                    }
                 </div>
+                {/*  */}
                 <div className={styles.video}>
                     <h2>Upload your Video</h2>
                     <span>Introduce yourself not exceeding 20 seconds. The video and must not exceed 10MB.</span>
-                    <input ref={videoRef} type="file" accept="video/*" hidden onChange={onChangeVideoUpload} />
-                    <div onClick={() => videoUpload ? null : onClickVideoFile()} className={styles.containerResume}>
+                    <input ref={videoRef} type="file" accept="video/*" hidden multiple onChange={onClickVideoUpload} onClick={onClickVideoUpload}
+                    />
+
+                    <div onClick={onClickVideoFile} className={styles.containerResume}>
                         <Image src="/icon/video-plus-line.svg" alt="" height={30} width={30} />
-                        <span>{videoUpload !== null ? "Upload Successfully" : " Upload your video here."}</span>
+                        <span>{videoUpload ? videoUpload?.name : "Upload your video"} </span>
                     </div>
+
                     {videoUpload ? <div className={styles.removeBtn}>
-                        <button type="button" onClick={() => setVideoUpload(() => null)}>
+                        <button type="button" onClick={() => {
+
+                            setVideoUpload(() => null)
+
+                        }}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-                                <path stroke="#d02222" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                <path stroke="#d02222" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                     d="M9 7v0a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v0M9 7h6M9 7H6m9 0h3m2 0h-2M4 7h2m0 0v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" />
                             </svg>
                         </button>
                     </div> : null}
                 </div>
+
+
+
+
+
                 <button
                     className={styles.applybtn}
                     onClick={(e) => {
@@ -248,7 +296,7 @@ export default function Apply({ jobid, close, open }: any) {
                     }
 
                     type='button'>Submit</button>
-            </form>
-        </div>
+            </form >
+        </div >
     )
 }
