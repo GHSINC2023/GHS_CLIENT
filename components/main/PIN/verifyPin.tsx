@@ -44,7 +44,6 @@ export default function VerifyPin({ email, password, close }: any) {
 
 
     useEffect(() => {
-
         if (!verifyPin.one || !verifyPin.two || !verifyPin.three || !verifyPin.four) return
         usersLogin({
             variables: {
