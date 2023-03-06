@@ -29,9 +29,6 @@ export default function OTPS({ email, applicantForm, close }: any) {
         },
         onError: (e) => {
             setMessage(true)
-            setInterval(() => {
-                close(false)
-            }, 1000)
         }
     })
     useEffect(() => {

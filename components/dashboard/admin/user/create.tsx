@@ -75,7 +75,6 @@ const Create: FC<Props> = ({ closed, opens }) => {
                         companyName: ""
                     })
                     setMessage(() => !message)
-                    closed(false)
                 }
             },
             onError: error => {

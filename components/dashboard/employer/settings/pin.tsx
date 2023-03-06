@@ -12,8 +12,8 @@ interface Pin {
 export default function Pin({ userid }: any) {
 
     const [ userPin, setUserpin ] = useState<Pin>({
-        pin: "",
-        repin: "",
+        pin: "" as unknown as string,
+        repin: "" as unknown as string,
     })
 
     const [ message, setMessage ] = useState(false)
@@ -26,6 +26,10 @@ export default function Pin({ userid }: any) {
         },
         onCompleted: () => {
             setMessage(true)
+            setUserpin({
+                pin: "" as unknown as string,
+                repin: "" as unknown as string
+            })
         },
         onError: () => {
             setMessage(true)
@@ -38,12 +42,12 @@ export default function Pin({ userid }: any) {
     }
 
     useEffect(() => {
-        if (data) {
-            setTimeout(() => {
-                setMessage(false)
-            }, 1000)
-        }
-    }, [ data ])
+
+        setTimeout(() => {
+            setMessage(false)
+        }, 2000)
+
+    }, [ message ])
     return (
         <div className={styles.container}>
             {
@@ -55,10 +59,17 @@ export default function Pin({ userid }: any) {
             <h2>Change Pin</h2>
             <form onSubmit={handleResetPin}>
                 <input type="password" value={userPin.pin}
-                    onChange={e => setUserpin({ ...userPin, pin: e.target.value })}
+                    onChange={e => {
+                        setUserpin({ ...userPin, pin: e.target.value })
+                    }}
                     maxLength={4} placeholder='Enter your pin' />
                 <input type="password"
-                    onChange={e => setUserpin({ ...userPin, repin: e.target.value })}
+                    onChange={e => {
+                        setUserpin({
+                            ...userPin, repin: e.target.value
+                        })
+
+                    }}
                     value={userPin.repin} maxLength={4} placeholder='Re-Enter your pin' />
                 <button disabled={!userPin.pin || !userPin.repin}>Submit</button>
             </form>

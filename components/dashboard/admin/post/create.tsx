@@ -105,7 +105,6 @@ export default function Create({ userid, close }: any) {
             onCompleted: (data) => {
 
                 setMessage(true)
-                close(false)
                 setResponsibilities: "";
                 setQualification: "";
                 setCreate({

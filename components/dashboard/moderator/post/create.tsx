@@ -117,7 +117,6 @@ export default function Create({ userid, close }: any) {
                         title: "",
                         workType: []
                     })
-                    close(false)
                 }
             },
             onError: (error) => {

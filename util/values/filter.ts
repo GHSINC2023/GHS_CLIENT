@@ -13,6 +13,12 @@ export const MR = [
     { name: "Recruiter", value: "recruiter" },
 ]
 
+
+export const mod = [
+    { name: "Moderator", value: "moderator" },
+    { name: "Recruiter", value: "recruiter" },
+]
+
 export const OrderDate = [
     { name: "Newest", value: "desc" },
     { name: "Oldest", value: "asc" },

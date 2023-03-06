@@ -4,7 +4,6 @@ import { gql, useQuery } from '@apollo/client'
 import { format } from 'date-fns'
 import Image from 'next/image'
 import Message from '../../../message/message'
-import DeleteUser from './deleteUser'
 import User from './user'
 interface Filters {
     limit: number
@@ -48,7 +47,6 @@ export default function UserData({ limit, orders, roles }: Filters) {
 
     const [ isCopied, setCopied ] = useState(false)
     const [ profile, setProfile ] = useState("")
-    const [ del, setDelete ] = useState("")
 
     const onCopyEmailAddress = (e: any) => {
         copyClipboard(e.currentTarget.value).then(() => {
@@ -62,7 +60,7 @@ export default function UserData({ limit, orders, roles }: Filters) {
     }
 
 
-    const { loading, data} = useQuery(users, {
+    const { loading, data } = useQuery(users, {
         variables: {
             limit: limit, offset: 0, role: roles, order: orders
         }
@@ -81,12 +79,7 @@ export default function UserData({ limit, orders, roles }: Filters) {
                     <User close={setProfile} open={profile} id={profile} />
                 </div> : null
             }
-            {
-                del ?
-                    <div className={styles.user}>
-                        <DeleteUser id={del} close={setDelete} />
-                    </div> : null
-            }
+
             <div className={styles.tableContainer}>
                 <table>
                     <thead>
@@ -109,14 +102,8 @@ export default function UserData({ limit, orders, roles }: Filters) {
                                     )) : null}
                                     <td>{format(new Date(createdAt), "MMM dd, yyy")}</td>
                                     <td>
-                                        <button onClick={onCopyEmailAddress} value={email}>
-                                            <Image src="/dashboard/email.svg" alt="" height={20} width={20} />
-                                        </button>
                                         <button onClick={() => setProfile(() => userID)}>
                                             <Image src="/dashboard/eye-line.svg" alt="" height={20} width={20} />
-                                        </button>
-                                        <button onClick={() => setDelete(() => userID)} >
-                                            <Image src="/dashboard/delete.svg" alt="" height={20} width={20} />
                                         </button>
                                     </td>
                                 </tr>
