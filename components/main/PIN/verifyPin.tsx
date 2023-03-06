@@ -51,7 +51,7 @@ export default function VerifyPin({ email, password, close }: any) {
                     email: email,
                     password: password,
                 },
-                pin: `${verifyPin.one}${verifyPin.two}${verifyPin.three}${verifyPin.four}`
+                pin: `${verifyPin.one.toString()}${verifyPin.two.toString()}${verifyPin.three.toString()}${verifyPin.four.toString()}`
             },
             onCompleted: data => {
                 if (data) {
