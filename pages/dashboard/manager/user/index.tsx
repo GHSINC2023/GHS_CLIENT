@@ -80,7 +80,7 @@ const User: FC = () => {
                 </div>
                 <div className={styles.post}>
                     <div className={styles.tab}>
-                        {mod.map(({ name, value }) => (
+                        {MR.map(({ name, value }) => (
                             <button onClick={handleStatusClick} className={value === status ? styles.active : ""} key={name} value={value}>{name}</button>
                         ))}
                     </div>
