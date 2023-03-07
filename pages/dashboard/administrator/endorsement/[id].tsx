@@ -173,7 +173,7 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                     < div className={styles.formContainer}>
                         <form onSubmit={submitCommentForm}>
                             <textarea placeholder='Comment Here' value={comment} onChange={e => setComment(e.target.value)} />
-                            <button disabled={!comment} type="submit">Submit</button>
+                            <button disabled={!comment} type="submit">🇸🇯 </button>
                         </form>
                     </div>
                     :

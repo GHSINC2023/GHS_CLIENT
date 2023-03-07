@@ -8,6 +8,8 @@ import { format } from 'date-fns'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import { terminateApplication } from '../../../util/applicaiton/application.mutation'
+import TerminationApplicant from '../../../components/dashboard/applicant/terminate'
+
 
 
 export default function Index({ appId }: any) {
@@ -17,16 +19,15 @@ export default function Index({ appId }: any) {
     }
   })
 
+  console.timeLog(appId)
+
   const [ terminate ] = useMutation(terminateApplication)
 
+  const [ open, setOpened ] = useState(false)
+
   const onHandleTerminateApp = (e: any) => {
-    e.preventDefault();
-    terminate({
-      variables: {
-        applicantId: appId
-      }
-    })
-    router.push("/")
+    setOpened(() => !open)
+
   }
 
 
@@ -40,6 +41,10 @@ export default function Index({ appId }: any) {
       <div className={styles.header}>
         <button onClick={onLogouthandle}>Logout</button>
       </div>
+      {
+        open ? <div className={styles.bee}>
+          <TerminationApplicant id={appId} close={setOpened} /> </div> : null
+      }
       {loading ? null : data.getApplicantByID.map(({ id, email, status, createdAt, applyJobPost, applicantProfile, applicantUpload, endorseFeedback, applicantInterviewer }: any) => (
         applicantProfile.map(({ firstname, lastname, birthday, phone, profileAddress }: any) => (
           applicantUpload.map(({ file, upload }: any) => (
@@ -150,7 +155,7 @@ export default function Index({ appId }: any) {
                       </table>
                     ))}
                   </div>
-                  <button onClick={onHandleTerminateApp}>Terminate</button>
+                  {status === 'approved' ? null : <button onClick={onHandleTerminateApp}>Terminate</button>}
                 </div>
               </div>
               <div className={styles.feedback}>

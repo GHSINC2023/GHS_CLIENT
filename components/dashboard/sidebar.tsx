@@ -51,7 +51,7 @@ export default function Sidebar() {
         { name: "overview", url: `/dashboard/${roles}/overview` },
         { name: "post", url: `/dashboard/${roles}/post` },
         { name: "Applicant Logs", url: `/dashboard/${roles}/applicant_logs` },
-        { name: "user", url: `/dashboard/${roles}/user` },
+        { name: "User", url: `/dashboard/${roles}/user` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
 

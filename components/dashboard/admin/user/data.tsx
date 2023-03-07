@@ -45,7 +45,7 @@ export default function UserData({ limit, orders, roles }: Filters) {
 
     const { loading, data } = useQuery(getUserRoles, {
         variables: {
-            limit: limit, offset: 0, role: roles, order: orders
+            limit: limit, offset: pages * limit, role: roles, order: orders
         },
     })
 
@@ -104,15 +104,15 @@ export default function UserData({ limit, orders, roles }: Filters) {
                         ))}
                     </tbody>
                 </table>
-                {loading ? "Loading" : data.getUserByRoles.length > limit ? <div className={styles.pages}>
+                <div className={styles.pages}>
                     <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>
-                        <Image src="/dashboard/arro-left-line.svg" alt="" height={20} width={20} />
+                        <Image src="/dashboard/arrow-left-line.svg" alt="" height={20} width={20} />
                     </button>
                     <span>{pages + 1}</span>
-                    <button disabled={loading ? true : data.getUserByRoles.length < limit} onClick={() => setPages(() => pages + 1)}>
-                        <Image src="/dashboard/arro-left-line.svg" alt="" height={20} width={20} />
+                    <button disabled={loading ? true : data.getUserByRoles.length < 5} onClick={() => setPages(() => pages + 1)}>
+                        <Image src="/dashboard/arrow-right-line.svg" alt="" height={20} width={20} />
                     </button>
-                </div> : null}
+                </div>
             </div>
         </div>
     )

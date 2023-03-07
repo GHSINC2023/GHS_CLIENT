@@ -42,7 +42,7 @@ const Create: FC<Props> = ({ closed, opens }) => {
     useEffect(() => {
         setTimeout(() => {
             setMessage(false)
-        }, 1000)
+        }, 2000)
     }, [ message ])
 
     const formSubmitUser = (e: any) => {

@@ -74,10 +74,13 @@
             }
          }
          .body {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
             div {
                width: 100%;
-               min-height: 250px;
-               max-height: auto;
+               height: auto;
                h2 {
                   font-size: 22px;
                   font-weight: 500;

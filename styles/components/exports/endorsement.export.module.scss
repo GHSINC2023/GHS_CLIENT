@@ -56,7 +56,14 @@
                align-items: center;
                padding: 10px;
                border-radius: 5px;
+               gap: 20px;
                h2 {
+                  font-family: $primaryFont;
+                  font-size: 14px;
+                  font-weight: 500;
+                  pointer-events: none;
+               }
+               span {
                   font-family: $primaryFont;
                   font-size: 14px;
                   font-weight: 500;

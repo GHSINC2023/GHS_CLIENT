@@ -81,7 +81,7 @@ const ApplicantLogs: FC = () => {
             <div className={styles.header}>
                 <div className={styles.header}>
                     <div className={styles.container}>
-                        <h2>Applicant Logs</h2>
+                        <h2>Applicants</h2>
                         <div className={styles.option}>
                             <button onClick={() => setExport(() => !exports)} className={styles.csv}>
                                 <Image src="/dashboard/download.svg" alt="" height={20} width={20} />

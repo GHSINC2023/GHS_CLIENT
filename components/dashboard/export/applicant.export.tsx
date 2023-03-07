@@ -41,7 +41,7 @@ export default function ApplicantExport({ close }: any) {
         { label: "Phone", key: "Phone" },
         { label: "Address", key: "Address" },
         { label: "Resume", key: "Resume" },
-        { label: "Intro", key: "intro" },
+        { label: "Video", key: "intro" },
         { label: "Date Applied", key: "applied" }
 
     ]
@@ -87,9 +87,12 @@ export default function ApplicantExport({ close }: any) {
                 <div className={styles.selectStatus}>
                     <div onClick={() => setStats(() => !stats)} className={styles.statusHead}>
                         <h2>Status:
+                        </h2>
+                        <span>
                             {status === "approved" ? "Approved" : null}
                             {status === "rejected" ? "Rejected" : null}
-                            {status === "waiting" ? "" : null}</h2>
+                            {status === "waiting" ? "Waiting" : null}
+                        </span>
                     </div>
                     {stats ? <div className={styles.statusSelected}>
                         {CSVStatused.map(({ name, value }) => (
@@ -103,7 +106,10 @@ export default function ApplicantExport({ close }: any) {
                 <div className={styles.limSort}>
                     <div className={styles.selectSort}>
                         <div onClick={() => setOr(() => !or)} className={styles.sortHead}>
-                            <h2>Sort: {sort === "asc" ? "Ascending" : "Descending"}</h2>
+                            <h2>Sort: </h2>
+                            <span>
+                                {sort === "asc" ? "Ascending" : "Descending"}
+                            </span>
                         </div>
                         {or ? <div className={styles.selectsort}>
                             {CSVSort.map(({ name, value }) => (

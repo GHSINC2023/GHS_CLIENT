@@ -120,15 +120,15 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                     ))}
                 </tbody>
             </table>
-            {loading ? "Loading" : data.getApplicationByStatus.length >= limit ? <div className={styles.pages}>
+            <div className={styles.pages}>
                 <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>
-                    <Image src="/dashboard/arrow-left-lie.svg" alt="" height={20} width={20} />
+                    <Image src="/dashboard/arrow-left-line.svg" alt="" height={20} width={20} />
                 </button>
                 <span>{pages + 1}</span>
-                <button disabled={loading ? true : data.getJobByStatus.length < limit} onClick={() => setPages(() => pages + 1)}>
-                    <Image src="/dashboard/arrow-right-lie.svg" alt="" height={20} width={20} />
+                <button disabled={loading ? true : data.getApplicationByStatus.length < limit} onClick={() => setPages(() => pages + 1)}>
+                    <Image src="/dashboard/arrow-right-line.svg" alt="" height={20} width={20} />
                 </button>
-            </div> : null}
+            </div>
         </div>
     )
 }

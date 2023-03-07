@@ -55,8 +55,8 @@ export default function EndorseExport({ close }: any) {
         }
     }) : null
     useEffect(() => {
-        setTimeout(() => { setMessage(false) }, 1500)
-    }, [])
+        setTimeout(() => { setMessage(false) }, 2000)
+    }, [ message ])
     return (
         <div className={styles.container}>
             {data && message ?

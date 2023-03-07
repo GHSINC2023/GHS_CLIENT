@@ -39,7 +39,7 @@ export default function EndorseExports({ close, userid }: any) {
         { label: "Firstname", key: "Firstname" },
         { label: "Lastname", key: "Lastname" },
         { label: "Phone", key: "Phone" },
-        { label: "Date Endorse", key: "endorse" }
+        { label: "Date Endorsed", key: "endorse" }
     ]
 
     console.log(data ? data.getEndorseByCSV : null)
@@ -49,7 +49,7 @@ export default function EndorseExports({ close, userid }: any) {
             JobApply: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applyJobPost[ 0 ].title,
             Firstname: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].firstname,
             Lastname: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].lastname,
-            Phone: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].phone,
+            Phone: `=""${endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].phone}""`,
             endorse: endorse[ 0 ].createdAt,
         }
 
@@ -82,9 +82,12 @@ export default function EndorseExports({ close, userid }: any) {
                 <div className={styles.selectStatus}>
                     <div onClick={() => setStats(() => !stats)} className={styles.statusHead}>
                         <h2>Status:
+                        </h2>
+                        <span>
                             {status === "approved" ? "Approved" : null}
                             {status === "rejected" ? "Rejected" : null}
-                            {status === "waiting" ? "Waiting" : null}</h2>
+                            {status === "waiting" ? "Waiting" : null}
+                        </span>
                     </div>
                     {stats ? <div className={styles.statusSelected}>
                         {CSVStatused.map(({ name, value }) => (

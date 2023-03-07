@@ -7,7 +7,6 @@ import { applications } from '../../interface/application.interface';
 import Message from '../message/message';
 import OTPS from './OTP/otp';
 import { createOTPS } from '../../util/OTP/otp.mutation';
-import { parse } from 'path';
 
 export default function Apply({ jobid, close, open }: any) {
 
@@ -72,7 +71,7 @@ export default function Apply({ jobid, close, open }: any) {
                     city: applications.city,
                     province: applications.province,
                     street: applications.street,
-                    zipcode: applications.zipcode
+                    zipcode: applications.zipcode.toString()
                 },
                 file: fileUpload,
                 video: videoUpload

@@ -21,7 +21,7 @@ export default function OTPS({ email, applicantForm, close }: any) {
             email: email
         }
     })
-    const [ verifyMyOTPs, { error } ] = useMutation(verifyMyOTP, {
+    const [ verifyMyOTPs, { data, error } ] = useMutation(verifyMyOTP, {
 
         onCompleted: () => {
             applicantForm()
@@ -69,6 +69,9 @@ export default function OTPS({ email, applicantForm, close }: any) {
                 <h2>OTP Verification</h2>
                 <span>Enter your code that sent into your email {email} </span>
             </div>
+            {data && message ? <div className={styles.message}>
+                <Message label="Successfully send" message='' status='success' />
+            </div> : null}
             {error && message ? <div className={styles.message}>
                 <Message label={error.message} message='' status='error' />
             </div> : null}

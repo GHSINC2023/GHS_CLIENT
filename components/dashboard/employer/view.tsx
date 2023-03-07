@@ -7,7 +7,7 @@ import { useMutation, useQuery } from '@apollo/client'
 import { feedCreate } from '../../../util/feedback/feedback.mutation'
 import { format } from 'date-fns'
 import { updateEndorse } from '../../../util/endorse/endorse.mutation'
-
+import Message from '../../message/message'
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 
@@ -37,11 +37,11 @@ export default function View({ id: endorseID, userid, close }: any) {
 
     const [ feedbacks, setFeedback ] = useState("")
     const [ open, setOpened ] = useState(false)
-
+    const [ message, setMessage ] = useState(false)
 
     const [ createAFeedback ] = useMutation(feedCreate)
 
-    const [ updateEndorseStatus ] = useMutation(updateEndorse)
+    const [ updateEndorseStatus, { data: updateEndorsed, error } ] = useMutation(updateEndorse)
 
     const onUpdateStatus = (e: any) => {
         e.preventDefault();
@@ -50,14 +50,30 @@ export default function View({ id: endorseID, userid, close }: any) {
                 endorseStatus: e.target.value,
                 endorseId: endorseID,
                 userId: token
+            },
+            onCompleted: () => {
+                setMessage(true)
+                setOpened(false)
             }
         })
     }
+
+
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage(false)
+        }, 2000)
+    }, [ message ])
 
     if (loading) return null
 
     return (
         <div className={styles.container}>
+            {updateEndorsed && message ?
+                <div className={styles.message}>
+                    <Message label="Status successfully updated" message="" status='success' />
+                </div> : null
+            }
             <div className={styles.updateContainer}>
                 <button onClick={() => close(false)} className={styles.btn}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d02222" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x">
@@ -76,7 +92,7 @@ export default function View({ id: endorseID, userid, close }: any) {
                                         {console.log(applicantID)}
                                         <div className={styles.header}>
                                             <h2>Personal Information</h2>
-                                            <div className={styles.options}>
+                                            {endorseStatus === "waiting" ? <div className={styles.options}>
                                                 <button onClick={() => setOpened(() => !open)} className={styles.opBtn}>
                                                     <div />
                                                     <div />
@@ -87,7 +103,7 @@ export default function View({ id: endorseID, userid, close }: any) {
                                                         <button onClick={onUpdateStatus} key={name} value={value}>{name}</button>
                                                     ))}
                                                 </div> : null}
-                                            </div>
+                                            </div> : null}
                                         </div>
 
                                         <div className={styles.table}>

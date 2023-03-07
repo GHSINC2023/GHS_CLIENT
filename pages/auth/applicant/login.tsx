@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import styles from '../../../styles/components/applicant/login.module.scss'
 import { useMutation } from '@apollo/client'
@@ -41,16 +41,25 @@ export default function Login() {
                         const { applicantID }: decodedToken = jwtDecode(cookie)
                         router.push(`/applicants/${applicantID}`)
                     }
+                    setMessage(true)
                 }
             },
             onError: err => {
-                console.log(err.message)
+                setMessage(true)
             }
         })
     }
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage(false)
+        }, 2000)
+    }, [ message ])
     return (
         <div className={styles.container}>
             {data && message ? <div className={styles.message}>
+                <Message label={`Successfully Login`} status={'success'} message={''} />
+            </div> : null}
+            {error && message ? <div className={styles.message}>
                 <Message label={`${error?.message}`} status={'error'} message={''} />
             </div> : null}
             <Head>
@@ -59,10 +68,8 @@ export default function Login() {
             <div className={styles.bground} />
             <div className={styles.login}>
                 <form onSubmit={loginFormSubmit}>
-
                     <div className={styles.titleContainer}>
                         <h2>Login</h2>
-                        {error ? <div>{error.message}</div> : null}
                     </div>
                     <input type="text" value={users.id} onChange={e => setUsers({ ...users, id: e.target.value })} placeholder='Applicant No.' />
                     <input type="email" value={users.email} onChange={e => setUsers({ ...users, email: e.target.value })} placeholder='Email Address' />
