@@ -7,7 +7,6 @@ import styles from '../../../styles/components/applicant/applicant.module.scss'
 import { format } from 'date-fns'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
-import { terminateApplication } from '../../../util/applicaiton/application.mutation'
 import TerminationApplicant from '../../../components/dashboard/applicant/terminate'
 
 
@@ -19,9 +18,6 @@ export default function Index({ appId }: any) {
     }
   })
 
-  console.timeLog(appId)
-
-  const [ terminate ] = useMutation(terminateApplication)
 
   const [ open, setOpened ] = useState(false)
 

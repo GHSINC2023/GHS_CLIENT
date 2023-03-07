@@ -3,11 +3,13 @@ import styles from '../../../styles/components/dashboard/appli/applicant.module.
 import { useMutation } from '@apollo/client'
 import Message from '../../message/message'
 import { terminateApplication } from '../../../util/applicaiton/application.mutation'
+import { useRouter } from 'next/router'
 
 export default function TerminationApplicant({ id, close }: any) {
 
     const [ deleteSingleUser, { data } ] = useMutation(terminateApplication)
     const [ message, setMessage ] = useState(false)
+    const router = useRouter()
 
     const singleUserForm = (e: any) => {
         e.preventDefault()
@@ -18,6 +20,7 @@ export default function TerminationApplicant({ id, close }: any) {
             onCompleted: data => {
                 close(false)
                 setMessage(true)
+                router.push("/")
             },
             onError: error => {
                 console.log(error.message)
