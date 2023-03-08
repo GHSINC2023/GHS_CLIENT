@@ -8,7 +8,7 @@ import Image from 'next/image'
 import ApplicantExport from '../../../../components/dashboard/export/applicant.export'
 import { getSearchApplicant } from '../../../../util/applicaiton/application.query'
 import { useLazyQuery } from '@apollo/client'
-const ApplicantData = dynamic(() => import("../../../../components/dashboard/admin/applicants/data"), {
+const ApplicantData = dynamic(() => import("../../../../components/dashboard/recruiter/applicants/data"), {
     ssr: false
 })
 import { limits, OrderDate, applicantsStatus } from '../../../../util/values/filter'
@@ -89,9 +89,6 @@ const Applicants: FC = () => {
 
         setSearch(e.target.value)
     }
-
-    console.log(data)
-
     return (
         <div className={styles.container}>
             <Head>

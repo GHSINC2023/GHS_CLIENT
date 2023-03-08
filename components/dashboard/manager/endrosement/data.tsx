@@ -117,7 +117,7 @@ export default function Data({ limit, status, order }: any) {
                     <Image src="/dashboard/arrow-left-line.svg" alt="" height={20} width={20} />
                 </button>
                 <span>{pages + 1}</span>
-                <button disabled={loading ? true : data.getEndorsementSpecificStatus.length < limit} onClick={() => setPages(() => pages + 1)}>
+                <button disabled={loading ? true : data.getEndorsementSpecificStatus.length < limit || data.getEndorsementSpecificStatus.length === 0} onClick={() => setPages(() => pages + 1)}>
                     <Image src="/dashboard/arrow-right-line.svg" alt="" height={20} width={20} />
                 </button>
             </div>

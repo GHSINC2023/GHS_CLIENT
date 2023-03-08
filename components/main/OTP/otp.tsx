@@ -35,7 +35,7 @@ export default function OTPS({ email, applicantForm, close }: any) {
         if (!timer) return
         const interv = setInterval(() => {
             setTimer(() => timer - 1)
-        }, 1000)
+        }, 2500)
 
         return () => clearInterval(interv)
     }, [ timer ])
@@ -44,7 +44,7 @@ export default function OTPS({ email, applicantForm, close }: any) {
     useEffect(() => {
         setTimeout(() => {
             setMessage(false)
-        }, 1500)
+        }, 2000)
     }, [ close, message ])
 
 
@@ -70,7 +70,7 @@ export default function OTPS({ email, applicantForm, close }: any) {
                 <span>Enter your code that sent into your email {email} </span>
             </div>
             {data && message ? <div className={styles.message}>
-                <Message label="Successfully send" message='' status='success' />
+                <Message label="Applicant Successful" message='' status='success' />
             </div> : null}
             {error && message ? <div className={styles.message}>
                 <Message label={error.message} message='' status='error' />

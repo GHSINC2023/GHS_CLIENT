@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import ApplicantCard from './details'
 import styles from '../../../../styles/components/dashboard/applicants/data.module.scss'
-import { useLazyQuery, useQuery } from '@apollo/client'
-import { applicationQuery, getSearchApplicant } from '../../../../util/applicaiton/application.query'
+import { useQuery } from '@apollo/client'
+import { applicationQuery } from '../../../../util/applicaiton/application.query'
 import { applicant } from '../../../../interface/applicant'
 import { format } from 'date-fns'
 import Image from 'next/image'
@@ -10,7 +10,6 @@ import Interview from './interview'
 
 export default function DataApplicants({ status, orders, limit, dataSearch }: any) {
     const [ pages, setPages ] = useState(0)
-
     const { loading, data } = useQuery(applicationQuery, {
         variables: {
             status: status,
@@ -28,6 +27,9 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
     })
     const [ ids, setID ] = useState("")
     const [ interviewe, setInterview ] = useState("")
+
+
+    if (loading) return null
     return (
         <div className={styles.container}>
 
@@ -43,6 +45,7 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                         <Interview appId={interviewe} close={setInterview} />
                     </div> : null
             }
+
             <table>
                 <thead>
                     <tr>
@@ -120,13 +123,13 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                     ))}
                 </tbody>
             </table>
-             <div className={styles.pages}>
+            <div className={styles.pages}>
                 <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>
-                    <Image src="/dashboard/arrow-left-lie.svg" alt="" height={20} width={20} />
+                    <Image src="/dashboard/arrow-left-line.svg" alt="" height={20} width={20} />
                 </button>
                 <span>{pages + 1}</span>
-                <button disabled={loading ? true : data.getJobByStatus.length < limit} onClick={() => setPages(() => pages + 1)}>
-                    <Image src="/dashboard/arrow-right-lie.svg" alt="" height={20} width={20} />
+                <button disabled={data.getApplicationByStatus.length < limit || data.getApplicationByStatus.legnth === 0} onClick={() => setPages(() => pages + 1)}>
+                    <Image src="/dashboard/arrow-right-line.svg" alt="" height={20} width={20} />
                 </button>
             </div>
         </div>

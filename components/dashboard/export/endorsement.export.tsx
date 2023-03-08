@@ -40,7 +40,7 @@ export default function EndorseExport({ close }: any) {
         { label: "Firstname", key: "Firstname" },
         { label: "Lastname", key: "Lastname" },
         { label: "Phone", key: "Phone" },
-        { label: "Endorse by", key: "EndorseBy" }
+        { label: "Endorse By", key: "EndorseBy" }
     ]
     const datas = data ? data.getEndorsmentByCSV.map(({ Status, createdAt, applicants, endorseBy }: any) => {
         return {

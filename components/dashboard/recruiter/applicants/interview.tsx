@@ -4,9 +4,10 @@ import styles from '../../.././../styles/components/dashboard/applicants/card.mo
 import { CreateInterviewer } from '../../../../util/interviewer/interviewer.mutation'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'js-cookie'
-
+import Message from '../../../message/message'
 export default function Interview({ appId, close }: any) {
     const [ token, setToken ] = useState("")
+    const [ message, setMessage ] = useState(false)
     useEffect(() => {
         const cookies = Cookies.get("ghs_access_token")
         if (cookies) {
@@ -14,7 +15,7 @@ export default function Interview({ appId, close }: any) {
             setToken(userID)
         }
     }, [])
-    const [ applicantInterview ] = useMutation(CreateInterviewer)
+    const [ applicantInterview, { data, error } ] = useMutation(CreateInterviewer)
 
 
     const formInterview = (e: any) => {
@@ -25,7 +26,7 @@ export default function Interview({ appId, close }: any) {
                 applicantId: appId
             },
             onCompleted: (data) => {
-                alert("Interviewed")
+                setMessage(true)
             },
             onError: err => {
                 console.log(err.message)
@@ -33,9 +34,16 @@ export default function Interview({ appId, close }: any) {
         })
 
     }
-
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage(true)
+        }, 2000)
+    }
+        , [ message ])
     return (
         <div className={styles.interviewCard}>
+            {data && message ? < div > <Message label={'Successfully Interviewed'} status={'success'} message={''} /> </div> : null
+            }
             <h2>Interview</h2>
             <span>Do you want to interview this person?</span>
             <div className={styles.interviewBtn}>
@@ -45,6 +53,6 @@ export default function Interview({ appId, close }: any) {
                     close("")
                 }}>Yes, Interview</button>
             </div>
-        </div>
+        </div >
     )
 }

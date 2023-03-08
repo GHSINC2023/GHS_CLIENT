@@ -27,7 +27,7 @@ export default function Gcalendar({ applicantID, userID, close }: any) {
     })
 
     useEffect(() => {
-        setInterval(() => {
+        setTimeout(() => {
             setMessage(false)
         }, 2000)
     }, [])

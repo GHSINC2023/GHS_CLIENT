@@ -54,7 +54,7 @@ export default function DataStatus({ status, limit, order }: any) {
                     <Image src="/icon/arrow-left-line.svg" alt="" height={20} width={20} />
                 </button>
                 <span>{pages + 1}</span>
-                <button disabled={loading ? true : data.getJobByStatus.length < limit} onClick={() => setPages(() => pages + 1)}>
+                <button disabled={loading ? true : data.getJobByStatus.length < limit || data.getJobByStatus.length === 0} onClick={() => setPages(() => pages + 1)}>
                     <Image src="/icon/arrow-right-line.svg" alt="" height={20} width={20} />
                 </button>
             </div>

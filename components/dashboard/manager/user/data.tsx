@@ -65,12 +65,12 @@ export default function UserData({ limit, orders, roles }: Filters) {
                         ))}
                     </tbody>
                 </table>
-             <div className={styles.pages}>
+                <div className={styles.pages}>
                     <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>
                         <Image src="/dashboard/arro-left-line.svg" alt="" height={20} width={20} />
                     </button>
                     <span>{pages + 1}</span>
-                    <button disabled={loading ? true : data.getUserByRoles.length < limit} onClick={() => setPages(() => pages + 1)}>
+                    <button disabled={loading ? true : data.getUserByRoles.length < limit || data.getUserByRoles.length === 0} onClick={() => setPages(() => pages + 1)}>
                         <Image src="/dashboard/arro-left-line.svg" alt="" height={20} width={20} />
                     </button>
                 </div>
