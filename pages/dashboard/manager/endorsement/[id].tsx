@@ -80,7 +80,7 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
     useEffect(() => {
         setTimeout(() => {
             setMessage(false)
-        }, 1000)
+        }, 2000)
     }, [])
 
     const [ createComment, { data } ] = useMutation(commentEndorsement)
@@ -109,7 +109,7 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                 <Endorse endorsementID={id} close={setEndorse} />
             </div> : null}
             {
-                data && message ? <div> <Message label={"Successfully Create a Comment"} status={'success'} message={''} /> </div> : null
+                data && message ? <div> <Message label={"Successfully create a Comment"} status={'success'} message={''} /> </div> : null
             }
             <div className={styles.endorse}>
                 <div className={styles.body}>

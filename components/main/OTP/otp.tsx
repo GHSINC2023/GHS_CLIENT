@@ -67,10 +67,10 @@ export default function OTPS({ email, applicantForm, close }: any) {
         <div className={styles.otpContainer}>
             <div className={styles.header}>
                 <h2>OTP Verification</h2>
-                <span>Enter your code that sent into your email {email} </span>
+                <span>Enter the code that has been sent to your email, {email} </span>
             </div>
             {data && message ? <div className={styles.message}>
-                <Message label="Applicant Successful" message='' status='success' />
+                <Message label="Application Successful" message='' status='success' />
             </div> : null}
             {error && message ? <div className={styles.message}>
                 <Message label={error.message} message='' status='error' />

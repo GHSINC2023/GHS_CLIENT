@@ -146,7 +146,7 @@ export default function Apply({ jobid, close, open }: any) {
         }
         setTimeout(() => {
             setMessage(false)
-        }, 1500)
+        }, 2000)
     }, [ message ])
 
 

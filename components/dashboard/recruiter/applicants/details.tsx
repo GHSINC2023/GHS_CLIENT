@@ -89,8 +89,10 @@ export default function ApplicantDetails({ close, apid, id, profile, email, inte
                         </button>
                         {open && status === "waiting" ?
                             <div className={styles.option}>
-                                <button onClick={() => setgcl(() => !gcl)}>Create google interview date</button>
-                                <hr />
+                                {interviewer.length === 0 ? null : <>
+                                    <button onClick={() => setgcl(() => !gcl)}>Set an interview schedule</button>
+                                    <hr />
+                                </>}
                                 {upStatused.map(({ name, value }) => (
                                     <button onClick={updateApp} key={name} value={value}>{name}</button>
                                 ))}
