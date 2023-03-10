@@ -53,8 +53,8 @@ export default function ApplicantDetails({ close, apid, id, profile, email, inte
     useEffect(() => {
         setTimeout(() => {
             setMessage(false)
-        }, 1000)
-    }, [])
+        }, 2000)
+    }, [ message ])
 
     return (
         <div className={styles.container}>

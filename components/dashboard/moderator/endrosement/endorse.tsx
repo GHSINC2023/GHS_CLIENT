@@ -89,11 +89,12 @@ export default function Endorse({ endorsementID, close }: any) {
                 }
             </div>
             <div className={styles.footer}>
-                <button disabled>
+                <button disabled={!pages} onClick={() => setPages(pages - 1)}>
                     <Image src="/icon/arrow-left-line.svg" alt="" height={20} width={20} />
                 </button>
                 <span>{pages + 1}</span>
-                <button>
+                <button disabled={loading ? true : data.getEmployerCompany.length < limit || data.getEmployerCompany.length === 0} onClick={() => setPages
+                    (pages + 1)}>
                     <Image src="/icon/arrow-right-line.svg" alt="" height={20} width={20} />
                 </button>
             </div>

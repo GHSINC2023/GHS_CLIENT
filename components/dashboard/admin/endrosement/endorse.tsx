@@ -94,7 +94,7 @@ export default function Endorse({ endorsementID, close }: any) {
                     <Image src="/icon/arrow-left-line.svg" alt="" height={20} width={20} />
                 </button>
                 <span>{pages + 1}</span>
-                <button disabled={loading ? true : data.getEmployerCompany.length < 10} onClick={() => setPages(pages + 1)}>
+                <button disabled={loading ? true : data.getEmployerCompany.length < 10 || data.getEmployerCompany === 0} onClick={() => setPages(pages + 1)}>
                     <Image src="/icon/arrow-right-line.svg" alt="" height={20} width={20} />
                 </button>
             </div>

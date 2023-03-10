@@ -118,9 +118,9 @@ export const category = [
 
 
 
-export const endorsement_status: string[] = [ "Active", "Employed", "Hired", "Follow-up", "Terminated", "Failed", "Not Qualified", "Decline Offer", "Backed-out", "No Show", "No Call", "No Answer", "Not Eligible", "TCBR", "CBR", "Endorse Marketing", "Text Blast" ]
+export const endorsement_status: string[] = [ "Active", "Final/Ops Interview", "Employed", "Hired", "Near Hire", "Follow-up", "Rescheduled", "Endorsed", "Pending", "Terminated", "Not Qualified", "Failed - No Re-endorsement", "Backed-out", "Failed/Re-endorsed", "No Show", "Decline Offer", "No Call", "No Answer", "Not Eligible", "TCBR", "CBR", "Endorsement Making", "Text Blast", "Re-Invited", "Re-endorsement (No Date)", "Exam/Versant" ]
 
-export const endorsement_statusv2: string[] = [ "Waiting", "Active", "Employed", "Hired", "Follow-up", "Terminated", "Failed", "Not Qualified", "Decline Offer", "Backed-out", "No Show", "No Call", "No Answer", "Not Eligible", "TCBR", "CBR", "Endorse Marketing", "Text Blast" ]
+export const endorsement_statusv2: string[] = [ "Active", "Final/Ops Interview", "Employed", "Hired", "Near Hire", "Follow-up", "Rescheduled", "Endorsed", "Pending", "Terminated", "Not Qualified", "Failed - No Re-endorsement", "Backed-out", "Failed/Re-endorsed", "No show", "Decline Offer", "No Call", "No Answer", "Not Eligible", "TCBR", "CBR", "Endorsement Making", "Text Blast", "Re-Invited", "Re-endorsement (No Date)", "Exam/Versant" ]
 
 export const CSVSort = [
     { name: "Ascending", value: "asc" },

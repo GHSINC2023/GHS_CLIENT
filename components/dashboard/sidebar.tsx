@@ -50,7 +50,7 @@ export default function Sidebar() {
     const moderator = [
         { name: "overview", url: `/dashboard/${roles}/overview` },
         { name: "post", url: `/dashboard/${roles}/post` },
-        { name: "Applicants", url: `/dashboard/${roles}/applicant_logs` },
+        { name: "Applicants", url: `/dashboard/${roles}/applications` },
         { name: "User", url: `/dashboard/${roles}/user` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
