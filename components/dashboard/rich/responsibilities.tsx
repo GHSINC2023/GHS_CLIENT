@@ -11,15 +11,11 @@ const toolBarOption = [
 
 export default function Responsibilities({ value, setValue, data }: any) {
 
-    if (data) {
-        setValue("")
-    }
-
     return (
         <div>
             <ReactQuill theme="snow" value={value} onChange={setValue}
                 modules={{
-                    toolbar: toolBarOption
+                    toolbar: toolBarOption,
                 }}
             />
         </div>

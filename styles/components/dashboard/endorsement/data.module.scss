@@ -107,14 +107,17 @@
                      width: 15px;
                      height: 15px;
                      border-radius: 100px;
-                     &[about="Waiting"] {
-                        background-color: orange;
-                     }
                      &[about="Active"] {
                         width: 15px;
                         height: 15px;
                         border-radius: 100px;
-                        background-color: #43bf57;
+                        background-color: #1aa90f;
+                     }
+                     &[about="Final/Ops Interview"] {
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 100px;
+                        background-color: #64ca75;
                      }
                      &[about="Employed"] {
                         width: 15px;
@@ -126,51 +129,81 @@
                         width: 15px;
                         height: 15px;
                         border-radius: 100px;
+                        background-color: #71c218;
+                     }
+                     &[about="Near Hire"] {
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 100px;
                         background-color: #add43c;
                      }
+
                      &[about="Follow-up"] {
                         width: 15px;
                         height: 15px;
                         border-radius: 100px;
                         background-color: #d0e486;
                      }
+
+                     &[about="Rescheduled"] {
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 100px;
+                        background-color: #ffff65;
+                     }
+                     &[about="Endorsed"] {
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 100px;
+                        background-color: #75d961;
+                     }
+                     &[about="Pending"] {
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 100px;
+                        background-color: #ff9900;
+                     }
                      &[about="Terminated"] {
                         width: 15px;
                         height: 15px;
                         border-radius: 100px;
-                        background-color: #e4636a;
+                        background-color: #d2242c;
                      }
-
-                     &[about="Failed"] {
-                        width: 15px;
-                        height: 15px;
-                        border-radius: 100px;
-                        background-color: #f6a899;
-                     }
-
                      &[about="Not Qualified"] {
                         width: 15px;
                         height: 15px;
                         border-radius: 100px;
-                        background-color: #f49025;
+                        background-color: #ff2525;
                      }
-                     &[about="Decline Offer"] {
+                     &[about="Failed - No Re-endorsement"] {
                         width: 15px;
                         height: 15px;
                         border-radius: 100px;
-                        background-color: #f8bd6d;
+                        background-color: #808080;
                      }
                      &[about="Backed-out"] {
                         width: 15px;
                         height: 15px;
                         border-radius: 100px;
-                        background-color: #ed7db1;
+                        background-color: #f46670;
+                     }
+                     &[about="Failed/Re-endorsed"] {
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 100px;
+                        background-color: #ff9393;
                      }
                      &[about="No Show"] {
                         width: 15px;
                         height: 15px;
                         border-radius: 100px;
                         background-color: #f8c22d;
+                     }
+                     &[about="Decline Offer"] {
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 100px;
+                        background-color: #f8bd6d;
                      }
                      &[about="No Call"] {
                         width: 15px;
@@ -202,7 +235,7 @@
                         border-radius: 100px;
                         background-color: #b1f5f0;
                      }
-                     &[about="Endorse Marketing"] {
+                     &[about="Endorsement Making"] {
                         width: 15px;
                         height: 15px;
                         border-radius: 100px;
@@ -212,7 +245,25 @@
                         width: 15px;
                         height: 15px;
                         border-radius: 100px;
-                        background-color: #cfaedf;
+                        background-color: #ceff;
+                     }
+                     &[about="Re-Invited"] {
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 100px;
+                        background-color: #717df3;
+                     }
+                     &[about="Re-endorsement (No Date)"] {
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 100px;
+                        background-color: #137ff5;
+                     }
+                     &[about="Exam/Versant"] {
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 100px;
+                        background-color: #be69d9;
                      }
                   }
                   .containerButtons {

@@ -5,7 +5,7 @@ import Head from 'next/head'
 import styles from '../../../../styles/components/dashboard/endorsement/endorsement.module.scss'
 import Image from 'next/image'
 import { endorsement_statusv2, OrderDate, limits } from '../../../../util/values/filter'
-import Data from '../../../../components/dashboard/admin/endrosement/data'
+import Data from '../../../../components/dashboard/recruiter/endrosement/data'
 import jwtDecode from 'jwt-decode'
 import EndorseExport from '../../../../components/dashboard/export/endorsement.export'
 
@@ -21,7 +21,7 @@ const Endorsement: FC = ({ userid }: any) => {
     const [ limit, setLimit ] = useState(false)
     const [ order, setOrder ] = useState(false)
     const [ exports, setExport ] = useState(false)
-    const [ status, setStatus ] = useState("Waiting")
+    const [ status, setStatus ] = useState("Pending")
     const [ filter, setFilter ] = useState(false)
     const [ limVal, setLimitVal ] = useState(10)
     const [ orders, setOrders ] = useState("desc")
@@ -175,7 +175,7 @@ export default Endorsement
 
 
 export const getServerSideProps = async (context: any) => {
-    const cookies = context.req.cookies["ghs_access_token"]
+    const cookies = context.req.cookies[ "ghs_access_token" ]
     const { userID }: any = jwtDecode(cookies)
     return {
         props: {

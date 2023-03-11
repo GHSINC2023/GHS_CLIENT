@@ -113,9 +113,7 @@ export default function Edit({ title, description, id, details, responsibilities
                 },
             },
             onCompleted: data => {
-                if (data) {
-                    setMessage(true)
-                }
+                setMessage(true)
             },
             onError: error => {
                 console.log(error.message)

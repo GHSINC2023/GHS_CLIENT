@@ -13,10 +13,6 @@ const toolBarOption = [
 export default function Qualification({ value, setValue, data }: any) {
 
 
-    if (data) {
-        setValue("")
-    }
-
     return (
         <div>
             <ReactQuill theme="snow" value={value} onChange={setValue}

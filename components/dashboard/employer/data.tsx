@@ -68,6 +68,15 @@ export default function EndorseData({ userid, status, limit, orders }: any) {
                         ))}
                     </tbody>
                 </table>
+                <div className={styles.pages}>
+                    <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>
+                        <Image src="/dashboard/arrow-left-line.svg" alt="" height={20} width={20} />
+                    </button>
+                    <span>{pages + 1}</span>
+                    <button disabled={loading ? true : data.getEndorseByStatus.length < limit || data.getJobByStatus.length === 0} onClick={() => setPages(() => pages + 1)}>
+                        <Image src="/dashboard/arrow-right-line.svg" alt="" height={20} width={20} />
+                    </button>
+                </div>
             </div>
         </div>
     )

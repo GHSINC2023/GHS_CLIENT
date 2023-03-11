@@ -30,7 +30,7 @@ export default function Gcalendar({ applicantID, userID, close }: any) {
         setTimeout(() => {
             setMessage(false)
         }, 2000)
-    }, [])
+    }, [ message ])
 
     const onHandleGoogleCalendar = (e: any) => {
         e.preventDefault();

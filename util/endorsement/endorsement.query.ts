@@ -17,6 +17,9 @@ query GetEndorsementSpecificStatus($status: String!, $limit: Int!, $offset: Int!
         lastname
       }
     }
+    company {
+      companyName
+    }
     Status
     createdAt
     updatedAt
@@ -42,11 +45,19 @@ export const endorsementById = gql`query GetEndorsementById($endorsementId: ID!)
     endorsementID
     Status
     createdAt
+    company {
+      companyName
+    }
     endorseBy {
       profile {
         profileID
         firstname
         lastname
+      }
+    }
+    endorse {
+      company {
+        companyName
       }
     }
     applicants {

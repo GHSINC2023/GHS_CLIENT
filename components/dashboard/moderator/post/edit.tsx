@@ -127,7 +127,7 @@ export default function Edit({ title, description, id, details, responsibilities
     useEffect(() => {
         setTimeout(() => {
             setMessage(false)
-        })
+        }, 2000)
     }, [ message ])
 
     return (

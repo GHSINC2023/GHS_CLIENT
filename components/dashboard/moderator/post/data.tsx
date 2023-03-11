@@ -48,7 +48,7 @@ export default function DataStatus({ status, limit, order }: any) {
                     ))
                 ))}
             </div>
-            {loading ? "Loading" : data.getJobByStatus.length <= limit ? <div className={styles.pages}>
+            <div className={styles.pages}>
                 <button disabled={!pages} onClick={() => setPages(() => pages - 1)}>
                     <Image src="/dashboard/arrow-left-line.svg" alt="" height={20} width={20} />
                 </button>
@@ -56,7 +56,7 @@ export default function DataStatus({ status, limit, order }: any) {
                 <button disabled={loading ? true : data.getJobByStatus.length < limit || data.getJobByStatus.length === 0} onClick={() => setPages(() => pages + 1)}>
                     <Image src="/dashboard/arrow-right-line.svg" alt="" height={20} width={20} />
                 </button>
-            </div> : null}
+            </div>
         </div>
     )
 }

@@ -19,7 +19,7 @@ const Endorsement: FC = () => {
     const [ limit, setLimit ] = useState(false)
     const [ order, setOrder ] = useState(false)
     const [ exports, setExport ] = useState(false)
-    const [ status, setStatus ] = useState("Waiting")
+    const [ status, setStatus ] = useState("Pending")
     const [ filter, setFilter ] = useState(false)
     const [ limVal, setLimitVal ] = useState(10)
     const [ orders, setOrders ] = useState("desc")

@@ -80,6 +80,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            &:disabled {
+               background-color: #eee;
+               border: none;
+               color: #fff;
+               cursor: not-allowed;
+               
+            }
          }
       }
    }

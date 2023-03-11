@@ -7,12 +7,14 @@ import Message from '../../../message/message'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
+import { endorsementById } from '../../../../util/endorsement/endorsement.query'
 export default function Endorse({ endorsementID, close }: any) {
 
     const [ pages, setPages ] = useState(0)
     const [ message, setMessage ] = useState(false)
     const [ userid, setUserId ] = useState("")
-
+    const [ company, setCompany ] = useState([]) as any
+    const [ isRender, setRender ] = useState(false)
 
     useEffect(() => {
         const cookies = Cookies.get("ghs_access_token")
@@ -34,6 +36,16 @@ export default function Endorse({ endorsementID, close }: any) {
             console.log(error.message)
         }
     })
+
+    const { loading: endorLoad, data: endoData } = useQuery(endorsementById, {
+        variables: {
+            endorsementId: endorsementID
+        },
+        onCompleted: () => {
+            setRender(true)
+        }
+    })
+
 
     const [ createEndorse, { data: dataEndorse } ] = useMutation(CreateEndorse)
 
@@ -57,8 +69,27 @@ export default function Endorse({ endorsementID, close }: any) {
     useEffect(() => {
         setTimeout(() => {
             setMessage(false)
-        }, 1500)
+        }, 2000)
     }, [ message ])
+
+    useEffect(() => {
+        if (isRender) {
+            endoData.getEndorsementById.map(({ endorse }: any) => {
+                endorse.map(({ company }: any) => {
+                    company.map(({ companyName }: any) => {
+                        setCompany([ companyName ])
+                    })
+                })
+            })
+        }
+
+        setRender(false)
+    }, [ endoData, isRender ])
+
+
+    if (endorLoad) return null
+
+    console.log(company)
 
     return (
         <div className={styles.container}>
@@ -76,15 +107,10 @@ export default function Endorse({ endorsementID, close }: any) {
                 {loading ? "Loading" : data.getEmployerCompany.length === 0 ? "None" : data.getEmployerCompany.map(({ companyID, companyName }: any) => (
                     <div className={styles.company} key={companyID}>
                         <h2>{companyName}</h2>
-                        {!dataEndorse ? <button onClick={sendEndorsement} value={companyID}>
-                            Endorse
-                        </button> : dataEndorse.createEndorse.company[ 0 ].companyID === companyID ?
-                            <button disabled onClick={sendEndorsement} value={companyID}>
-                                Endorsed
-                            </button> : <button onClick={sendEndorsement} value={companyID}>
-                                Endorse
-                            </button>
-                        }
+                        {company.map((data: any) => (data === companyName ?
+                            <button disabled={data === companyName} onClick={sendEndorsement} value={companyID}>Endorsed</button>
+                            : <button onClick={sendEndorsement} value={companyID}>Endorse</button>
+                        ))}
                     </div>
                 ))
                 }

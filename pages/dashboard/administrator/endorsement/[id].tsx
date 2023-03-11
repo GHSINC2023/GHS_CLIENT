@@ -96,13 +96,26 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                     notes: ""
                 }
             },
-            refetchQueries: [ endorsementById ],
+            onCompleted: () => {
+                setMessage(true)
+            },
+            refetchQueries: [ {
+                query: endorsementById,
+                variables: {
+                    endorsementId: id
+                }
+            } ],
             onQueryUpdated: (observableQuery) => {
                 return observableQuery.refetch()
             }
         })
     }
 
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage(false)
+        }, 2000)
+    }, [ message ])
     return (
         <div className={styles.container}>
             {endorse ? <div className={styles.end}>

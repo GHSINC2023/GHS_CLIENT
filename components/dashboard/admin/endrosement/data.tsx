@@ -63,7 +63,7 @@ export default function Data({ limit, status, order }: any) {
                     </thead>
                     <tbody>
                         {loading ? null :
-                            data.getEndorsementSpecificStatus.map(({ endorsementID, Status, createdAt, applicants, endorseBy }: any) => (
+                            data.getEndorsementSpecificStatus.map(({ endorsementID, Status, createdAt, applicants, endorseBy, company }: any) => (
                                 applicants.map(({ applicantProfile }: any) => (
                                     applicantProfile.map(({ firstname, lastname }: any) => (
                                         endorseBy.map(({ profile: prof }: any) => (

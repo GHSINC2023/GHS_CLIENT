@@ -5,7 +5,7 @@ import Head from 'next/head'
 import styles from '../../../../styles/components/dashboard/endorsement/endorsement.module.scss'
 import Image from 'next/image'
 import { endorsement_statusv2, OrderDate, limits } from '../../../../util/values/filter'
-import Data from '../../../../components/dashboard/admin/endrosement/data'
+import Data from '../../../../components/dashboard/manager/endrosement/data'
 import EndorseExport from '../../../../components/dashboard/export/endorsement.export'
 
 
@@ -19,7 +19,7 @@ const Endorsement: FC = () => {
     const [ limit, setLimit ] = useState(false)
     const [ order, setOrder ] = useState(false)
     const [ exports, setExport ] = useState(false)
-    const [ status, setStatus ] = useState("Waiting")
+    const [ status, setStatus ] = useState("Pending")
     const [ filter, setFilter ] = useState(false)
     const [ limVal, setLimitVal ] = useState(10)
     const [ orders, setOrders ] = useState("desc")

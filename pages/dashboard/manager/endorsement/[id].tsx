@@ -13,7 +13,7 @@ import Dashboard from '../../../../layout/dashboard.layout'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 
-const Endorse = dynamic(() => import("../../../../components/dashboard/admin/endrosement/endorse"), {
+const Endorse = dynamic(() => import("../../../../components/dashboard/manager/endrosement/endorse"), {
     ssr: false
 })
 
@@ -96,13 +96,26 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                     notes: ""
                 }
             },
-            refetchQueries: [ endorsementById ],
+            onCompleted: () => {
+                setMessage(true)
+            },
+            refetchQueries: [ {
+                query: endorsementById,
+                variables: {
+                    endorsementId: id
+                }
+            } ],
             onQueryUpdated: (observableQuery) => {
                 return observableQuery.refetch()
             }
         })
     }
 
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage(false)
+        }, 2000)
+    }, [ message ])
     return (
         <div className={styles.container}>
             {endorse ? <div className={styles.end}>

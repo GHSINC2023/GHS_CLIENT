@@ -14,7 +14,6 @@ export default function ApplicantDetails({ close, apid, id, profile, email, inte
     const [ open, setOpened ] = useState(false)
     const [ gcl, setgcl ] = useState(false)
     const [ token, setToken ] = useState("")
-    const [ message, setMessage ] = useState(false)
 
     const onClickFileBtn = (file: any) => {
         window.open(file)
@@ -44,17 +43,8 @@ export default function ApplicantDetails({ close, apid, id, profile, email, inte
                 status: e.target.value,
                 userId: token
             },
-            onCompleted: data => {
-                setMessage(true)
-            }
         })
     }
-
-    useEffect(() => {
-        setTimeout(() => {
-            setMessage(false)
-        }, 2000)
-    }, [ message ])
 
     return (
         <div className={styles.container}>
@@ -63,9 +53,6 @@ export default function ApplicantDetails({ close, apid, id, profile, email, inte
                     <Gcalendar applicantID={id} userID={token} close={setgcl} />
                 </div> : null
             }
-            {data && message ? <div>
-                <Message status='success' label='Successfully Updated' message='' />
-            </div> : null}
             <div className={styles.header}>
                 <button onClick={() => close("")}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="" stroke="#D02222" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x">

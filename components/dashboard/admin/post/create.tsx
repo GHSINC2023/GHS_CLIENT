@@ -130,7 +130,7 @@ export default function Create({ userid, close }: any) {
         if (message === true) {
             setTimeout(() => {
                 setMessage(false)
-            }, 1000)
+            }, 2000)
         }
     }, [ message ])
 

@@ -1,261 +1,241 @@
 @import "../../../_mixins";
 @import "../../../_variables";
 .container {
-    width: 100%;
-    padding: 10px;
-    .create {
-        width: 100%;
-        overflow-y: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        inset: 0;
-        background-color: rgba(255,255,255, 0.8);
-    }
-    .endorsementExport {
-        width: 100%;
-        overflow-y: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        inset: 0;
-        background-color: rgba(255,255,255, 0.8);
-    }
-    .header {
-        .container {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+   width: 100%;
+   padding: 10px;
+   .endorsementExport {
+      width: 100%;
+      overflow-y: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(255, 255, 255, 0.8);
+   }
+   .header {
+      .container {
+         width: 100%;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
 
-            h2 {
-                font-family: $primaryFont;
-                font-weight: 600;
-                font-size: 24px;
-            }
-          .option {
+         h2 {
+            font-family: $primaryFont;
+            font-weight: 600;
+            font-size: 24px;
+         }
+         .option {
             display: flex;
             align-items: center;
             gap: 10px;
             .createDiv {
-                display: flex;
-                width: 100%;
-                align-items: center;
-                .createBtn {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 100px;
-                    border: none;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    background-color: transparent;
-                    border: 1px solid #eee;
-                }
-                &:hover {
-                    span {
-                        display: block;
-                        background-color: $primaryColor;
-                        width: 70px;
-                        height: 30px;
-                        text-align: center;
-                        line-height: 30px;
-                        position: absolute;
-                        border-radius: 5px;
-                        color: #fff;
-                        transform: translate(-10px, 50px);
-                        font-family: $primaryFont;
-                        font-size: 12px;
-                        pointer-events: none;
-                    }
-                
+               display: flex;
+               width: 100%;
+               align-items: center;
+               .createBtn {
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 100px;
+                  border: none;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  cursor: pointer;
+                  background-color: transparent;
+                  border: 1px solid #eee;
+               }
+               &:hover {
+                  span {
+                     display: block;
+                     background-color: $primaryColor;
+                     width: 70px;
+                     height: 30px;
+                     text-align: center;
+                     line-height: 30px;
+                     position: absolute;
+                     border-radius: 5px;
+                     color: #fff;
+                     transform: translate(-10px, 50px);
+                     font-family: $primaryFont;
+                     font-size: 12px;
+                     pointer-events: none;
+                  }
+               }
+               span {
+                  display: none;
+               }
             }
-                span {
-                display: none;
-                }
+            .cvsDiv {
+               display: flex;
+               align-items: center;
+               .csv {
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 100px;
+                  border: none;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  cursor: pointer;
+                  background-color: transparent;
+                  border: 1px solid #eee;
+                  font-weight: 600;
+                  font-family: $primaryFont;
+                  color: $primaryColor;
+               }
+               &:hover {
+                  span {
+                     display: block;
+                     background-color: $primaryColor;
+                     width: 100px;
+                     height: 30px;
+                     text-align: center;
+                     line-height: 30px;
+                     position: absolute;
+                     border-radius: 5px;
+                     color: #fff;
+                     transform: translate(-45px, 50px);
+                     font-family: $primaryFont;
+                     font-size: 12px;
+                     pointer-events: none;
+                  }
+               }
+               span {
+                  display: none;
+               }
             }
-           .cvsDiv {
-            display: flex;
-            align-items: center;
-            .csv {
-                width: 40px;
-                height: 40px;
-                border-radius: 100px;
-                border: none;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                background-color: transparent;
-                border: 1px solid #eee;
-                font-weight: 600;
-                font-family: $primaryFont;
-                color: $primaryColor;
-              }
-              &:hover {
-                span {
-                    display: block;
-                    background-color: $primaryColor;
-                    width: 100px;
-                    height: 30px;
-                    text-align: center;
-                    line-height: 30px;
-                    position: absolute;
-                    border-radius: 5px;
-                    color: #fff;
-                    transform: translate(-45px, 50px);
-                    font-family: $primaryFont;
-                    font-size: 12px;
-                    pointer-events: none;
-                 }
-              }
-              span {
-                display: none
-
-              }
-           }
-         
-          
-          }
-         
-        }
-        .endorsement {
+         }
+      }
+      .endorsement {
+         width: 100%;
+         display: flex;
+         justify-content: space-between;
+         .filter {
             width: 100%;
             display: flex;
-            justify-content: space-between;
-            .filter {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                .fillBtn {
-                    height: 35px;
-                    width: 150px;
-                    border-radius: 1px;
-                    border: none;
-                    background-color: transparent;
-                    border-radius: 4px;
-                    font-family: $primaryFont;
-                    font-size: 14px;
-                    background-color: #fff;
-                    box-shadow: 0px 0px 3px 0px #eee;
-                    cursor: pointer;
-                    &:hover {
-                        background-color: $primaryColor;
-                        color: #fff;
-                    }
-                }
-                .active {
-                    height: 35px;
-                    width: 150px;
-                    border-radius: 1px;
-                    border: none;
-                    background-color: transparent;
-                    border-radius: 4px;
-                    font-family: $primaryFont;
-                    font-size: 14px;
-                    background-color: #fff;
-                    cursor: pointer;
-                    &:hover {
-                        background-color: $primaryColor;
-                        color: #fff;
-                    }
-                    border-bottom: 1px solid $primaryColor;
-                }
-                .fill {
-                    width: 150px;
-                    height: 400px;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 3px;
-                    position: absolute;
-                    background-color: #fff;
-                    transform: translate(0, 230px);
-                    box-shadow: 0px 0px 3px 0px #eee;
-                    overflow-y: auto;
-                    &::-webkit-scrollbar {
-                        width: 5px;
-                    }
-                    &::-webkit-scrollbar-thumb{
-                       background-color: $primaryColor;
-                       border-radius: 100px;
-                    }
-                    button {
-                        width: 100%;
-                        height: 40px;
-                        border: none;
-                        text-align: left;
-                        background-color: transparent;
-                        font-family: $primaryFont;
-                        &:hover {
-                            background-color: $primaryColor;
-                            color: #fff;
-                        }
-                    }
-                }
+            align-items: center;
+            .fillBtn {
+               height: 35px;
+               width: 150px;
+               border-radius: 1px;
+               border: none;
+               background-color: transparent;
+               border-radius: 4px;
+               font-family: $primaryFont;
+               font-size: 14px;
+               background-color: #fff;
+               box-shadow: 0px 0px 3px 0px #eee;
+               cursor: pointer;
+               &:hover {
+                  background-color: $primaryColor;
+                  color: #fff;
+               }
             }
-
-
-
-
-
-
-            .tkl {
-                display: flex;
-                align-items: center;
-                justify-content: space-around;
-                gap: 10px;
-                .take,  .order{
-                        button{ 
-                            height: 30px;
-                            width: 40px;
-                            border-radius: 1px;
-                            border: none;
-                            background-color: transparent;
-                            border-radius: 4px;
-                            font-family: $primaryFont;
-                            font-size: 14px;
-                            background-color: #fff;
-                            box-shadow: 0px 0px 3px 0px #eee;
-                            &:hover {
-                                background-color: $primaryColor;
-                                color: #fff;
-                            }
-                        }
-                        .active{
-                            border-bottom: 1px solid $primaryColor;
-                        }
-                        .valuesContainer {
-                            display: flex;
-                            align-items: center;
-                            flex-direction: column;
-                            position: absolute;
-                            transform: translate(-30%, 5%);
-                            width: 60px;
-                            box-shadow: 0px 0px 3px 0px #ddd;
-                            button {
-                                width: 100%;
-                                border: none;
-                                border-radius: 0;
-                                box-shadow: none;
-                            }
-                           
-                        }
-                    }
-                .order {
-                   button {
-                    width: 120px;
-                    height: 30px;
-                   }
-                   .valuesContainer{
-                    position: absolute;
-                    transform: translate(0%, 20%);
-                    width: 120px;
-                   }
-                }
+            .active {
+               height: 35px;
+               width: 150px;
+               border-radius: 1px;
+               border: none;
+               background-color: transparent;
+               border-radius: 4px;
+               font-family: $primaryFont;
+               font-size: 14px;
+               background-color: #fff;
+               cursor: pointer;
+               &:hover {
+                  background-color: $primaryColor;
+                  color: #fff;
+               }
+               border-bottom: 1px solid $primaryColor;
             }
-        }
-    }
+            .fill {
+               width: 200px;
+               height: 400px;
+               display: flex;
+               flex-direction: column;
+               gap: 3px;
+               position: absolute;
+               background-color: #fff;
+               transform: translate(0, 230px);
+               box-shadow: 0px 0px 3px 0px #eee;
+               overflow-y: auto;
+               &::-webkit-scrollbar {
+                  width: 5px;
+               }
+               &::-webkit-scrollbar-thumb {
+                  background-color: $primaryColor;
+                  border-radius: 100px;
+               }
+               button {
+                  width: 100%;
+                  height: 40px;
+                  border: none;
+                  text-align: left;
+                  background-color: transparent;
+                  font-family: $primaryFont;
+                  &:hover {
+                     background-color: $primaryColor;
+                     color: #fff;
+                  }
+               }
+            }
+         }
+
+         .tkl {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 10px;
+            .take,
+            .order {
+               button {
+                  height: 30px;
+                  width: 40px;
+                  border-radius: 1px;
+                  border: none;
+                  background-color: transparent;
+                  border-radius: 4px;
+                  font-family: $primaryFont;
+                  font-size: 14px;
+                  background-color: #fff;
+                  box-shadow: 0px 0px 3px 0px #eee;
+                  &:hover {
+                     background-color: $primaryColor;
+                     color: #fff;
+                  }
+               }
+               .active {
+                  border-bottom: 1px solid $primaryColor;
+               }
+               .valuesContainer {
+                  display: flex;
+                  align-items: center;
+                  flex-direction: column;
+                  position: absolute;
+                  transform: translate(-30%, 5%);
+                  width: 60px;
+                  box-shadow: 0px 0px 3px 0px #ddd;
+                  button {
+                     width: 100%;
+                     border: none;
+                     border-radius: 0;
+                     box-shadow: none;
+                  }
+               }
+            }
+            .order {
+               button {
+                  width: 120px;
+                  height: 30px;
+               }
+               .valuesContainer {
+                  position: absolute;
+                  transform: translate(0%, 20%);
+                  width: 120px;
+               }
+            }
+         }
+      }
+   }
 }

@@ -37,7 +37,7 @@ const Create: FC<Props> = ({ closed, opens }) => {
         role: "",
         companyName: ""
     })
-    const [ userSubmit, { data } ] = useMutation<UserForm>(createUserGHS)
+    const [ userSubmit, { data, error } ] = useMutation<UserForm>(createUserGHS)
 
     useEffect(() => {
         setTimeout(() => {
@@ -78,7 +78,7 @@ const Create: FC<Props> = ({ closed, opens }) => {
                 }
             },
             onError: error => {
-                console.log(error.message)
+                setMessage(true)
             },
             refetchQueries: [ getUserRoles ],
             onQueryUpdated: async (observableQuery) => {
@@ -95,6 +95,13 @@ const Create: FC<Props> = ({ closed, opens }) => {
                 data && message ?
                     <div className={styles.message}>
                         <Message status={'success'} label="Successfully Created" message='You have successfully created an User' />
+                    </div> :
+                    null
+            }
+            {
+                error && message ?
+                    <div className={styles.message}>
+                        <Message status={'error'} label={error.message} message='' />
                     </div> :
                     null
             }
