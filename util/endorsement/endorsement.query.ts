@@ -93,6 +93,7 @@ export const endorsementComment = gql`query Query($endorsementId: ID!) {
     message
     updatedAt
     user {
+      userID
       profile {
         firstname
         lastname

@@ -96,7 +96,7 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
         }, 2000)
     }, [ message ])
 
-    const [ createComment, { data } ] = useMutation(commentEndorsement)
+    const [ createComment, { data, error } ] = useMutation(commentEndorsement)
 
 
     const submitCommentForm = (e: any) => {
@@ -138,7 +138,7 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                 <Endorse endorsementID={id} close={setEndorse} />
             </div> : null}
             {
-                data && message ? <div className={styles.message}> <Message label={"Comment added successfully"} status={'success'} message={''} /> </div> : null
+                data && message ? <div className={styles.message}> <Message label={"Comment Added Successfully"} status={'success'} message={''} /> </div> : null
             }
             <div className={styles.endorse}>
                 <div className={styles.body}>
@@ -198,15 +198,13 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                         </table>
                     </div>
                 </div>
-
                 <div style={{ display: "flex", flexDirection: "column", overflowY: "auto", height: "250px" }}>
-                    {comment.length === 0 ? null : <div className={styles.formContainer}>
+                    <div className={styles.formContainer}>
                         <form onSubmit={submitCommentForm}>
                             <textarea placeholder='Comment Here' value={comment} onChange={e => setComment(e.target.value)} />
                             <button disabled={!comment} type="submit">Save</button>
                         </form>
                     </div>
-                    }
 
                     <div className={styles.commentsection}>
                         <h2>Comment</h2>

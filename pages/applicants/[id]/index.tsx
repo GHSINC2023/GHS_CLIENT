@@ -176,7 +176,7 @@ export default function Index({ appId }: any) {
                               {endorseStatus === "approved" ? "Approved" : null}
                               {endorseStatus === "rejected" ? "Approved" : null}
                             </td>
-                            <td>{feedback}</td>
+                            <td className={styles.fd}>{feedback}</td>
                           </tr>
                         ))
                       ))

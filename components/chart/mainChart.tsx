@@ -2,25 +2,25 @@ import React, { useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 import { useQuery } from '@apollo/client'
 import styles from '../../styles/components/chart/mainChart.module.scss'
-import { filtersDWMY } from '../../util/values/filter'
 import { getApplicationDWYMY } from '../../util/applicaiton/application.query'
 import { getEndorsementCount } from '../../util/endorse/endorse.query'
 import { getAllJobDWMY } from '../../util/job/job.query'
-import { format } from 'date-fns'
+import { format, subDays } from 'date-fns'
 export default function MainChart() {
 
-  const [DWMY, setDWMY] = useState("day")
+  const [ DWMY, setDWMY ] = useState("day")
+  const [ start, setStart ] = useState(format(new Date(subDays(Date.now(), 7),), "yyyy-MM-dd"))
+  const [ end, setEnd ] = useState(format(new Date(Date.now()), "yyyy-MM-dd"))
 
-
-  const { loading: loadApp, data: dataApp  } = useQuery(getApplicationDWYMY, {
+  const { loading: loadApp, data: dataApp } = useQuery(getApplicationDWYMY, {
     variables: {
       select: DWMY
     }
   })
 
-  const { loading: loadEndorse, data: dataEndorse} = useQuery(getEndorsementCount, {
+  const { loading: loadEndorse, data: dataEndorse } = useQuery(getEndorsementCount, {
     variables: {
-      select: DWMY 
+      select: DWMY
     }
   })
 
@@ -32,47 +32,52 @@ export default function MainChart() {
 
 
 
-  if(loadApp || loadEndorse || loadJob) return null
+  if (loadApp || loadEndorse || loadJob) return null
   return (
     <div className={styles.container}>
-        <div className={styles.filterDWMY}>
-          {filtersDWMY.map(({name, value}) => (
-            <button key={name} onClick={(e) => setDWMY(e.currentTarget.value)} value={value}>{name}</button>
-          ))}
+      <div className={styles.filterDWMY}>
+        <div className={styles.dateCon}>
+          <label>Start: </label>
+          <input type="date" value={start} onChange={(e) => setStart(e.target.value)}/>
         </div>
-        <div className={styles.chart}>
-        <Bar 
+        <div className={styles.dateCon}>
+          <label>End: </label>
+          <input type="date" value={end} onChange={(e) => setEnd(e.target.value)} />
+        </div>
+      </div>
+      <div className={styles.chart}>
+        <Bar
           options={{
             scales: {
               x: {
-                 display: true,
+                display: true,
                 //  stacked: true,
 
               },
               y: {
-                display:true,
+                display: true,
 
               },
-              
+
             }
           }}
           data={{
             datasets: [
               {
-              data: dataApp.getApplicantByDWMY.map(({ _count, createdAt }: any) => {
-                  return {x: format(new Date(createdAt), "MMM dd yyyy"), y: _count}
-              }),
-                  animation: {
-                    delay: 500,
-                    easing: "linear",
-                  },
-                  label: "Applicants",
-                  backgroundColor: "#0072bd",
-                  
-              }, 
+                data: dataApp.getApplicantByDWMY.map(({ _count, createdAt }: any) => {
+                  return { x: format(new Date(createdAt), "MMM dd yyyy"), y: _count }
+                }),
+                animation: {
+                  delay: 500,
+                  easing: "linear",
+                },
+                label: "Applicants",
+                backgroundColor: "#0072bd",
+
+              },
               {
                 data: dataEndorse.getEndorsementByDWMY.map(({ _count, createdAt }: any) => {
-                  return {x: format(new Date(createdAt), "MMM dd yyyy"), y: _count }
+                  return { x: format(new Date(createdAt), "MMM dd yyyy"), y: _count }
                 }),
                 animation: {
                   delay: 500,
@@ -80,10 +85,10 @@ export default function MainChart() {
                 },
                 label: "Endorsement",
                 backgroundColor: "#d95319",
-              },  
+              },
               {
                 data: dataJob.getJobPostDWMY.map(({ _count, createdAt }: any) => {
-                  return {x: format(new Date(createdAt), "MMM dd yyyy"), y: _count }
+                  return { x: format(new Date(createdAt), "MMM dd yyyy"), y: _count }
                 }),
                 animation: {
                   delay: 500,
@@ -93,9 +98,9 @@ export default function MainChart() {
                 backgroundColor: "#edb120",
               }
             ],
-          }}    
+          }}
         />
-        </div>
+      </div>
     </div>
   )
 }

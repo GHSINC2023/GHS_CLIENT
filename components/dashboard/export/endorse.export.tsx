@@ -5,27 +5,27 @@ import styles from '../../../styles/components/exports/application.export.module
 import { endorseCSV } from '../../../util/endorse/endorse.mutation'
 import { CSVLink } from 'react-csv'
 import Message from '../../message/message'
-export default function EndorseExports({ close, userid }: any) {
+export default function EndorseExports({ close, userID }: any) {
 
     const dates = new Date()
     const [ status, setStatus ] = useState("")
     const [ start, setStart ] = useState("")
     const [ end, setEnd ] = useState("")
     const [ sort, setSort ] = useState("asc")
-    const [ filename, setFilename ] = useState(`Enodrse - ${dates.toDateString()}`)
+    const [ filename, setFilename ] = useState(`Endorse - ${dates.toDateString()}`)
 
     const [ message, setMessage ] = useState(false)
     const [ stats, setStats ] = useState(false)
     const [ or, setOr ] = useState(false)
 
-
     const [ createApplicaitonCSV, { data } ] = useMutation(endorseCSV, {
         variables: {
             status: status,
-            start: start,
-            end: end,
             orders: sort,
-            userID: userid
+            end: end,
+            start: start,
+            userId: userID
+
         },
         onCompleted: () => {
             setMessage(true)
@@ -43,14 +43,14 @@ export default function EndorseExports({ close, userid }: any) {
     ]
 
     console.log(data ? data.getEndorseByCSV : null)
-    const datas = data ? data.getEndorseByCSV.map(({ endorse }: any) => {
+    const datas = data ? data.getEndorseByCSV.map(({ endorseStatus, createdAt, endorseID, endorsement }: any) => {
         return {
-            Email: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].email,
-            JobApply: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applyJobPost[ 0 ].title,
-            Firstname: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].firstname,
-            Lastname: endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].lastname,
-            Phone: `=""${endorse[ 0 ].endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].phone}""`,
-            endorse: endorse[ 0 ].createdAt,
+            Email: endorsement[ 0 ].applicants[ 0 ].applyJobPost[ 0 ].title,
+            JobApply: endorsement[ 0 ].applicants[ 0 ].applyJobPost[ 0 ].title,
+            Firstname: endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].firstname,
+            Lastname: endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].lastname,
+            Phone: `=""${endorsement[ 0 ].applicants[ 0 ].applicantProfile[0].phone}""`,
+            endorse: createdAt,
         }
 
 

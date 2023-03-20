@@ -31,6 +31,8 @@ const Endorse: FC = ({ userid }: any) => {
         setLimit(false)
     }
 
+    console.log(userid)
+
     return (
         <div className={styles.container}>
             <Head>

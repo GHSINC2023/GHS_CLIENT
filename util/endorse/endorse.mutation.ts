@@ -20,24 +20,21 @@ export const updateEndorse = gql`mutation Mutation($endorseStatus: String!, $end
 }`
 
 
-export const endorseCSV = gql`mutation GetEndorseByCSV($userId: ID, $status: String!, $orders: orderedBy!, $end: String!, $start: String!) {
-  getEndorseByCSV(userID: $userId, status: $status, orders: $orders, end: $end, start: $start) {
-    endorse {
-      createdAt
-      endorseID
-      endorseStatus
-      endorsement {
-        applicants {
-          email
-          applicantProfile {
-            firstname
-            lastname
-            birthday
-            phone
-          }
-          applyJobPost {
-            title
-          }
+export const endorseCSV = gql`mutation GetEndorseByCSV($status: String!, $orders: orderedBy!, $end: String!, $start: String!, $userId: ID) {
+  getEndorseByCSV(status: $status, orders: $orders, end: $end, start: $start, userID: $userId) {
+    endorseStatus
+    createdAt
+    endorseID
+    endorsement {
+      applicants {
+        applicantProfile {
+          firstname
+          lastname
+          phone
+          birthday
+        }
+        applyJobPost {
+          title
         }
       }
     }

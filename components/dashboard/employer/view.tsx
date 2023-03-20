@@ -71,7 +71,7 @@ export default function View({ id: endorseID, userid, close }: any) {
         <div className={styles.container}>
             {updateEndorsed && message ?
                 <div className={styles.message}>
-                    <Message label="Status successfully updated" message="" status='success' />
+                    <Message label="Status Successfully Updated" message="" status='success' />
                 </div> : null
             }
             <div className={styles.updateContainer}>
