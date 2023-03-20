@@ -21,11 +21,9 @@ export const generateMeCSVEndorsement = gql`mutation Mutation($status: String!, 
   }
 }`
 
-export const commentEndorsement = gql`mutation Mutation($endorsementId: ID!, $comments: commentInput) {
-  createComment(endorsementID: $endorsementId, comments: $comments) {
+export const commentEndorsement = gql`mutation Mutation($endorsementId: ID!, $userId: ID!, $comments: commentInput) {
+  createComment(endorsementID: $endorsementId, userID: $userId, comments: $comments) {
     commentID
-    createdAt
     message
-    notes
   }
 }`

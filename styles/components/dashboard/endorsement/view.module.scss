@@ -7,6 +7,11 @@
    border-radius: 5px;
    overflow: hidden;
    display: flex;
+   .message {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+   }
    .end {
       width: 100%;
       position: fixed;
@@ -75,19 +80,7 @@
             }
          }
       }
-      .comments {
-         width: 100%;
-         h2 {
-            font-family: $primaryFont;
-            font-size: 20px;
-            font-weight: 500;
-            margin: 5px 0;
-         }
-         span {
-            font-family: $secondaryFont;
-            font-size: 15px;
-         }
-      }
+
       .formContainer {
          width: 100%;
          form {
@@ -123,6 +116,30 @@
                   color: #fff;
                   cursor: not-allowed;
                }
+            }
+         }
+      }
+      .commentsection {
+         h2 {
+            font-family: $primaryFont;
+            font-size: 20px;
+            font-weight: 500;
+            margin: 5px 0;
+         }
+         .comments {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            &:hover {
+               background-color: #eee;
+            }
+            .comessage {
+               font-family: $secondaryFont;
+               font-size: 15px;
+               padding: 10px 0;
+            }
+            .name {
+               font-style: italic;
             }
          }
       }

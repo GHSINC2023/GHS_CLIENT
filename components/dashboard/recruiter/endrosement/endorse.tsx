@@ -107,10 +107,7 @@ export default function Endorse({ endorsementID, close }: any) {
                 {loading ? "Loading" : data.getEmployerCompany.length === 0 ? "None" : data.getEmployerCompany.map(({ companyID, companyName }: any) => (
                     <div className={styles.company} key={companyID}>
                         <h2>{companyName}</h2>
-                        {company.map((data: any) => (data === companyName ?
-                            <button disabled={data === companyName} onClick={sendEndorsement} value={companyID}>Endorsed</button>
-                            : <button onClick={sendEndorsement} value={companyID}>Endorse</button>
-                        ))}
+                        <button onClick={sendEndorsement} value={companyID}>Endorse</button>
                     </div>
                 ))
                 }

@@ -12,6 +12,8 @@ import PageWithLayout from '../../../../layout/page.layout'
 import Dashboard from '../../../../layout/dashboard.layout'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
+import jwtDecode from 'jwt-decode'
+import Cookies from 'js-cookie'
 
 const Endorse = dynamic(() => import("../../../../components/dashboard/recruiter/endrosement/endorse"), {
     ssr: false
@@ -69,19 +71,30 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
     const [ comment, setComment ] = useState("")
     const [ message, setMessage ] = useState(false)
     const [ id, setId ] = useState("")
+    const [ userid, setUserId ] = useState("")
 
 
+    useEffect(() => {
+        const cookieid = Cookies.get("ghs_access_token")
+        if (cookieid) {
+            const { userID }: any = jwtDecode(cookieid)
+            setUserId(userID)
+        }
+    }, [])
     useEffect(() => {
         endorsement.map(({ endorsementID }: any) => {
             setId(endorsementID)
         })
     }, [ endorsement ])
 
+
+
+
     useEffect(() => {
         setTimeout(() => {
             setMessage(false)
         }, 2000)
-    }, [])
+    }, [ message ])
 
     const [ createComment, { data } ] = useMutation(commentEndorsement)
 
@@ -91,6 +104,7 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
         createComment({
             variables: {
                 endorsementId: id,
+                userId: userid,
                 comments: {
                     message: comment,
                     notes: ""
@@ -98,11 +112,13 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
             },
             onCompleted: () => {
                 setMessage(true)
+                setComment("")
             },
             refetchQueries: [ {
                 query: endorsementById,
                 variables: {
-                    endorsementId: id
+                    endorsementId: id,
+
                 }
             } ],
             onQueryUpdated: (observableQuery) => {
@@ -112,7 +128,9 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
     }
 
     useEffect(() => {
-        setTimeout(() => setMessage(false), 2000)
+        setTimeout(() => {
+            setMessage(false)
+        }, 2000)
     }, [ message ])
     return (
         <div className={styles.container}>
@@ -120,7 +138,7 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                 <Endorse endorsementID={id} close={setEndorse} />
             </div> : null}
             {
-                data && message ? <div> <Message label={"Successfully create a Comment"} status={'success'} message={''} /> </div> : null
+                data && message ? <div className={styles.message}> <Message label={"Successfully create a Comment"} status={'success'} message={''} /> </div> : null
             }
             <div className={styles.endorse}>
                 <div className={styles.body}>
@@ -180,22 +198,32 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                         </table>
                     </div>
                 </div>
-                {comments.length === 0 ?
-                    < div className={styles.formContainer}>
+
+                <div style={{ display: "flex", flexDirection: "column", overflowY: "auto", height: "250px" }}>
+                    <div className={styles.formContainer}>
                         <form onSubmit={submitCommentForm}>
                             <textarea placeholder='Comment Here' value={comment} onChange={e => setComment(e.target.value)} />
                             <button disabled={!comment} type="submit">Save</button>
                         </form>
                     </div>
-                    :
 
-                    comments.map(({ commentID, message }: any) => (
-                        <div key={commentID} className={styles.comments}>
-                            <h2>Comment</h2>
-                            <span>{message}</span>
-                        </div>
-                    ))
-                }
+
+                    <div className={styles.commentsection}>
+                        <h2>Comment</h2>
+                        {comments.map(({ commentID, message, user }: any) => (
+                            <div key={commentID} className={styles.comments}>
+                                <span className={styles.comessage}>{message}</span>
+                                {user.map(({ profile }: any) => (
+                                    profile.map(({ firstname, lastname }: any) => (
+                                        <span className={styles.name} key={lastname}>{firstname}, {lastname}</span>
+                                    ))
+                                ))}
+                            </div>
+                        ))}
+
+                    </div>
+
+                </div>
             </div>
             <div className={styles.feedback}>
                 <div className={styles.headers}>

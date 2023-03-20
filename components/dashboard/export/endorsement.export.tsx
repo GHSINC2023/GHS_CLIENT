@@ -16,7 +16,7 @@ export default function EndorseExport({ close }: any) {
     const [ start, setStart ] = useState("")
     const [ end, setEnd ] = useState("")
     const [ sort, setSort ] = useState("asc")
-    const [ filename, setFilename ] = useState(`Endorsment - ${dates.toDateString()}`)
+    const [ filename, setFilename ] = useState(`Endorsement - ${dates.toDateString()}`)
 
     const [ message, setMessage ] = useState(false)
     const [ stats, setStats ] = useState(false)

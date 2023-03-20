@@ -92,5 +92,12 @@ export const endorsementComment = gql`query Query($endorsementId: ID!) {
     createdAt
     message
     updatedAt
+    user {
+      profile {
+        firstname
+        lastname
+      }
+      role
+    }
   }
 }`
