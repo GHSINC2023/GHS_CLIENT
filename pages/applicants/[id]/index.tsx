@@ -151,7 +151,7 @@ export default function Index({ appId }: any) {
                       </table>
                     ))}
                   </div>
-                  {status === 'approved' ? null : <button onClick={onHandleTerminateApp}>Terminate</button>}
+                  {status === 'approved' || status === "rejected" ? null : <button onClick={onHandleTerminateApp}>Terminate</button>}
                 </div>
               </div>
               <div className={styles.feedback}>
@@ -172,7 +172,10 @@ export default function Index({ appId }: any) {
                         company.map(({ companyName }: any) => (
                           <tr key={feedbackID}>
                             <td>{companyName}</td>
-                            <td>{endorseStatus}</td>
+                            <td>
+                              {endorseStatus === "approved" ? "Approved" : null}
+                              {endorseStatus === "rejected" ? "Approved" : null}
+                            </td>
                             <td>{feedback}</td>
                           </tr>
                         ))

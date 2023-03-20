@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styles from '../../../styles/components/main/application/otp.module.scss'
 import { useMutation } from '@apollo/client'
 import { createOTPS, verifyMyOTP } from '../../../util/OTP/otp.mutation'
@@ -15,6 +15,12 @@ export default function OTPS({ email, applicantForm, close }: any) {
     const [ five, setFive ] = useState("")
     const [ six, setSix ] = useState("")
 
+    const onTapOne = useRef<HTMLInputElement>(null)
+    const onTapTwo = useRef<HTMLInputElement>(null)
+    const onTapThree = useRef<HTMLInputElement>(null)
+    const onTapFour = useRef<HTMLInputElement>(null)
+    const onTapFive = useRef<HTMLInputElement>(null)
+    const onTapSix = useRef<HTMLInputElement>(null)
 
     const [ resendNewOTP ] = useMutation(createOTPS, {
         variables: {
@@ -78,29 +84,72 @@ export default function OTPS({ email, applicantForm, close }: any) {
             <div className={styles.enterOTP}>
 
                 <form id="form" onSubmit={handleCreateNewOTP}>
-                    <input type="text" inputMode='numeric'
+                    <input type="text" ref={onTapOne} inputMode='numeric'
                         value={one}
-                        onChange={e => setOne(e.target.value)}
+                        onChange={e => {
+                            setOne(e.target.value)
+                            if (e.target.value.length === 1) {
+                                onTapTwo.current?.focus()
+                            }
+                        }}
                         autoComplete='one-time-code' maxLength={1} />
-                    <input type="text" inputMode='numeric'
+                    <input type="text" ref={onTapTwo} inputMode='numeric'
                         value={two}
-                        onChange={e => setTwo(e.target.value)}
+                        onChange={e => {
+                            setTwo(e.target.value)
+                            if (e.target.value.length === 1) {
+                                onTapThree.current?.focus()
+                            }
+                            if (e.target.value.length === 0) {
+                                onTapOne.current?.focus()
+                            }
+                        }}
                         autoComplete='one-time-code' maxLength={1} />
-                    <input type="text" inputMode='numeric'
+                    <input type="text" ref={onTapThree} inputMode='numeric'
                         value={three}
-                        onChange={e => setThree(e.target.value)}
+                        onChange={e => {
+                            setThree(e.target.value)
+                            if (e.target.value.length === 1) {
+                                onTapFour.current?.focus()
+                            }
+                            if (e.target.value.length === 0) {
+                                onTapTwo.current?.focus()
+                            }
+                        }}
                         autoComplete='one-time-code' maxLength={1} />
-                    <input type="text" inputMode='numeric'
+                    <input type="text" ref={onTapFour} inputMode='numeric'
                         value={four}
-                        onChange={e => setFour(e.target.value)}
+                        onChange={e => {
+                            setFour(e.target.value)
+                            if (e.target.value.length === 1) {
+                                onTapFive.current?.focus()
+                            }
+                            if (e.target.value.length === 0) {
+                                onTapThree.current?.focus()
+                            }
+                        }}
                         autoComplete='one-time-code' maxLength={1} />
-                    <input type="text" inputMode='numeric'
+                    <input type="text" ref={onTapFive} inputMode='numeric'
                         value={five}
-                        onChange={e => setFive(e.target.value)}
+                        onChange={e => {
+                            setFive(e.target.value)
+                            if (e.target.value.length === 1) {
+                                onTapSix.current?.focus()
+
+                            }
+                            if (e.target.value.length === 0) {
+                                onTapFour.current?.focus()
+                            }
+                        }}
                         autoComplete='one-time-code' maxLength={1} />
-                    <input type="text" inputMode='numeric'
+                    <input type="text" ref={onTapSix} inputMode='numeric'
                         value={six}
-                        onChange={e => setSix(e.target.value)}
+                        onChange={e => {
+                            setSix(e.target.value)
+                            if (e.target.value.length === 0) {
+                                onTapFive.current?.focus()
+                            }
+                        }}
                         autoComplete='one-time-code' maxLength={1} />
                 </form>
             </div>

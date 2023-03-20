@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from '../../../styles/components/main/pin.module.scss'
 import { useMutation } from '@apollo/client'
 import { LoginUsers } from '../../../util/auth/login'
@@ -23,6 +23,11 @@ export default function VerifyPin({ email, password, close }: any) {
         four: ""
     })
 
+
+    const onTapOne = useRef<HTMLInputElement>(null)
+    const onTapTwo = useRef<HTMLInputElement>(null)
+    const onTapThree = useRef<HTMLInputElement>(null)
+    const onTapFour = useRef<HTMLInputElement>(null)
     const [ message, setMessage ] = useState(false)
 
 
@@ -113,34 +118,43 @@ export default function VerifyPin({ email, password, close }: any) {
                     <input type="text"
                         maxLength={1}
                         autoFocus
+                        ref={onTapOne}
                         value={verifyPin.one} onChange={e => {
                             setVerifyPin({ ...verifyPin, one: e.target.value })
-
-                            // if (isNaN(parseInt(e.target.value))) {
-                            //     setVerifyPin({ ...verifyPin, one: "" as unknown as number })
-                            // }
+                            if (e.target.value.length === 1) {
+                                onTapTwo.current?.focus()
+                            }
                         }} />
                     <input type="text" maxLength={1}
+                        ref={onTapTwo}
                         value={verifyPin.two} onChange={e => {
                             setVerifyPin({ ...verifyPin, two: e.target.value })
-                            // if (isNaN(parseInt(e.target.value))) {
-                            //     setVerifyPin({ ...verifyPin, two: "" as unknown as number })
-                            // }
+                            if (e.target.value.length === 1) {
+                                onTapThree.current?.focus()
+                            }
+                            if (e.target.value.length === 0) {
+                                onTapOne.current?.focus()
+                            }
                         }}
                     />
                     <input type="text" maxLength={1}
+                        ref={onTapThree}
                         value={verifyPin.three} onChange={e => {
                             setVerifyPin({ ...verifyPin, three: e.target.value })
-                            // if (isNaN(parseInt(e.target.value))) {
-                            //     setVerifyPin({ ...verifyPin, three: "" as unknown as number })
-                            // }
+                            if (e.target.value.length === 1) {
+                                onTapFour.current?.focus()
+                            }
+                            if (e.target.value.length === 0) {
+                                onTapTwo.current?.focus()
+                            }
                         }} />
                     <input type="text" maxLength={1}
+                        ref={onTapFour}
                         value={verifyPin.four} onChange={e => {
                             setVerifyPin({ ...verifyPin, four: e.target.value })
-                            // if (isNaN(parseInt(e.target.value))) {
-                            //     setVerifyPin({ ...verifyPin, four: "" as unknown as number })
-                            // }
+                            if (e.target.value.length === 0) {
+                                onTapThree.current?.focus()
+                            }
                         }} />
                 </form>
             </div>

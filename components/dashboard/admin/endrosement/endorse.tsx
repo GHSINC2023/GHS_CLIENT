@@ -29,8 +29,8 @@ export default function Endorse({ endorsementID, close }: any) {
 
     const { loading, data } = useQuery(endorseTo, {
         variables: {
-            limit: limit,
-            offset: pages * limit
+            limit: 10,
+            offset: 10 * pages
         },
         onError: error => {
             console.log(error.message)
