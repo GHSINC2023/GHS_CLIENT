@@ -11,11 +11,10 @@ mutation Mutation($endorsementId: ID!, $companyId: ID!, $userId: ID!) {
   }
 }`
 
-export const updateEndorse = gql`mutation Mutation($endorseStatus: String!, $endorseId: ID!, $userId: ID!) {
-  updateEndorse(endorseStatus: $endorseStatus, endorseID: $endorseId, userID: $userId) {
+export const updateEndorse = gql`mutation Mutation($endorseStatus: String!, $endorseId: ID!, $userId: ID!, $feedback: String!) {
+  updateEndorse(endorseStatus: $endorseStatus, endorseID: $endorseId, userID: $userId, feedback: $feedback) {
     createdAt
     endorseID
-    endorseStatus
   }
 }`
 

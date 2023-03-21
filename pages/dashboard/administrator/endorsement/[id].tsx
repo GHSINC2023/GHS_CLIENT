@@ -231,7 +231,7 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                     {feedback.map(({ endorseID, endorseStatus, feedback, company }: any) => (
                         <div className={styles.bodyContainer} key={endorseID} >
                             {
-                                feedback.map(({ feedbackID, feedback, createdAt }: any) => (
+                                feedback.map(({ feedbackID, feedback, createdAt: XDES }: any) => (
                                     <div className={styles.feedcontainer} key={feedbackID}>
                                         <div className={styles.info}>
                                             {company.map(({ companyName }: any) => (
@@ -247,7 +247,7 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
                                         <div className={styles.feed}>
                                             <span>{feedback}</span>
                                         </div>
-                                        < span className={styles.date}>{formatDistance(new Date(createdAt), new Date(), { addSuffix: true })}</span>
+                                        < span className={styles.date}>{format(new Date(XDES), "MMMM dd, yyyy hh:mm:ss a")}</span>
                                     </div>
                                 ))
                             }

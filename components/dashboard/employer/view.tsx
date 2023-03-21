@@ -4,7 +4,6 @@ import styles from '../../../styles/components/dashboard/endorse/view.module.scs
 import { getEndorseByIDs, } from '../../../util/endorse/endorse.query'
 import { statused } from '../../../util/values/filter'
 import { useMutation, useQuery } from '@apollo/client'
-import { feedCreate } from '../../../util/feedback/feedback.mutation'
 import { format } from 'date-fns'
 import { updateEndorse } from '../../../util/endorse/endorse.mutation'
 import Message from '../../message/message'
@@ -33,13 +32,10 @@ export default function View({ id: endorseID, userid, close }: any) {
 
     })
 
-    console.log(endorseID)
-
     const [ feedbacks, setFeedback ] = useState("")
+    const [ status, setStatused ] = useState("")
     const [ open, setOpened ] = useState(false)
     const [ message, setMessage ] = useState(false)
-
-    const [ createAFeedback ] = useMutation(feedCreate)
 
     const [ updateEndorseStatus, { data: updateEndorsed, error } ] = useMutation(updateEndorse)
 
@@ -47,9 +43,10 @@ export default function View({ id: endorseID, userid, close }: any) {
         e.preventDefault();
         updateEndorseStatus({
             variables: {
-                endorseStatus: e.target.value,
+                endorseStatus: status,
                 endorseId: endorseID,
-                userId: token
+                userId: token,
+                feedback: feedbacks
             },
             onCompleted: () => {
                 setMessage(true)
@@ -100,7 +97,10 @@ export default function View({ id: endorseID, userid, close }: any) {
                                                 </button>
                                                 {open ? <div className={styles.option}>
                                                     {statused.map(({ name, value }) => (
-                                                        <button onClick={onUpdateStatus} key={name} value={value}>{name}</button>
+                                                        <button onClick={(e) => {
+                                                            setStatused(e.currentTarget.value)
+                                                            setOpened(false)
+                                                        }} key={name} value={value}>{name}</button>
                                                     ))}
                                                 </div> : null}
                                             </div> : null}
@@ -147,19 +147,9 @@ export default function View({ id: endorseID, userid, close }: any) {
                                         {
                                             feedback.length === 0 ?
                                                 <div className={styles.feedback}>
-                                                    <form onSubmit={(e) => {
-                                                        e.preventDefault()
-                                                        createAFeedback({
-                                                            variables: {
-                                                                feedback: feedbacks,
-                                                                userId: userid,
-                                                                endorseId: endorseID,
-                                                                applicantId: applicantID
-                                                            }
-                                                        })
-                                                    }}>
+                                                    <form onSubmit={onUpdateStatus}>
                                                         <textarea placeholder='Give a feedback...' onChange={e => setFeedback(e.target.value)} />
-                                                        <button disabled={!feedbacks} type="submit">Submit</button>
+                                                        <button disabled={!feedbacks || !status} type="submit">Submit</button>
                                                     </form>
                                                 </div> :
                                                 feedback.map(({ feedbackID, feedback, createdAt }: any) => (
