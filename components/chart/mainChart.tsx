@@ -14,19 +14,22 @@ export default function MainChart() {
 
   const { loading: loadApp, data: dataApp } = useQuery(getApplicationDWYMY, {
     variables: {
-      select: DWMY
+      start: start,
+      end: end
     }
   })
 
   const { loading: loadEndorse, data: dataEndorse } = useQuery(getEndorsementCount, {
     variables: {
-      select: DWMY
+      start: start,
+      end: end
     }
   })
 
   const { loading: loadJob, data: dataJob } = useQuery(getAllJobDWMY, {
     variables: {
-      select: DWMY
+      start: start,
+      end: end
     }
   })
 
@@ -38,7 +41,7 @@ export default function MainChart() {
       <div className={styles.filterDWMY}>
         <div className={styles.dateCon}>
           <label>Start: </label>
-          <input type="date" value={start} onChange={(e) => setStart(e.target.value)}/>
+          <input type="date" value={start} onChange={(e) => setStart(e.target.value)} />
         </div>
         <div className={styles.dateCon}>
           <label>End: </label>
@@ -48,11 +51,10 @@ export default function MainChart() {
       <div className={styles.chart}>
         <Bar
           options={{
+
             scales: {
               x: {
                 display: true,
-                //  stacked: true,
-
               },
               y: {
                 display: true,

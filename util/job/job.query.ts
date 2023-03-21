@@ -125,8 +125,8 @@ export const getJobChart = gql`query GetGroubyByJob {
   }
 }`
 
-export const getAllJobDWMY = gql`query GetGroubyByJob($select: String!) {
-  getJobPostDWMY(select: $select) {
+export const getAllJobDWMY = gql`query GetJobPostDWMY($start: String!, $end: String!) {
+  getJobPostDWMY(start: $start, end: $end) {
     _count
     createdAt
   }

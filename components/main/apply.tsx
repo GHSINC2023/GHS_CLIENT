@@ -228,7 +228,7 @@ export default function Apply({ jobid, close, open }: any) {
                 <div className={styles.resume}>
                     <h2>Upload your resume</h2>
                     <span>Maximum file is 2mb</span>
-                    <input ref={fileRef} type="file" accept='application/*' multiple hidden onClick={onChangeFileUpload} onChange={onChangeFileUpload} />
+                    <input ref={fileRef} type="file" multiple hidden onClick={onChangeFileUpload} onChange={onChangeFileUpload} />
 
 
                     <div className={styles.containerResume} onClick={onClickFile}>

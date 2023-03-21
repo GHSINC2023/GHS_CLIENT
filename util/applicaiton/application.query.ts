@@ -127,8 +127,8 @@ export const getApplicationByDate = gql`query GetAllApplicationDateCount {
   }
 }`
 
-export const getApplicationDWYMY = gql`query GetApplicantByDWMY($select: String!) {
-  getApplicantByDWMY(select: $select) {
+export const getApplicationDWYMY = gql`query GetApplicantByDWMY($start: String!, $end: String!) {
+  getApplicantByDWMY(start: $start, end: $end) {
     _count
     createdAt
   }

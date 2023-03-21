@@ -161,15 +161,23 @@
          width: 100%;
          padding: 10px;
          border-radius: 5px;
-         &:hover {
-            box-shadow: 0px 0px 3px 0px #ccc;
-         }
+         height: 700px;
+         overflow-y: auto;
          .bodyContainer {
             width: 100%;
             height: auto;
-            padding: 5px;
+            padding: 10px;
+            border-radius: 3px;
+
+            &:hover {
+               box-shadow: 0px 0px 3px 0px #ccc;
+            }
             .feedcontainer {
                display: inline;
+               display: flex;
+               flex-direction: column;
+               gap: 20px;
+               padding: 10px;
                .info {
                   width: 100%;
                   display: flex;
@@ -193,6 +201,9 @@
                   font-family: $secondaryFont;
                   font-size: 1rem;
                   text-align: justify;
+               }
+               .date {
+                  font-style: italic;
                }
             }
          }

@@ -26,17 +26,17 @@ export default function Sidebar() {
     const admin = [
         { name: "overview", url: `/dashboard/${roles}/overview` },
         { name: "post", url: `/dashboard/${roles}/post` },
+        { name: "applicants", url: `/dashboard/${roles}/applications` },
         { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
         { name: "user", url: `/dashboard/${roles}/user` },
-        { name: "applicants", url: `/dashboard/${roles}/applications` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
 
     const recruiter = [
         { name: "overview", url: `/dashboard/${roles}/overview` },
         { name: "post", url: `/dashboard/${roles}/post` },
-        { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
         { name: "applicants", url: `/dashboard/${roles}/applications` },
+        { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
     const manager = [

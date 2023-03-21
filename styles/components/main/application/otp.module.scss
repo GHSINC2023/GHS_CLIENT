@@ -11,7 +11,11 @@
    flex-direction: column;
    border-radius: 6px;
    gap: 20px;
-
+   .message {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+   }
    .header {
       width: 100%;
       display: flex;
@@ -19,25 +23,17 @@
       justify-content: center;
       flex-direction: column;
       gap: 0;
-      .message {
-         position: absolute;
-         inset: 0;
-         width: 100%;
-      }
+      padding: 10px;
       span {
          text-align: center;
          width: 100%;
+         word-break: normal;
       }
       h2 {
          margin: 0;
          font-family: $primaryFont;
          font-weight: 500;
       }
-   }
-   .message {
-      position: absolute;
-      inset: 0;
-      width: 100%;
    }
    .enterOTP {
       form {

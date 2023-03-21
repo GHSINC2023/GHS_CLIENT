@@ -97,7 +97,7 @@
             flex-direction: column;
             justify-content: space-between;
             width: 600px;
-            height: 380px;
+            height: 500px;
             padding: 0 5px;
             .dvtitle {
                width: 100%;
@@ -171,6 +171,9 @@
             thead,
             tbody {
                tr {
+                  &:nth-child(even) {
+                     background-color: #eee;
+                  }
                   th,
                   td {
                      width: 90px;
@@ -184,7 +187,7 @@
                .fd {
                   width: 200px;
                   font-size: 15px;
-                  text-align: justify;
+                  text-align: center;
                }
                td {
                   font-family: $secondaryFont;

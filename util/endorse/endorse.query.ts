@@ -96,8 +96,8 @@ export const getEndorsementFeed = gql`query($endorsementId: String!) {
   }
 }`
 
-export const getEndorsementCount = gql`query GetEndorsementByDWMY($select: String!) {
-  getEndorsementByDWMY(select: $select) {
+export const getEndorsementCount = gql`query GetEndorsementByDWMY($start: String!, $end: String!) {
+  getEndorsementByDWMY(start: $start, end: $end) {
     _count
     createdAt
   }
