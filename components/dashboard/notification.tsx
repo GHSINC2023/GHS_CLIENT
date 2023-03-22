@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import NotifCard from '../card/notifcard'
 import styles from '../../styles/components/dashboard/notification/notification.module.scss'
 import { useQuery } from '@apollo/client'
 import { format } from 'date-fns'
-import { notificationAllQuery, notificationQuery } from '../../util/notifications/notification.query'
+import { notificationAllQuery } from '../../util/notifications/notification.query'
 
 
 export default function Notification({ open, close }: any) {
 
-    const { loading, data, error } = useQuery(notificationAllQuery, {
+    const { loading, data } = useQuery(notificationAllQuery, {
         pollInterval: 1000,
         fetchPolicy: "cache-and-network",
     })
