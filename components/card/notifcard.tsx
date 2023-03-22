@@ -3,8 +3,11 @@ import styles from '../../styles/components/dashboard/notification/card.module.s
 import { useRouter } from 'next/router'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'js-cookie'
+import { useMutation } from '@apollo/client'
+import { updateNotificationStat } from '../../util/notifications/notification.mutation'
+import { notificationAllQuery } from '../../util/notifications/notification.query'
 
-export default function NotifCard({ createdAt, id, rec, title }: any) {
+export default function NotifCard({ createdAt, id, rec, title, status }: any) {
     const router = useRouter()
     const [ roles, setRoles ] = useState("")
 
@@ -17,16 +20,38 @@ export default function NotifCard({ createdAt, id, rec, title }: any) {
     }, [])
 
 
+    const [ updateNoti ] = useMutation(updateNotificationStat)
+
+
+    const onHandleUpdateNotificaiton = (e: any) => {
+        e.preventDefault()
+        updateNoti({
+            variables: {
+                notificationId: id
+            },
+            refetchQueries: [ {
+                query: notificationAllQuery
+            } ],
+            onQueryUpdated: (ObservableQuery) => {
+                return ObservableQuery.refetch()
+            }
+        })
+    }
+
     return (
-        <div className={styles.notify}>
-            {title === "New Applicant" ? <div onClick={() => {
-                router.push(`/dashboard/${roles}/applications`)
-            }} className={styles.Notif}>
-                <div className={styles.notifSpan}>
-                    <h2>{title}</h2>
-                    <span>{createdAt}</span>
-                </div>
-            </div> : null}
+        <div onClick={onHandleUpdateNotificaiton} style={status === "unread" ? { backgroundColor: "#eee" } : {
+            backgroundColor
+                : "transparent"
+        }} className={styles.notify}>
+            {title === "New Applicant" ?
+                <div onClick={() => {
+                    router.push(`/dashboard/${roles}/applications`)
+                }} className={styles.Notif}>
+                    <div className={styles.notifSpan}>
+                        <h2>{title}</h2>
+                        <span>{createdAt}</span>
+                    </div>
+                </div> : null}
             {title === "New Job Post" ? <div onClick={() => {
                 router.push(`/dashboard/${roles}/notification/${id}`)
             }} className={styles.Notif}>

@@ -44,29 +44,38 @@ export const notificationQuery = gql`
 export const notificationAllQuery = gql`query GetAllNotification {
   getAllNotification {
     notificationID
+    notificationStatus
     createdAt
+    user {
+      profile {
+        firstname
+        lastname
+      }
+    }
     notificationJob {
       jobPostID
       title
       description
-      qualification
       responsibilities
+      qualification
       status
       createdAt
-      details {
-        jobDetailsID
-        jobPost {
-          details {
-            jobDetailsID
-            category
-            location
-            salary
-            workType
-            jobType
-          }
+      users {
+        profile {
+          firstname
+          lastname
         }
       }
     }
+    userApplications {
+      id
+      createdAt
+      applicantProfile {
+        firstname
+        lastname
+      }
+    }
+    title
   }
 }`
 

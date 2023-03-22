@@ -57,6 +57,7 @@ export const endorsementById = gql`query GetEndorsementById($endorsementId: ID!)
     }
     endorse {
       company {
+        companyID
         companyName
       }
     }
