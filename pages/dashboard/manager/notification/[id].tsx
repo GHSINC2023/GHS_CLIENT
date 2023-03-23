@@ -87,7 +87,7 @@ const Notification: FC = ({ notifications, role }: any) => {
                                         <span key={firstname}> {lastname}, {firstname}</span>
                                     ))}
                                 </div>
-                                <div className={styles.headerSubBtn}>
+                                {status === "waiting" ? <div className={styles.headerSubBtn}>
                                     <button className={statuses === true ? styles.active : styles.normal} onClick={() => setStatus(() => !statuses)}>
                                         {status === "inProgress" ? "In Progress" : null}
                                     </button>
@@ -96,7 +96,7 @@ const Notification: FC = ({ notifications, role }: any) => {
                                             <button onClick={updateNotificationStatus} key={name} value={value}>{name}</button>
                                         ))}
                                     </div> : null}
-                                </div>
+                                </div> : null}
                             </div>
                             <div className={styles.details}>
                                 {details.map(({ jobDetailsID, location, jobType, workType, salary }: Details) => (
