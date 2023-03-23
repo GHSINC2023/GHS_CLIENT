@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { useMutation, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import styles from '../../../../styles/components/dashboard/endorsement/endorse.module.scss'
 import { endorseTo } from '../../../../util/endorse/endorse.query'
-import { CreateEndorse } from '../../../../util/endorse/endorse.mutation'
-import Message from '../../../message/message'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
 import { endorsementById } from '../../../../util/endorsement/endorsement.query'
+import CompanyCard from '../../../card/companyCard'
 export default function Endorse({ endorsementID, close }: any) {
 
     const [ pages, setPages ] = useState(0)
-    const [ message, setMessage ] = useState(false)
     const [ userid, setUserId ] = useState("")
     const [ company, setCompany ] = useState([]) as any
     const [ isRender, setRender ] = useState(false)
@@ -24,13 +22,10 @@ export default function Endorse({ endorsementID, close }: any) {
         }
     }, [])
 
-    const limit = 10
-
-
     const { loading, data } = useQuery(endorseTo, {
         variables: {
-            limit: limit,
-            offset: pages * limit
+            limit: 10,
+            offset: 10 * pages
         },
         onError: error => {
             console.log(error.message)
@@ -46,38 +41,12 @@ export default function Endorse({ endorsementID, close }: any) {
         }
     })
 
-
-    const [ createEndorse, { data: dataEndorse } ] = useMutation(CreateEndorse)
-
-    const sendEndorsement = (e: any) => {
-        e.preventDefault()
-        createEndorse({
-            variables: {
-                endorsementId: endorsementID,
-                companyId: e.target.value,
-                userId: userid
-            },
-            onCompleted: data => {
-                setMessage(true)
-            },
-            onError: error => {
-                console.log(error.message)
-            }
-        })
-    }
-
-    useEffect(() => {
-        setTimeout(() => {
-            setMessage(false)
-        }, 2000)
-    }, [ message ])
-
     useEffect(() => {
         if (isRender) {
             endoData.getEndorsementById.map(({ endorse }: any) => {
                 endorse.map(({ company }: any) => {
-                    company.map(({ companyName }: any) => {
-                        setCompany([ companyName ])
+                    company.map(({ companyID, companyName }: any) => {
+                        setCompany((companies: any) => [ ...companies, companyName ])
                     })
                 })
             })
@@ -87,13 +56,12 @@ export default function Endorse({ endorsementID, close }: any) {
     }, [ endoData, isRender ])
 
 
-    if (endorLoad) return null
+    if (endorLoad || loading) return null
 
     console.log(company)
 
     return (
         <div className={styles.container}>
-            {dataEndorse && message ? <div className={styles.message}> <Message label={'Successfully Endorse'} status={'success'} message={''} /> </div> : null}
             <div className={styles.header}>
                 <h2>Endorse</h2>
                 <button onClick={() => close(false)}>
@@ -104,16 +72,12 @@ export default function Endorse({ endorsementID, close }: any) {
                 </button>
             </div>
             <div className={styles.body}>
-                {loading ? "Loading" : data.getEmployerCompany.length === 0 ? "None" : data.getEmployerCompany.map(({ companyID, companyName }: any) => (
-                    <div className={styles.company} key={companyID}>
-                        <h2>{companyName}</h2>
-                        {company.map((data: any) => (data === companyName ?
-                            <button disabled={data === companyName} onClick={sendEndorsement} value={companyID}>Endorsed</button>
-                            : <button onClick={sendEndorsement} value={companyID}>Endorse</button>
-                        ))}
-                    </div>
-                ))
+                {
+                    data.getEmployerCompany.map(({ companyID, companyName }: any) => (
+                        <CompanyCard key={companyID} name={companyName} id={companyID} endorsementID={endorsementID} userid={userid} company={company} />
+                    ))
                 }
+
             </div>
             <div className={styles.footer}>
                 <button disabled={!pages} onClick={() => setPages(pages - 1)}>
