@@ -102,7 +102,7 @@ const Home: FC = () => {
         <div className={styles.sidebar}>
           <div className={styles.option}>
             <div className={styles.optionContainer}>
-              <h2>Job type</h2>
+              <h2>Job Type</h2>
               {jobType.map((name) => (
                 <div className={styles.holder} key={name}>
                   <input type="checkbox" value={name} onChange={getJobType} />
