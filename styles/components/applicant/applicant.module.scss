@@ -190,6 +190,8 @@
                   text-align: center;
                }
                td {
+                  min-height: 50px;
+                  max-height: auto;
                   font-family: $secondaryFont;
                   font-size: 16px;
                }

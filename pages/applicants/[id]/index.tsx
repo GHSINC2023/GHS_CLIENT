@@ -174,7 +174,7 @@ export default function Index({ appId }: any) {
                             <td>{companyName}</td>
                             <td>
                               {endorseStatus === "approved" ? "Approved" : null}
-                              {endorseStatus === "rejected" ? "Approved" : null}
+                              {endorseStatus === "rejected" ? "Rejected" : null}
                             </td>
                             <td className={styles.fd}>{feedback}</td>
                           </tr>
