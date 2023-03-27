@@ -40,7 +40,7 @@ export default function CompanyCard({ name, endorsementID, id, userid, company }
 
     return (
         <div className={styles.company}>
-            {data && message ? <div className={styles.message}> <Message label={'Successfully Endorse'} status={'success'} message={''} /> </div> : null}
+            {data && message ? <div className={styles.message}> <Message label={'Successfully Endorsed'} status={'success'} message={''} /> </div> : null}
             <h2>{name}</h2>
 
             {company.includes(name) ? <button disabled>Endorsed</button> : <button onClick={sendEndorsement}>Endorse</button>}
