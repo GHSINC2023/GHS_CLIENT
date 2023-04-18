@@ -281,7 +281,7 @@ export default function Apply({ jobid, close, open }: any) {
 
                 <div className={styles.terms}>
                     <input type="checkbox" onChange={() => setTerms(() => !terms)} />
-                    <span onClick={() => setCondition(() => !condition)}> I agree to the <b>Terms and Condition</b> of Global Headstart Specialist Inc.</span>
+                    <span onClick={() => setCondition(() => !condition)}> I agree to the <b>Terms and Conditions</b> of Global Headstart Specialist Inc.</span>
                 </div>
                 <button
                     className={styles.applybtn}
