@@ -32,7 +32,7 @@ export default function ApplicantDetails({ close, apid, id, profile, email, inte
     })
     const upStatused = [
         { name: "Approved", value: "approved" },
-        { name: "Rejected", value: "rejected" }
+        { name: "Declined", value: "declined" }
     ]
 
 
@@ -57,7 +57,7 @@ export default function ApplicantDetails({ close, apid, id, profile, email, inte
 
     return (
         <div className={styles.container}>
-            {data && message ? <div>
+            {data && message ? <div className={styles.message}>
                 <Message status='success' label='Successfully Updated' message='' />
             </div> : null}
             <div className={styles.header}>

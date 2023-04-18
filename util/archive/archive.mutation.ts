@@ -9,3 +9,10 @@ export const createArchiveJob = gql`mutation Mutation($jobPostId: ID!) {
       status
     }
   }`
+
+
+export const deleteArchive = gql`mutation DeleteArchive($archiveId: ID!) {
+  deleteArchive(archiveID: $archiveId) {
+    archiveID
+  }
+}`

@@ -102,7 +102,7 @@ const Login: FC = () => {
                     <h2>Login into your Account</h2>
                     <input type="text" value={users.id} onChange={(e) => setUsers({ ...users, id: e.target.value })} placeholder='Applicant No.' />
                     <input type="email" value={users.email} onChange={(e) => setUsers({ ...users, email: e.target.value })} placeholder='Email Address ' />
-                    <button type="submit">Login</button>
+                    <button disabled={!users.email || !users.id} type="submit">Login</button>
                 </form>
             </div>
         </div>

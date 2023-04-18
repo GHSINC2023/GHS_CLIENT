@@ -38,7 +38,7 @@ export default function CardPost({ id, title, description, status, author }: any
                     <h3>{author}</h3>
                 </div>
                 <div className={styles.descriptions}>
-                    <p>{description.substring(0, 100)}</p>
+                    <p>{description.substring(0, 150)}</p>
                 </div>
             </div>
             <div className={styles.btnContainer}>

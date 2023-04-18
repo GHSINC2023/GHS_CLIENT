@@ -12,7 +12,7 @@ export default function Condition({ close }: any) {
                     </svg>
                 </button>
             </div>
-            <h2>Terms and Condition</h2>
+            <h2>Terms and Conditions</h2>
             <p>We are dedicated to helping you find the best job opportunities and guiding you through the application process. Before submitting your job application, please read the following terms and conditions carefully:
             </p>
             <ul>
@@ -31,6 +31,11 @@ export default function Condition({ close }: any) {
                     <b>Changes to terms and conditions</b> : We reserve the right to modify or update these terms and conditions at any time without notice. By using our services, you agree to be bound by the current version of these terms and conditions.
 
                 </li>
+                <li>
+                    <b>Reapplication Restriction Policy</b> :As part of our application process, we kindly inform applicants that in the event of an unsuccessful application, a 30-day waiting period is required before reapplication. This policy has been implemented to ensure equal consideration for all applicants and prevent any misuse of the application process.
+
+                </li>
+
 
                 By submitting your job application, you acknowledge that you have read and agree to these terms and conditions. If you have any questions or concerns, please contact us.
 

@@ -58,7 +58,7 @@ export default function CardPost({ id, title, description, status, author, creat
             })
 
         }
-    }, [createArchive, createdAt, dateArch, id])
+    }, [ createArchive, createdAt, dateArch, id ])
 
 
     useEffect(() => {
@@ -138,7 +138,7 @@ export default function CardPost({ id, title, description, status, author, creat
                     <h3>{author}</h3>
                 </div>
                 <div className={styles.descriptions}>
-                    <p>{description.substring(0, 200)}</p>
+                    <p>{description.substring(0, 150)}</p>
                 </div>
             </div>
             <div className={styles.btnContainer}>

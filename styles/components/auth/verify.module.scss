@@ -12,7 +12,7 @@
    justify-content: center;
    flex-direction: column;
    .message {
-      position: absolute;
+      position: fixed;
       inset: 0;
    }
    .header {
