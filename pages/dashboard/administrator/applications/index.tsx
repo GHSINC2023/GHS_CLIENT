@@ -26,6 +26,7 @@ const Applicants: FC = () => {
     const [ orders, setOrders ] = useState("desc")
 
     const [ order, setOrder ] = useState(false)
+
     const handleStatusClick = (e: any) => {
         setStatus(() => e.target.value)
     }
@@ -102,7 +103,7 @@ const Applicants: FC = () => {
             }
             <div className={styles.header}>
                 <div className={styles.container}>
-                    <h2>Applicants</h2>
+                    <h2>Dashboard / Administrator / Applicants</h2>
                     <div className={styles.con}>
                         <input type="search" placeholder='Find Applicant no.' onChange={onChangeFindAppID} />
                         <div className={styles.option}>

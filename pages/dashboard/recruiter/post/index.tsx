@@ -87,7 +87,7 @@ const Post: FC = ({ userid }: any) => {
                 </div> : null}
             <div className={styles.header}>
                 <div className={styles.container}>
-                    <h2>Job Post</h2>
+                    <h2>Dashboard / Recruiter / Job Post</h2>
                     <div className={styles.option}>
                         <button onClick={() => setCreate(() => !create)} >
                             <Image src="/dashboard/plus-line.svg" alt="" height={20} width={20} />
@@ -141,7 +141,7 @@ const Post: FC = ({ userid }: any) => {
 
 
 export const getServerSideProps = async (context: any) => {
-    const cookies = context.req.cookies["ghs_access_token"]
+    const cookies = context.req.cookies[ "ghs_access_token" ]
     const { userID }: any = jwtDecode(cookies)
     return {
         props: {

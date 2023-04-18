@@ -5,6 +5,7 @@ import styles from '../../../styles/components/exports/application.export.module
 import { endorseCSV } from '../../../util/endorse/endorse.mutation'
 import { CSVLink } from 'react-csv'
 import Message from '../../message/message'
+import EndorseView from './View/endorse.view'
 export default function EndorseExports({ close, userID }: any) {
 
     const dates = new Date()
@@ -13,6 +14,7 @@ export default function EndorseExports({ close, userID }: any) {
     const [ end, setEnd ] = useState("")
     const [ sort, setSort ] = useState("asc")
     const [ filename, setFilename ] = useState(`Endorse - ${dates.toDateString()}`)
+    const [ open, setOpened ] = useState(false)
 
     const [ message, setMessage ] = useState(false)
     const [ stats, setStats ] = useState(false)
@@ -49,7 +51,7 @@ export default function EndorseExports({ close, userID }: any) {
             JobApply: endorsement[ 0 ].applicants[ 0 ].applyJobPost[ 0 ].title,
             Firstname: endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].firstname,
             Lastname: endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].lastname,
-            Phone: `=""${endorsement[ 0 ].applicants[ 0 ].applicantProfile[0].phone}""`,
+            Phone: `=""${endorsement[ 0 ].applicants[ 0 ].applicantProfile[ 0 ].phone}""`,
             endorse: createdAt,
         }
 
@@ -68,6 +70,11 @@ export default function EndorseExports({ close, userID }: any) {
                 <div className={styles.message}>
                     <Message label={'Successfully Generate CSV'} status={'success'} message={''} />
                 </div> : null}
+            {
+                open ? <div className={styles.endor}>
+                    <EndorseView data={data} close={setOpened} filename={filename} />
+                </div> : null
+            }
             <div className={styles.header}>
                 <h2>Export - Applicants</h2>
                 <button onClick={() => close(false)}>
@@ -117,17 +124,12 @@ export default function EndorseExports({ close, userID }: any) {
                     <input type="date" value={start} onChange={e => setStart(e.target.value)} placeholder='Start - YYYY-MM-DD' />
                     <input value={end} onChange={e => setEnd(e.target.value)} type="date" placeholder='End - YYYY-MM-DD' />
                 </div>
-                {data ?
-                    <CSVLink data={datas}
-                        headers={headers}
-                        className={styles.csvgen}
-                        filename={filename}>Download</CSVLink> :
-                    <button disabled={!start || !end || !status} type="submit"
-                        onClick={(e) => {
-                            e.preventDefault()
-                            createApplicaitonCSV()
-                        }}
-                        className={styles.endorse}>GENERATE REPORT</button>}
+                {data ? <button className={styles.endorse} type="button" onClick={() => setOpened(() => !open)}>View Report</button> : <button disabled={!start || !end || !status} type='submit' className={styles.endorse} onClick={(e) => {
+                    e.preventDefault()
+                    createApplicaitonCSV()
+                }}>
+                    GENERATE REPORT
+                </button>}
 
             </form>
         </div>

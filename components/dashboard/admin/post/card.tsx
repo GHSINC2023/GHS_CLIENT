@@ -1,20 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from '../../../../styles/components/dashboard/post/card.module.scss'
-import { statused } from '../../../../util/values/filter'
-import { useRouter } from 'next/router'
-import { jobStatusMutation } from '../../../../util/job/job.mutation'
-import { useMutation } from '@apollo/client'
 import DeleteCard from '../../card/deleteCard'
 import Message from '../../../message/message'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'js-cookie'
+import { statused } from '../../../../util/values/filter'
+import { useRouter } from 'next/router'
+import { jobStatusMutation } from '../../../../util/job/job.mutation'
+import { useMutation } from '@apollo/client'
+import { format, addDays, formatDuration, intervalToDuration } from 'date-fns'
+import { createArchiveJob } from '../../../../util/archive/archive.mutation'
 
-
-export default function CardPost({ id, title, description, status, author }: any) {
+export default function CardPost({ id, title, description, status, author, createdAt }: any) {
     const router = useRouter()
+
+
     const [ jobID, setJobID ] = useState("")
     const [ deleteID, setDeleteID ] = useState("")
     const [ roles, setRoles ] = useState("")
+
+    const [ dateArch ] = useState(format(addDays(new Date(createdAt), 30), "MMMM dd, yyyy"))
+
 
     useEffect(() => {
         const cookies = Cookies.get("ghs_access_token")
@@ -32,6 +38,27 @@ export default function CardPost({ id, title, description, status, author }: any
             setJobID(() => "")
         }
     }
+
+
+    const [ createArchive ] = useMutation(createArchiveJob)
+
+    useEffect(() => {
+        if (format(new Date(createdAt), "MMMM dd, yyyy") === dateArch) {
+            createArchive({
+                variables: {
+                    jobPostId: id
+                }
+            })
+        } else {
+            formatDuration(intervalToDuration({
+                start: new Date(createdAt),
+                end: new Date(dateArch)
+            }), {
+                delimiter: ', ',
+            })
+
+        }
+    }, [createArchive, createdAt, dateArch, id])
 
 
     useEffect(() => {
@@ -111,16 +138,16 @@ export default function CardPost({ id, title, description, status, author }: any
                     <h3>{author}</h3>
                 </div>
                 <div className={styles.descriptions}>
-                    <p>{description.substring(0, 80)}</p>
+                    <p>{description.substring(0, 200)}</p>
                 </div>
             </div>
             <div className={styles.btnContainer}>
-                {status === "rejected" ? null : <button onClick={() => {
+                {/* {status === "rejected" ? null : <button onClick={() => {
                     setDeleteID(() => id)
                     if (id === deleteID) {
                         setDeleteID(() => "")
                     }
-                }}>Delete</button>}
+                }}>Delete</button>} */}
                 <button onClick={() => router.push(`/dashboard/${roles}/post/${id}`)}>View</button>
             </div>
         </div>

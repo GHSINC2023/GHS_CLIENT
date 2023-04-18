@@ -6,11 +6,15 @@ import Cookies from 'js-cookie'
 import { client } from '../../pages/_app';
 import { useMutation } from '@apollo/client';
 import { logoutLog } from '../../util/logs/log.mutation';
+import Image from 'next/image'
+import Notification from './notification';
 
 
 export default function Sidebar() {
     const [ roles, setRoles ] = useState("")
     const [ userid, setuserid ] = useState("")
+
+    const [ notif, setNotif ] = useState(false)
     useEffect(() => {
         const cookies = Cookies.get("ghs_access_token")
         if (cookies) {
@@ -29,6 +33,7 @@ export default function Sidebar() {
         { name: "applicants", url: `/dashboard/${roles}/applications` },
         { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
         { name: "user", url: `/dashboard/${roles}/user` },
+        { name: "archive", url: `/dashboard/${roles}/archive` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
 
@@ -45,6 +50,7 @@ export default function Sidebar() {
         { name: "applicants", url: `/dashboard/${roles}/applications` },
         { name: "endorsement", url: `/dashboard/${roles}/endorsement` },
         { name: "user", url: `/dashboard/${roles}/user` },
+        { name: "archive", url: `/dashboard/${roles}/archive` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
     const moderator = [
@@ -52,6 +58,7 @@ export default function Sidebar() {
         { name: "post", url: `/dashboard/${roles}/post` },
         { name: "Applicants", url: `/dashboard/${roles}/applications` },
         { name: "User", url: `/dashboard/${roles}/user` },
+        { name: "archive", url: `/dashboard/${roles}/archive` },
         { name: "settings", url: `/dashboard/${roles}/settings` }
     ]
 
@@ -78,7 +85,7 @@ export default function Sidebar() {
             <nav>
                 <ul>
                     {roles === "administrator" ? admin.map(({ name, url }: any) => (
-                        <li onClick={() => router.push(url)} key={name}>
+                        <li style={router.pathname.includes(url) ? { background: "#D02222" } : {}} onClick={() => router.push(url)} key={name}>
                             <span>{name}</span>
                         </li>
                     )) : null}
@@ -104,11 +111,29 @@ export default function Sidebar() {
                     )) : null}
                 </ul>
             </nav>
-            <div className={styles.logout}>
-                <button onClick={handleLogoutnBtn}>
-                    Logout
+            {roles === "administrator" ? <div className={styles.notification}>
+                <button onClick={() => setNotif(() => !notif)}>
+                    <Image src="/dashboard/bell.svg" alt="" height={25} width={25} />
                 </button>
-            </div>
+            </div> : null}
+            {roles === "moderator" ? <div className={styles.notification}>
+                <button onClick={() => setNotif(() => !notif)}>
+                    <Image src="/dashboard/bell.svg" alt="" height={25} width={25} />
+                </button>
+            </div> : null}
+            {roles === "manager" ? <div className={styles.notification}>
+                <button onClick={() => setNotif(() => !notif)}>
+                    <Image src="/dashboard/bell.svg" alt="" height={25} width={25} />
+                </button>
+            </div> : null}
+            {notif ?
+                <div className={styles.notify}>
+                    <Notification open={notif} close={setNotif} />
+                </div> : null
+            }
+            <button onClick={handleLogoutnBtn}>
+                <Image src="/dashboard/logout-line.svg" alt="" height={25} width={30} />
+            </button>
         </div>
     )
 }

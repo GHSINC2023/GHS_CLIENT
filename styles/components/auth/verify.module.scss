@@ -1,0 +1,69 @@
+@import "../../_variables";
+
+.container {
+   width: 500px;
+   height: 300px;
+   background-color: #fff;
+   box-shadow: 0px 0px 3px 0px #ccc;
+   padding: 20px;
+   border-radius: 10px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   .message {
+      position: absolute;
+      inset: 0;
+   }
+   .header {
+      width: 100%;
+      height: 50px;
+      button {
+         float: right;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         border-radius: 100px;
+         height: 40px;
+         width: 40px;
+         background-color: transparent;
+         border: none;
+         cursor: pointer;
+         &:hover {
+            background-color: #eee;
+         }
+      }
+   }
+   .nm {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      h2 {
+         font-family: $primaryFont;
+         font-weight: 500;
+      }
+      form {
+         width: 100%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 5px;
+         input {
+            width: 55px;
+            height: 55px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+            font-size: 2rem;
+            outline: none;
+            &:focus {
+               border-bottom: 1px solid $primaryColor;
+            }
+         }
+      }
+   }
+}

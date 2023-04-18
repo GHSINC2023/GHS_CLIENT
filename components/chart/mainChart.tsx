@@ -51,16 +51,19 @@ export default function MainChart() {
       <div className={styles.chart}>
         <Bar
           options={{
+            plugins: {
 
+            },
+            devicePixelRatio: 10,
             scales: {
               x: {
                 display: true,
+
               },
               y: {
                 display: true,
 
               },
-
             }
           }}
           data={{

@@ -54,7 +54,7 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                         <th>Job Apply</th>
                         <th>Application Date</th>
                         <th>Interview By</th>
-                        {status === "rejected" ? null : <th>Action</th>}
+                        {status === "declined" ? null : <th>Action</th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -78,7 +78,7 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                                             ))
                                         ))}
                                     {
-                                        status === "rejected" ? null :
+                                        status === "declined" ? null :
                                             <td className={styles.buttons}>
                                                 <button onClick={() => setID(() => applicantID)}>
                                                     <Image src="/dashboard/eye-line.svg" alt="" height={25} width={25} />
@@ -110,7 +110,7 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                                             ))
                                         ))}
                                     {
-                                        status === "rejected" ? null :
+                                        status === "declined" ? null :
                                             <td className={styles.buttons}>
                                                 <button onClick={() => setID(() => applicantID)}>
                                                     <Image src="/dashboard/eye-line.svg" alt="" height={25} width={25} />

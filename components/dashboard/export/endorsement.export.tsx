@@ -3,8 +3,8 @@ import { useMutation } from '@apollo/client'
 import { EndorsementMutation } from '../../../util/export/endorsementExport'
 import styles from '../../../styles/components/exports/endorsement.export.module.scss'
 import { CSVSort, endorsement_status } from '../../../util/values/filter'
-import { CSVLink } from 'react-csv'
 import Message from '../../message/message'
+import Endorsement from './View/endrosement'
 
 
 
@@ -21,6 +21,8 @@ export default function EndorseExport({ close }: any) {
     const [ message, setMessage ] = useState(false)
     const [ stats, setStats ] = useState(false)
     const [ or, setOr ] = useState(false)
+    const [ open, setOpened ] = useState(false)
+
 
     const [ createEndorsementCSV, { data } ] = useMutation(EndorsementMutation, {
         variables: {
@@ -33,27 +35,8 @@ export default function EndorseExport({ close }: any) {
             setMessage(true)
         }
     })
-    const headers = [
-        { label: "Status", key: "Status" },
-        { label: "Application ID", key: "ApplicantID" },
-        { label: "Email", key: "Email" },
-        { label: "Firstname", key: "Firstname" },
-        { label: "Lastname", key: "Lastname" },
-        { label: "Phone", key: "Phone" },
-        { label: "Endorse By", key: "EndorseBy" }
-    ]
-    const datas = data ? data.getEndorsmentByCSV.map(({ Status, createdAt, applicants, endorseBy }: any) => {
-        return {
-            Status: Status,
-            ApplicantID: applicants[ 0 ].id,
-            Email: applicants[ 0 ].email,
-            Firstname: applicants[ 0 ].applicantProfile[ 0 ].firstname,
-            Lastname: applicants[ 0 ].applicantProfile[ 0 ].lastname,
-            Phone: `=""${applicants[ 0 ].applicantProfile[ 0 ].phone}""`,
-            EndorseBy: `${endorseBy[ 0 ].profile[ 0 ].firstname} ${endorseBy[ 0 ].profile[ 0 ].lastname}`,
 
-        }
-    }) : null
+
     useEffect(() => {
         setTimeout(() => { setMessage(false) }, 2000)
     }, [ message ])
@@ -64,6 +47,11 @@ export default function EndorseExport({ close }: any) {
                     <Message label={'Successfully Generate CSV'} status={'success'} message={''} />
                 </div> : null}
             <div>
+                {
+                    open ? <div className={styles.endor}>
+                        <Endorsement data={data} close={setOpened} filename={filename} status={status} />
+                    </div> : null
+                }
                 <div className={styles.header}>
                     <h2>Export - Endorsements</h2>
                     <button onClick={() => close(false)}>
@@ -107,16 +95,13 @@ export default function EndorseExport({ close }: any) {
                         <input type="date" value={start} onChange={e => setStart(e.target.value)} placeholder='Start - YYYY-MM-DD' />
                         <input value={end} onChange={e => setEnd(e.target.value)} type="date" placeholder='End - YYYY-MM-DD' />
                     </div>
-                    {data ?
-                        <CSVLink headers={headers}
-                            className={styles.csvgen}
-                            data={datas}
-                            filename={filename}>DOWNLOAD</CSVLink> : <button disabled={!start || !end || !status} type='submit' className={styles.endorse} onClick={(e) => {
-                                e.preventDefault()
-                                createEndorsementCSV()
-                            }}>
-                            GENERATE REPORT
-                        </button>}
+
+                    {data ? <button className={styles.endorse} type="button" onClick={() => setOpened(() => !open)}>View Report</button> : <button disabled={!start || !end || !status} type='submit' className={styles.endorse} onClick={(e) => {
+                        e.preventDefault()
+                        createEndorsementCSV()
+                    }}>
+                        GENERATE REPORT
+                    </button>}
                 </form>
             </div >
         </div >

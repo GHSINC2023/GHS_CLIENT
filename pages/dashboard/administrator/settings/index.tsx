@@ -23,7 +23,7 @@ const Settings: FC = ({ userid }: any) => {
                 <title>Settings</title>
             </Head>
             <div className={styles.header}>
-                <h2>Settings</h2>
+                <h2>Dashboard / Administrator / Settings</h2>
             </div>
             <div className={styles.con}>
                 <div className={styles.tabs}>

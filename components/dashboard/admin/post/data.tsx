@@ -42,10 +42,10 @@ export default function DataStatus({ status, limit, order }: any) {
     return (
         <div className={styles.container}>
             <div className={styles.gridContainer}>
-                {loading ? "Loading" : data.getJobByStatus.map(({ jobPostID, title, description, status, users }: any) => (
+                {loading ? "Loading" : data.getJobByStatus.map(({ jobPostID, title, description, status, users, createdAt }: any) => (
                     users.map(({ profile }: any) => (
                         profile.map(({ firstname, lastname }: any) => (
-                            <CardPost key={jobPostID} id={jobPostID} title={title} description={description} status={status} author={`${lastname}, ${firstname}`} />
+                            <CardPost key={jobPostID} id={jobPostID} title={title} description={description} status={status} author={`${lastname}, ${firstname}`} createdAt={createdAt} />
                         ))
                     ))
                 ))}

@@ -51,7 +51,7 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                         <th>Job Apply</th>
                         <th>Application Date</th>
                         <th>Interview By</th>
-                        {status === "rejected" ? null : <th>Action</th>}
+                        {status === "declined" ? null : <th>Action</th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -75,7 +75,7 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                                             ))
                                         ))}
                                     {
-                                        status === "rejected" ? null :
+                                        status === "declined" ? null :
                                             <td className={styles.buttons}>
                                                 <button onClick={() => setID(() => applicantID)}>
                                                     <Image src="/dashboard/eye-line.svg" alt="" height={25} width={25} />
@@ -85,39 +85,40 @@ export default function DataApplicants({ status, orders, limit, dataSearch }: an
                                 </tr>
                             ))
                         ))
-                    )) : loading ? null : data.getApplicationByStatus.map((
-                        { applicantID, id, applicantInterviewer, applicantProfile, createdAt, applyJobPost }: applicant
-                    ) => (
-                        applicantProfile.map(({ firstname, lastname }) => (
-                            applyJobPost.map(({ title }) => (
-                                <tr key={applicantID}>
-                                    <td>{firstname} {lastname}</td>
-                                    <td>{id}</td>
-                                    <td>{title}</td>
-                                    <td>{format(new Date(createdAt), "MMM dd, yyyy")}</td>
-                                    {applicantInterviewer.length === 0 ?
-                                        <td className={styles.int}>
+                    )) :
+                        loading ? null : data.getApplicationByStatus.map((
+                            { applicantID, id, applicantInterviewer, applicantProfile, createdAt, applyJobPost }: applicant
+                        ) => (
+                            applicantProfile.map(({ firstname, lastname }) => (
+                                applyJobPost.map(({ title }) => (
+                                    <tr key={applicantID}>
+                                        <td>{firstname} {lastname}</td>
+                                        <td>{id}</td>
+                                        <td>{title}</td>
+                                        <td>{format(new Date(createdAt), "MMM dd, yyyy")}</td>
+                                        {applicantInterviewer.length === 0 ?
+                                            <td className={styles.int}>
 
-                                            <button onClick={() => setInterview(applicantID)} className={styles.interview}>Interview</button>
-                                        </td> : applicantInterviewer.map(({ user }: any) => (
-                                            user.map(({ profile }: any) => (
-                                                profile.map(({ profileID, firstname, lastname }: any) => (
-                                                    <td key={profileID}>{firstname} {lastname}</td>
+                                                <button onClick={() => setInterview(applicantID)} className={styles.interview}>Interview</button>
+                                            </td> : applicantInterviewer.map(({ user }: any) => (
+                                                user.map(({ profile }: any) => (
+                                                    profile.map(({ profileID, firstname, lastname }: any) => (
+                                                        <td key={profileID}>{firstname} {lastname}</td>
+                                                    ))
                                                 ))
-                                            ))
-                                        ))}
-                                    {
-                                        status === "rejected" ? null :
-                                            <td className={styles.buttons}>
-                                                <button onClick={() => setID(() => applicantID)}>
-                                                    <Image src="/dashboard/eye-line.svg" alt="" height={25} width={25} />
-                                                </button>
-                                            </td>
-                                    }
-                                </tr>
+                                            ))}
+                                        {
+                                            status === "declined" ? null :
+                                                <td className={styles.buttons}>
+                                                    <button onClick={() => setID(() => applicantID)}>
+                                                        <Image src="/dashboard/eye-line.svg" alt="" height={25} width={25} />
+                                                    </button>
+                                                </td>
+                                        }
+                                    </tr>
+                                ))
                             ))
-                        ))
-                    ))}
+                        ))}
                 </tbody>
             </table>
             <div className={styles.pages}>

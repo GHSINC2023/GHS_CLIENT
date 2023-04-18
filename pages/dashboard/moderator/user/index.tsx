@@ -76,7 +76,7 @@ const User: FC = () => {
             </Head>
             <div className={styles.header}>
                 <div className={styles.container}>
-                    <h2>Users</h2>
+                    <h2>Dashboard / Moderator / User</h2>
                 </div>
                 <div className={styles.post}>
                     <div className={styles.tab}>

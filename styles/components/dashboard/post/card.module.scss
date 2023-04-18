@@ -1,127 +1,132 @@
 @import "../../../_mixins";
 @import "../../../_variables";
 .card {
-    width: 100%;
-    height: 240px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 3px 0px #ccc;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    .delete {
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(255,255,255, 0.8);
-    }
-    .message {
-        width: 100%;
-        position: absolute;
-        inset: 0;
-    }
-    .cardHead {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        h2 {
-            word-wrap: normal;
-            font-family: $primaryFont;
-            font-size: 16px;
-            font-weight: 500;
-            height: 40px;
-        }
-        .options {
-            display: flex;
-            align-items: center;
-            button {
-                width: auto;
-                padding: 5px;
-                border-radius: 5px;
-                border: none;
-                display: flex;
-                align-items: center;
-                gap: 3px;
-                background-color: transparent;
-                &:hover {
-                    div {
-                        background-color: $primaryColor;
-                    }
-                }
-                div {
-                    width: 5px;
-                    height: 5px;
-                    background-color: #ccc;
-                    border-radius: 100px;
-                }
-            }
-            .update {
-                width: 100px;
-                height: 70px;
-                position: absolute;
-                transform: translate(-60%, 40px);
-                border-radius: 5px;
-                background-color: #fff;
-                box-shadow: 0 0 3px 0 #ccc;
-                button {
-                    display: block;
-                    width: 100%;
-                    height: 35px;
-                    width: 100%;
-                    text-align: center;
-                    &:hover {
-                        background-color: $primaryColor;
-                        color: #fff;
-                        font-family: $primaryFont;
-                    }
-                }
-            }
-        }
-    }
-    .cardBody {
-        width: 100%;
-        .author {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            h4, h3 {
-                width: auto;
-                font-family: $primaryFont;
-                font-size: 14px;
-                margin: 0;
-                font-weight: 500;
-            }
-        }
-        .descriptions {
-            width: 100%;
-            font-family: $secondaryFont;
-            font-size: 15px;
-        }
-    }
-    .btnContainer {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        button {
-            width: 100%;
-            height: 45px;
-            font-family: $primaryFont;
-            font-weight: 500;
-            background-color: transparent;
-            box-shadow: 0px 0px 3px 0px #ccc;
-            border: none;
+   width: 100%;
+   height: 300px;
+   border-radius: 5px;
+   padding: 15px;
+   display: flex;
+   flex-direction: column;
+   border: 1px solid #eee;
+   &:hover {
+      box-shadow: 0px 0px 3px 0px #ccc;
+   }
+   .delete {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.8);
+   }
+   .message {
+      width: 100%;
+      position: absolute;
+      inset: 0;
+   }
+   .cardHead {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      h2 {
+         word-wrap: normal;
+         font-family: $primaryFont;
+         font-size: 18px;
+         font-weight: 400;
+         height: 40px;
+      }
+      .options {
+         display: flex;
+         align-items: center;
+         button {
+            width: auto;
+            padding: 5px;
             border-radius: 5px;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background-color: transparent;
             &:hover {
-                background-color: $primaryColor;
-                color: #fff;
+               div {
+                  background-color: $primaryColor;
+               }
             }
-        }
-    }
+            div {
+               width: 5px;
+               height: 5px;
+               background-color: #ccc;
+               border-radius: 100px;
+            }
+         }
+         .update {
+            width: 100px;
+            height: 70px;
+            position: absolute;
+            transform: translate(-60%, 40px);
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 3px 0 #ccc;
+            button {
+               display: block;
+               width: 100%;
+               height: 35px;
+               width: 100%;
+               text-align: center;
+               &:hover {
+                  background-color: $primaryColor;
+                  color: #fff;
+                  font-family: $primaryFont;
+               }
+            }
+         }
+      }
+   }
+   .cardBody {
+      width: 100%;
+      .author {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         h4,
+         h3 {
+            width: auto;
+            font-family: $primaryFont;
+            font-size: 14px;
+            margin: 0;
+            font-weight: 500;
+         }
+      }
+      .descriptions {
+         width: 100%;
+         font-family: $secondaryFont;
+         font-size: 16px;
+         font-weight: 500;
+      }
+   }
+   .btnContainer {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      button {
+         width: 100%;
+         height: 45px;
+         font-family: $primaryFont;
+         font-weight: 500;
+         background-color: transparent;
+         box-shadow: 0px 0px 3px 0px #ccc;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+         &:hover {
+            background-color: $primaryColor;
+            color: #fff;
+         }
+      }
+   }
 }

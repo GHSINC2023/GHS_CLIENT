@@ -7,6 +7,7 @@ import { applications } from '../../interface/application.interface';
 import Message from '../message/message';
 import OTPS from './OTP/otp';
 import { createOTPS } from '../../util/OTP/otp.mutation';
+import Condition from './condition';
 
 export default function Apply({ jobid, close, open }: any) {
 
@@ -14,6 +15,8 @@ export default function Apply({ jobid, close, open }: any) {
     const [ videoUpload, setVideoUpload ] = useState(null)
     const [ otps, setOTP ] = useState(false)
 
+    const [ terms, setTerms ] = useState(false)
+    const [ condition, setCondition ] = useState(false)
 
 
 
@@ -136,9 +139,6 @@ export default function Apply({ jobid, close, open }: any) {
 
 
     useEffect(() => {
-        if (videoRef.current?.contains(null)) {
-            videoRef.current.value = ''
-        }
         setTimeout(() => {
             setMessage(false)
         }, 2000)
@@ -149,6 +149,11 @@ export default function Apply({ jobid, close, open }: any) {
 
     return (
         <div className={styles.container}>
+            {
+                condition ? <div className={styles.condition}>
+                    <Condition close={setCondition} />
+                </div> : null
+            }
             <div className={styles.applicationHeader}>
                 <h2>Job Application</h2>
                 <button onClick={handleApplicationClosed}>
@@ -274,10 +279,10 @@ export default function Apply({ jobid, close, open }: any) {
                     </div> : null}
                 </div>
 
-
-
-
-
+                <div className={styles.terms}>
+                    <input type="checkbox" onChange={() => setTerms(() => !terms)} />
+                    <span onClick={() => setCondition(() => !condition)}> I agree to the <b>Terms and Condition</b> of Global Headstart Specialist Inc.</span>
+                </div>
                 <button
                     className={styles.applybtn}
                     onClick={(e) => {
@@ -286,7 +291,7 @@ export default function Apply({ jobid, close, open }: any) {
                         createNewOTP()
                     }}
                     disabled={!applications.bday || !applications.city || !applications.email || !applications.firstname || !applications.lastname || !applications.phone || !applications.province || !applications.street || !applications.zipcode ||
-                        !fileUpload || !videoUpload
+                        !fileUpload || !videoUpload || !terms
                     }
 
                     type='button'>Submit</button>

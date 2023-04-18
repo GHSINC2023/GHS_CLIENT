@@ -16,13 +16,16 @@ interface Props {
 export default function Dashboard({ children }: Props) {
     return (
         <div className={styles.container}>
-            <div className={styles.child}>
+            <Sidebar />
+            {children}
+
+            {/* <div className={styles.child}>
                 <Sidebar />
                 <div className={styles.subChild}>
                     <Header />
-                    {children}
+
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

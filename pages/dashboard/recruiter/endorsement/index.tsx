@@ -106,7 +106,7 @@ const Endorsement: FC = ({ userid }: any) => {
             }
             <div className={styles.header}>
                 <div className={styles.container}>
-                    <h2>Endorsement</h2>
+                    <h2>Dashboard / Recruiter / Endorsement</h2>
                     <div className={styles.option}>
                         <div className={styles.cvsDiv}>
                             <button className={styles.csv}

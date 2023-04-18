@@ -122,7 +122,6 @@ const Home: FC = () => {
             </div>
             <div className={styles.optionContainer}>
               <h2>Category</h2>
-
               {categLoading ? null : categData.getAllCategories.map(({ category }: any) => (
                 <div className={styles.holder} key={category}>
                   <input type="checkbox" onChange={(e) => {

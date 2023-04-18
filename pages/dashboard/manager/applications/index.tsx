@@ -104,7 +104,7 @@ const Applicants: FC = () => {
             }
             <div className={styles.header}>
                 <div className={styles.container}>
-                    <h2>Applicants</h2>
+                    <h2>Dashboard / Manager / Applicants</h2>
                     <div className={styles.con}>
                         <input type="search" placeholder='Find Applicant no.' onChange={onChangeFindAppID} />
                         <div className={styles.option}>

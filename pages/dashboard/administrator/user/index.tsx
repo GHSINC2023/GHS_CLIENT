@@ -84,7 +84,7 @@ const User: FC = () => {
             }
             <div className={styles.header}>
                 <div className={styles.container}>
-                    <h2>Users</h2>
+                    <h2>Dashboard / Administrator / Users</h2>
                     <div className={styles.option}>
                         <button onClick={() => setCreate(() => !create)} >
                             <Image src="/dashboard/plus-line.svg" alt="" height={20} width={20} />

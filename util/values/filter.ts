@@ -34,38 +34,31 @@ export const status = [
         name: "Approved", value: "approved"
     },
     {
-        name: "Rejected", value: "rejected"
+        name: "Declined", value: "declined"
     }
 ]
 
-export const filtersDWMY = [
-    { name: "1D", value: "day" },
-    { name: "7D", value: "week" },
-    { name: "1M", value: "month" },
-    { name: "1Y", value: "year" }
-]
-
 export const statused = [
-    { name: "Rejected", value: "rejected" },
+    { name: "Declined", value: "declined" },
     { name: "Approved", value: "approved" }
 ]
 
 export const CSVStatused = [
     { name: "Waiting", value: "waiting" },
-    { name: "Rejected", value: "rejected" },
+    { name: "Declined", value: "declined" },
     { name: "Approved", value: "approved" }
 ]
 
 export const applicantsStatus = [
     { name: "Waiting", value: "waiting" },
     { name: "Approved", value: "approved" },
-    { name: "Rejected", value: "rejected" }
+    { name: "Declined", value: "declined" }
 ]
 
 export const JobStatus = [
     { name: "Waiting", value: "inProgress" },
     { name: "Approved", value: "approved" },
-    { name: "Rejected", value: "rejected" }
+    { name: "Declined", value: "declined" }
 ]
 
 
@@ -118,7 +111,7 @@ export const category = [
 
 
 
-export const endorsement_status: string[] = [ "Active", "Final/Ops Interview", "Employed", "Hired", "Near Hire", "Follow-up", "Rescheduled", "Endorsed", "Pending", "Terminated", "Not Qualified", "Failed - No Re-endorsement", "Backed-out", "Failed/Re-endorsed", "No Show", "Decline Offer", "No Call", "No Answer", "Not Eligible", "TCBR", "CBR", "Endorsement Making", "Text Blast", "Re-Invited", "Re-endorsement (No Date)", "Exam/Versant" ]
+export const endorsement_status: string[] = [ "Active", "Final/Ops Interview", "Employed", "Hired", "Near Hire", "Follow-up", "Rescheduled", "Endorsed", "Terminated", "Not Qualified", "Failed - No Re-endorsement", "Backed-out", "Failed/Re-endorsed", "No Show", "Decline Offer", "No Call", "No Answer", "Not Eligible", "TCBR", "CBR", "Endorsement Making", "Text Blast", "Re-Invited", "Re-endorsement (No Date)", "Exam/Versant" ]
 
 export const endorsement_statusv2: string[] = [ "Active", "Final/Ops Interview", "Employed", "Hired", "Near Hire", "Follow-up", "Rescheduled", "Endorsed", "Pending", "Terminated", "Not Qualified", "Failed - No Re-endorsement", "Backed-out", "Failed/Re-endorsed", "No show", "Decline Offer", "No Call", "No Answer", "Not Eligible", "TCBR", "CBR", "Endorsement Making", "Text Blast", "Re-Invited", "Re-endorsement (No Date)", "Exam/Versant" ]
 
@@ -140,5 +133,12 @@ export const tabs = [
 export const endorseStatused = [
     { name: "Waiting", value: "waiting" },
     { name: "Approved", value: "approved" },
-    { name: "Rejected", value: "rejected" }
+    { name: "declined", value: "declined" }
+]
+
+
+export const ArchiveTab = [
+    { name: "Job Post", value: "post" },
+    { name: "Applicants", value: "applicant" },
+    { name: "Endorse", value: "endorsed" },
 ]

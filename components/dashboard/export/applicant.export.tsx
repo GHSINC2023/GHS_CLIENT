@@ -5,6 +5,7 @@ import styles from '../../../styles/components/exports/application.export.module
 import { applicationCSV } from '../../../util/export/applicantExport'
 import { CSVLink } from 'react-csv'
 import Message from '../../message/message'
+import ApplicantView from './View/applicantview'
 export default function ApplicantExport({ close }: any) {
 
     const dates = new Date()
@@ -32,34 +33,9 @@ export default function ApplicantExport({ close }: any) {
     })
 
 
-    const headers = [
-        { label: "ApplicationID", key: "ApplicationID" },
-        { label: "Email", key: "Email" },
-        { label: "Job Apply", key: "JobApply" },
-        { label: "Firstname", key: "Firstname" },
-        { label: "Lastname", key: "Lastname" },
-        { label: "Phone", key: "Phone" },
-        { label: "Address", key: "Address" },
-        { label: "Resume", key: "Resume" },
-        { label: "Video", key: "intro" },
-        { label: "Date Applied", key: "applied" }
+    const [ open, setOpened ] = useState(false)
 
-    ]
-    const datas = data ? data.generateApplicantCSV.map(({ id, createdAt, email, applyJobPost, applicantProfile, applicantUpload }: any) => {
-        return {
-            ApplicationID: id,
-            Email: email,
-            JobApply: applyJobPost[ 0 ].title,
-            Firstname: applicantProfile[ 0 ].firstname,
-            Lastname: applicantProfile[ 0 ].lastname,
-            Phone: `=""${applicantProfile[ 0 ].phone}""`,
-            Address: `${applicantProfile[ 0 ].profileAddress[ 0 ].street}, ${applicantProfile[ 0 ].profileAddress[ 0 ].city},${applicantProfile[ 0 ].profileAddress[ 0 ].province}, ${applicantProfile[ 0 ].profileAddress[ 0 ].zipcode}`,
-            Resume: applicantUpload[ 0 ].file,
-            intro: applicantUpload[ 0 ].video,
-            applied: createdAt
-        }
 
-    }) : null
 
     useEffect(() => {
         setTimeout(() => {
@@ -73,6 +49,11 @@ export default function ApplicantExport({ close }: any) {
                 <div className={styles.message}>
                     <Message label={'Successfully Generate CSV'} status={'success'} message={''} />
                 </div> : null}
+            {
+                open ? <div className={styles.endor}>
+                    <ApplicantView data={data} close={setOpened} filename={filename} status={status} />
+                </div> : null
+            }
             <div className={styles.header}>
                 <h2>Export - Applicants</h2>
                 <button onClick={() => close(false)}>
@@ -90,7 +71,7 @@ export default function ApplicantExport({ close }: any) {
                         </h2>
                         <span>
                             {status === "approved" ? "Approved" : null}
-                            {status === "rejected" ? "Rejected" : null}
+                            {status === "declined" ? "Declined" : null}
                             {status === "waiting" ? "Waiting" : null}
                         </span>
                     </div>
@@ -125,17 +106,14 @@ export default function ApplicantExport({ close }: any) {
                     <input type="date" value={start} onChange={e => setStart(e.target.value)} placeholder='Start - YYYY-MM-DD' />
                     <input value={end} onChange={e => setEnd(e.target.value)} type="date" placeholder='End - YYYY-MM-DD' />
                 </div>
-                {data ?
-                    <CSVLink data={datas}
-                        headers={headers}
-                        className={styles.csvgen}
-                        filename={filename}>Download</CSVLink> :
-                    <button disabled={!start || !end || !status} type="submit"
-                        onClick={(e) => {
-                            e.preventDefault()
-                            createApplicaitonCSV()
-                        }}
-                        className={styles.endorse}>GENERATE REPORT</button>}
+
+
+                {data ? <button className={styles.endorse} type="button" onClick={() => setOpened(() => !open)}>View Report</button> : <button disabled={!start || !end || !status} type='submit' className={styles.endorse} onClick={(e) => {
+                    e.preventDefault()
+                    createApplicaitonCSV()
+                }}>
+                    GENERATE REPORT
+                </button>}
 
             </form>
         </div>
