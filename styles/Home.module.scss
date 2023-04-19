@@ -14,7 +14,9 @@
       gap: 5px;
       padding: 10px;
       height: 500px;
-      background-color: $primaryColor;
+      background-image: url("../public/background/bg3.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
       h2 {
          font-family: $primaryFont;
          font-size: 35px;
