@@ -28,11 +28,11 @@ export default function Condition({ close }: any) {
                     <b>Liability</b>: We are not liable for any damages or losses arising from the use of our services, including but not limited to, errors or omissions in job postings, incomplete or inaccurate information provided by potential employers, or any damages resulting from the use of our website.
                 </li>
                 <li>
-                    <b>Changes to terms and conditions</b> : We reserve the right to modify or update these terms and conditions at any time without notice. By using our services, you agree to be bound by the current version of these terms and conditions.
+                    <b>Changes to terms and conditions</b>: We reserve the right to modify or update these terms and conditions at any time without notice. By using our services, you agree to be bound by the current version of these terms and conditions.
 
                 </li>
                 <li>
-                    <b>Reapplication Restriction Policy</b> :As part of our application process, we kindly inform applicants that in the event of an unsuccessful application, a 30-day waiting period is required before reapplication. This policy has been implemented to ensure equal consideration for all applicants and prevent any misuse of the application process.
+                    <b>Reapplication Restriction Policy</b>: As part of our application process, we kindly inform applicants that in the event of an unsuccessful application, a 30-day waiting period is required before reapplication. This policy has been implemented to ensure equal consideration for all applicants and prevent any misuse of the application process.
 
                 </li>
 

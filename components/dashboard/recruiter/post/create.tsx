@@ -2,33 +2,12 @@ import React, { useState, useEffect } from 'react'
 import styles from '../../../../styles/components/dashboard/post/create.module.scss'
 import dynamic from 'next/dynamic'
 import { CreateJob } from '../../../../interface/create.interface'
-import { useMutation, gql } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { JobCreateRecruiter } from '../../../../util/job/job.mutation'
 import Head from 'next/head'
 import Image from 'next/image'
 import { jobType, workType, category } from '../../../../util/values/filter'
 import Message from '../../../message/message'
-
-
-
-const jobcreateRec = gql`   mutation Mutation($userId: ID!, $jobPost: JobPostInput, $jobDetails: jobDetailsInput) {
-    createAJobForRecruiter(userID: $userId, JobPost: $jobPost, JobDetails: $jobDetails) {
-      title
-      responsibilities
-      qualification
-      description
-      createdAt
-      details {
-        jobDetailsID
-        jobType
-        location
-        salary
-        workType
-        category
-      }
-    }
-  }
-  `
 
 const Qualifications = dynamic(() => import("../../rich/qualification"), {
     ssr: false
@@ -102,7 +81,7 @@ export default function Create({ userid, close }: any) {
         setCreate({ ...create, category: e.target.value })
     }
 
-    const [ jobPost, { data } ] = useMutation(jobcreateRec)
+    const [ jobPost, { data } ] = useMutation(JobCreateRecruiter)
     const formSubmit = (e: any) => {
         e.preventDefault()
         jobPost({
@@ -124,20 +103,21 @@ export default function Create({ userid, close }: any) {
                 userId: userid,
             },
             onCompleted: (data) => {
-                if (data) {
-                    setMessage(true)
-                    setResponsibilities("")
-                    setQualification("")
-                    setCreate({
-                        category: "",
-                        jobType: [],
-                        location: [],
-                        overview: "",
-                        salary: "",
-                        title: "",
-                        workType: []
-                    })
-                }
+
+                setMessage(true)
+
+                setResponsibilities: "";
+                setQualification: "";
+                setCreate({
+                    category: "",
+                    jobType: [],
+                    location: [],
+                    overview: "",
+                    salary: "",
+                    title: "",
+                    workType: [],
+                })
+
             },
             onError: (error) => {
                 alert()
@@ -276,9 +256,9 @@ export default function Create({ userid, close }: any) {
                     </div> : null}
                     <input type="text" placeholder='Salary' value={create.salary} onChange={e => setCreate({ ...create, salary: e.target.value })} />
                     <label>Qualification</label>
-                    <Qualifications value={qualifications} setValue={setQualification} />
+                    <Qualifications data={data} value={qualifications} setValue={setQualification} />
                     <label>Responsibilities</label>
-                    <Responsibilties value={responsibilities} setValue={setResponsibilities} />
+                    <Responsibilties data={data} value={responsibilities} setValue={setResponsibilities} />
                     <button
                         disabled={
                             !create.category || !create.salary || create.jobType.length === 0 || !create.overview || create.workType.length === 0 ||

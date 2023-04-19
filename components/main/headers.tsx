@@ -32,8 +32,8 @@ export default function Header() {
                 </div> :
 
                 <div className={styles.link}>
-                    {router.pathname === "auth/login" ? null : <Link href="/auth/applicant/login">Login</Link>}
-                    {router.pathname === "auth/applicant/login" ? null : <Link href="/auth/applicant/login">Login</Link>}
+                    {router.pathname === "auth/login" || router.pathname === "auth/applicant/login" ? null : <Link href="/auth/applicant/login">Login</Link>}
+
                 </div>
             }
 

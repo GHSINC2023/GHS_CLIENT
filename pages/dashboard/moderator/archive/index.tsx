@@ -52,10 +52,10 @@ const Archive: FC = () => {
                         </thead>
                         <tbody>
                             {data.getArchivebyType.map(({ archiveID, job }: any) => (
-                                job.map(({ jobPostID, title, createdAt, user }: any) => (
+                                job.map(({ jobPostID, title, createdAt, users }: any) => (
                                     <tr key={jobPostID}>
                                         <td>{title}</td>
-                                        {user.map(({ profile }: any) => (
+                                        {users.map(({ profile }: any) => (
                                             profile.map(({ profileID, firstname, lastname }: any) => (
                                                 <td key={profileID}>{firstname} {lastname}</td>
                                             ))
