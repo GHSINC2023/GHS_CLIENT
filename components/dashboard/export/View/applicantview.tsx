@@ -37,7 +37,7 @@ export default function ApplicantView({ data, close, filename, status }: any) {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <h2>{filename} - {status}</h2>
+                <h2>{filename} - {status === "approved" ? "Approved" : null}{status === "declined" ? "Declined" : null}{status === "waiting" ? "Waiting" : null}</h2>
                 <div className={styles.h}>
                     <CSVLink headers={headers}
                         className={styles.csvgen}
@@ -82,7 +82,7 @@ export default function ApplicantView({ data, close, filename, status }: any) {
                                 <td key={email}>{email}</td>
                                 {
                                     applicantProfile.map(({ firstname, lastname }: any) => (
-                                        <td key={lastname}>{firstname}{lastname}</td>
+                                        <td key={lastname}>{firstname} {lastname}</td>
 
                                     ))
                                 }

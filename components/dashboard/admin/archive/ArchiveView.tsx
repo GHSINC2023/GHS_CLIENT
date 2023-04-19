@@ -114,7 +114,7 @@ export default function ArchiveView({ id, close }: any) {
                                     <td>{phone}</td>
                                   </tr>
                                   <tr>
-                                    <th>birthday</th>
+                                    <th>Birthday</th>
                                     <td>{format(new Date(birthday), "MMMM dd, yyyy")}</td>
                                   </tr>
                                   <tr>

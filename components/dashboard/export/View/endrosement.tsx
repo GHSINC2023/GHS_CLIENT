@@ -75,7 +75,7 @@ export default function Endorsement({ data, close, filename, status}: any) {
                                 ))}
                                 {applicants.map(({ applicantProfile }: any) => (
                                     applicantProfile.map(({ firstname, lastname }: any) => (
-                                        <td key={lastname}>{firstname}{lastname}</td>
+                                        <td key={lastname}>{firstname} {lastname}</td>
                                     ))
                                 ))}
                                 {applicants.map(({ applicantProfile }: any) => (

@@ -18,7 +18,7 @@ export default function Condition({ close }: any) {
             <ul>
                 <li><b>Job application requirements</b>: You must meet all the requirements stated in the job posting and submit all the necessary documents and information accurately and truthfully.</li>
                 <li><b>Application review</b>: We review all job applications and make sure they meet the requirements of the job posting. However, we cannot guarantee that all applications will be accepted or that you will be selected for an interview.</li>
-                <li> Communication: We will communicate with you regarding your job application and any updates regarding your status. Please make sure to provide us with accurate and up-to-date contact information.</li>
+                <li><b>Communication</b>: We will communicate with you regarding your job application and any updates regarding your status. Please make sure to provide us with accurate and up-to-date contact information.</li>
                 <li><b>Confidentiality</b>: We will keep all information you provide us confidential and will only share it with potential employers with your permission. However, we cannot guarantee the confidentiality of information transmitted over the internet.</li>
                 <li><b>Fees</b>: Our services are free to job seekers. We are compensated by the companies we work with to fill job openings.</li>
                 <li>

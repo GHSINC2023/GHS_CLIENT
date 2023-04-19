@@ -133,7 +133,7 @@ export const tabs = [
 export const endorseStatused = [
     { name: "Waiting", value: "waiting" },
     { name: "Approved", value: "approved" },
-    { name: "declined", value: "declined" }
+    { name: "Declined", value: "declined" }
 ]
 
 

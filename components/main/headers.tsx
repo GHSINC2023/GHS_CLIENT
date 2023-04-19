@@ -4,10 +4,13 @@ import Image from 'next/image'
 import styles from '../../styles/components/main/headers.module.scss'
 import Cookies from 'js-cookie'
 import jwtDecode from 'jwt-decode'
+import { useRouter } from 'next/router'
 export default function Header() {
 
     const [ token, setToken ] = useState("")
     const [ roles, setRoles ] = useState("")
+
+    const router = useRouter()
 
     useEffect(() => {
         const cookies = Cookies.get("ghs_access_token")
@@ -29,9 +32,12 @@ export default function Header() {
                 </div> :
 
                 <div className={styles.link}>
-                    <Link href="/auth/applicant/login">Login</Link>
+                    {router.pathname === "auth/login" ? null : <Link href="/auth/applicant/login">Login</Link>}
+                    {router.pathname === "auth/applicant/login" ? null : <Link href="/auth/applicant/login">Login</Link>}
                 </div>
             }
+
+
         </div>
     )
 }
