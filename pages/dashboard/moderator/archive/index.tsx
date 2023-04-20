@@ -5,7 +5,7 @@ import Head from 'next/head'
 import styles from '../../../../styles/components/dashboard/archive/archive.module.scss'
 import { ArchiveTab } from '../../../../util/values/filter'
 import { useQuery, useLazyQuery } from '@apollo/client'
-import { archiveByType, filterArchive } from '../../../../util/archive/archive.query'
+import { filterArchive } from '../../../../util/archive/archive.query'
 import { format, subDays } from 'date-fns'
 import ArchiveView from '../../../../components/dashboard/admin/archive/ArchiveView'
 import ArchiveDelete from '../../../../components/dashboard/admin/archive/ArchiveDelete'
@@ -24,13 +24,6 @@ const Archive: FC = () => {
     }
 
 
-    const { loading, data } = useQuery(archiveByType, {
-        variables: {
-            type: status
-        }
-    })
-
-
 
     const [ filterArch, { data: ArchData } ] = useLazyQuery(filterArchive)
 
@@ -46,7 +39,6 @@ const Archive: FC = () => {
     }, [ end, filterArch, start, status ])
 
 
-    if (loading) return null
     return (
         <div className={styles.container}>
             <Head>

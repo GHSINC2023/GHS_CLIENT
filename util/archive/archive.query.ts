@@ -1,58 +1,5 @@
 import { gql } from "@apollo/client";
 
-
-export const archiveByType = gql`query GetAllArchive($type: String!) {
-  getArchivebyType(type: $type) {
-    createdAt
-    status
-    type
-    archiveID
-    job {
-      jobPostID
-      title
-      createdAt
-      users {
-        profile {
-          profileID
-          firstname
-          lastname
-        }
-      }
-    }
-    endorse {
-      company {
-        companyName
-      }
-      endorsement {
-        applicants {
-          applicantID
-          id
-          applyJobPost {
-            title
-          }
-          applicantProfile {
-            firstname
-            lastname
-          }
-        }
-      }
-    }
-    applicants {
-      applicantID
-      id
-      applyJobPost {
-        title
-      }
-      applicantProfile {
-        firstname
-        lastname
-      }
-      createdAt
-    }
-  }
-}
-`
-
 export const getArchiveID = gql`query GetArchiveID($archiveId: ID!) {
   getArchiveID(archiveID: $archiveId) {
     archiveID
