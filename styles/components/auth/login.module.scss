@@ -21,7 +21,7 @@
       justify-content: center;
    }
    .bg {
-      width: 950px !important;
+      width: 60% !important;
       height: 100%;
       background-color: #fff;
       border-radius: 10px !important;
@@ -46,14 +46,14 @@
       border-radius: 5px;
    }
    .la {
-      width: 950px;
-      display: flex;
-      align-items: center;
+      width: 40%;
       form {
+         padding: 0 70px;
          display: flex;
          flex-direction: column;
          gap: 10px;
          h2 {
+            text-align: center;
             font-family: $primaryFont;
             font-size: 26px;
          }
