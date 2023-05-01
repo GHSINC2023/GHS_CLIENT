@@ -20,7 +20,7 @@ export const getStaticPaths = async () => {
         return { params: { id: jobPostID } }
     })
     return {
-        paths, fallback: false,
+        paths, fallback: true,
     }
 }
 
@@ -36,7 +36,8 @@ export const getStaticProps = async (context: any) => {
     return {
         props: {
             job: getJobPostById
-        }
+        },
+        revalidate: 10
     }
 }
 const ID: FC = ({ job }: any) => {

@@ -24,7 +24,7 @@ export const getStaticPaths = async () => {
     })
 
     return {
-        paths, fallback: false
+        paths, fallback: true
     }
 }
 
@@ -40,7 +40,8 @@ export const getStaticProps = async (context: any) => {
     return {
         props: {
             notifications: getNotificationID
-        }
+        },
+        revalidate: 10
     }
 }
 

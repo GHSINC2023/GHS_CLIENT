@@ -34,7 +34,8 @@ export const getStaticProps = async (context: any) => {
     return {
         props: {
             job: getJobPostById
-        }
+        },
+        revalidate: 10
     }
 }
 const ID: FC = ({ job }: any) => {

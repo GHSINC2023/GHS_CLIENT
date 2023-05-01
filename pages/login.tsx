@@ -1,11 +1,11 @@
 import React, { FC, useState, useEffect } from 'react'
-import PageWithLayout from '../../layout/page.layout'
-import MainLayout from '../../layout/main.layout'
-import styles from '../../styles/components/auth/login.module.scss'
+import PageWithLayout from '../layout/page.layout'
+import MainLayout from '../layout/main.layout'
+import styles from '../styles/components/auth/login.module.scss'
 import Head from 'next/head'
-import PageOne from '../../components/auth/page1'
-import PageTwo from '../../components/auth/page2'
-import Verify from '../../components/auth/verify'
+import PageOne from '../components/auth/page1'
+import PageTwo from '../components/auth/page2'
+import Verify from '../components/auth/verify'
 import { useRouter } from 'next/router'
 
 

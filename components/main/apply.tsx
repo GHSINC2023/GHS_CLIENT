@@ -238,7 +238,7 @@ export default function Apply({ jobid, close, open }: any) {
 
                     <div className={styles.containerResume} onClick={onClickFile}>
                         <Image src="/icon/file-plus-line.svg" alt="" height={25} width={25} />
-                        <span>{fileUpload ? fileUpload?.name : "Upload your Resume"}</span>
+                        <span>{fileUpload ? "Upload successfully" : "Upload your Resume"}</span>
                     </div>
 
 
@@ -262,7 +262,7 @@ export default function Apply({ jobid, close, open }: any) {
 
                     <div onClick={onClickVideoFile} className={styles.containerResume}>
                         <Image src="/icon/video-plus-line.svg" alt="" height={30} width={30} />
-                        <span>{videoUpload ? videoUpload?.name : "Upload your video"} </span>
+                        <span>{videoUpload ? "Upload successfully" : "Upload your video"} </span>
                     </div>
 
                     {videoUpload ? <div className={styles.removeBtn}>

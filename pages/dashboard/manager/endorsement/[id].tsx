@@ -62,7 +62,8 @@ export const getStaticProps = async (context: any) => {
             endorsement: getEndorsementById,
             comments: getEndorsementCommnet,
             feedback: getEndorsementFeedback
-        }
+        },
+        revalidate: 10
     }
 }
 

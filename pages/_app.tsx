@@ -69,12 +69,13 @@ export const client = new ApolloClient({
   defaultOptions: {
     watchQuery: {
       nextFetchPolicy: "cache-first",
-      fetchPolicy: "cache-and-network",
+      fetchPolicy: "no-cache",
       pollInterval: 4000,
       errorPolicy: "ignore"
     },
     query: {
-      errorPolicy: "ignore"
+      errorPolicy: "ignore",
+      fetchPolicy: "no-cache"
     }
   }
 })
