@@ -72,6 +72,10 @@ const Notification: FC = ({ notifications, role }: any) => {
 
         })
     }
+
+    if (router.isFallback) {
+        return <div>Loading...</div>
+    }
     return (
         <div className={styles.container}>
             {notifications.map(({ notificationID, user, notificationJob }: any) => (

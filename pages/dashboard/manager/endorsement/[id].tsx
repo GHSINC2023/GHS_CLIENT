@@ -14,6 +14,7 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
 const Endorse = dynamic(() => import("../../../../components/dashboard/manager/endrosement/endorse"), {
     ssr: false
@@ -74,6 +75,8 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
     const [ id, setId ] = useState("")
     const [ userid, setUserId ] = useState("")
 
+    const router = useRouter()
+
 
     useEffect(() => {
         const cookieid = Cookies.get("ghs_access_token")
@@ -133,6 +136,11 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
             setMessage(false)
         }, 2000)
     }, [ message ])
+
+
+    if (router.isFallback) {
+        return <div>Loading...</div>
+    }
     return (
         <div className={styles.container}>
             {endorse ? <div className={styles.end}>

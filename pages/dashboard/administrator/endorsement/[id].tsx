@@ -6,7 +6,6 @@ import { format } from 'date-fns'
 import { client } from '../../../_app'
 import { useMutation } from '@apollo/client'
 import { getEndorsementFeed } from '../../../../util/endorse/endorse.query'
-import { formatDistance } from 'date-fns'
 import Message from '../../../../components/message/message'
 import PageWithLayout from '../../../../layout/page.layout'
 import Dashboard from '../../../../layout/dashboard.layout'
@@ -14,6 +13,7 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
 const Endorse = dynamic(() => import("../../../../components/dashboard/admin/endrosement/endorse"), {
     ssr: false
@@ -74,6 +74,10 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
     const [ id, setId ] = useState("")
     const [ userid, setUserId ] = useState("")
 
+    const router = useRouter()
+
+
+
 
     useEffect(() => {
         const cookieid = Cookies.get("ghs_access_token")
@@ -133,6 +137,12 @@ const EndorseviewView: FC = ({ endorsement, comments, feedback }: any) => {
             setMessage(false)
         }, 2000)
     }, [ message ])
+
+
+    if (router.isFallback) {
+        return <div>Loading</div>
+    }
+
     return (
         <div className={styles.container}>
             {endorse ? <div className={styles.end}>

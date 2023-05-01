@@ -39,7 +39,8 @@ export const getStaticProps = async (context: any) => {
     return {
         props: {
             job: getJobPostById
-        }
+        },
+        revalidate: 10
     }
 }
 const ID = ({ job }: any) => {
@@ -76,6 +77,11 @@ const ID = ({ job }: any) => {
             offset: 0
         }
     })
+
+
+    if (router.isFallback) {
+        return <div>Loading...</div>
+    }
     return (
         job.map(({ title, jobPostID, details, description, qualification, responsibilities }: any) => (
             <div key={jobPostID} className={styles.containter}>

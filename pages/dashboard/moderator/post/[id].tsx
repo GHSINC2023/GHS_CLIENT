@@ -9,6 +9,7 @@ import Head from 'next/head'
 import parse from 'html-react-parser'
 import { details } from '../../../../interface/jobs.interface.query'
 import Edit from '../../../../components/dashboard/moderator/post/edit'
+import { useRouter } from 'next/router'
 
 export const getStaticPaths = async () => {
     const { data: { jobQuery } } = await client.query({
@@ -40,6 +41,13 @@ export const getStaticProps = async (context: any) => {
 }
 const ID: FC = ({ job }: any) => {
     const [ edited, setEdited ] = useState(false)
+
+    const router = useRouter()
+
+
+    if (router.isFallback) {
+        return <div>Loading...</div>
+    }
 
 
 
