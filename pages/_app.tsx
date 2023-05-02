@@ -17,7 +17,7 @@ type AppLayoutPage = {
 
 
 const UploadLink = createUploadLink({
-  uri: "http://localhost:4000/graphql",
+  uri: "https://ghstested.herokuapp.com/graphql",
   credentials: "include",
   headers: {
     'Apollo-Require-Preflight': 'true',
@@ -27,7 +27,7 @@ const UploadLink = createUploadLink({
 
 
 const webSocketLink = typeof window !== "undefined" ? new GraphQLWsLink(createClient({
-  url: "ws://localhost:4000/graphql",
+  url: "wss://ghstested.herokuapp.com/graphql",
 
 })) : null
 
