@@ -58,7 +58,8 @@ const Login: FC = () => {
                     const cookie = Cookies.set("ghs_access_applicant", data.viewMyApplication.token, {
                         secure: true,
                         sameSite: "none",
-                        expires: 60 * 60 * 24
+                        expires: 60 * 60 * 24,
+                        path: "/"
                     })
                     if (cookie) {
                         const { applicantID }: decodedToken = jwtDecode(cookie)
