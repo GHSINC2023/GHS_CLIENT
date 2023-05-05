@@ -63,7 +63,7 @@ export default function Eprofile({ userid }: any) {
 
             setRender(true)
         }
-    }, [ data.getUserByID, render ])
+    }, [ data, render ])
 
     const [ user, setUser ] = useState<Profile>({
         firstname: "",
