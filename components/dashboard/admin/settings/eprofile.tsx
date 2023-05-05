@@ -27,11 +27,14 @@ export default function Eprofile({ userid }: any) {
     const { loading, data } = useQuery(getUserProfile, {
         variables: {
             userId: userid
+        },
+        onCompleted: () => {
+            setRender(true)
         }
     })
 
     useEffect(() => {
-        if (!render) {
+        if (render) {
             data.getUserByID.map(({ profile }: any) => {
                 profile.map(({ firstname, lastname, birthday, phone, profileAddress }: any) => {
                     if (profileAddress.length === 0) {
